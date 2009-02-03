@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="BresenhamLineDraw.h" open="0" top="0" tabpos="8">
+		<Cursor position="3624" topLine="135" />
+	</File>
+	<File name="Clamp.h" open="0" top="0" tabpos="10">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="Class.h" open="1" top="0" tabpos="2">
+		<Cursor position="694" topLine="0" />
+	</File>
+	<File name="ColorValue.h" open="0" top="0" tabpos="8">
+		<Cursor position="168" topLine="0" />
+	</File>
+	<File name="Common.h" open="0" top="0" tabpos="6">
+		<Cursor position="1257" topLine="61" />
+	</File>
+	<File name="Direction.h" open="0" top="0" tabpos="13">
+		<Cursor position="556" topLine="6" />
+	</File>
+	<File name="Draw.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="1612" topLine="0" />
+	</File>
+	<File name="Draw.h" open="0" top="0" tabpos="3">
+		<Cursor position="580" topLine="6" />
+	</File>
+	<File name="Factory.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="12" topLine="0" />
+	</File>
+	<File name="Factory.h" open="0" top="0" tabpos="2">
+		<Cursor position="724" topLine="23" />
+	</File>
+	<File name="Game.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="2710" topLine="139" />
+	</File>
+	<File name="Game.h" open="0" top="0" tabpos="3">
+		<Cursor position="111" topLine="0" />
+	</File>
+	<File name="GameTime.h" open="0" top="0" tabpos="3">
+		<Cursor position="362" topLine="0" />
+	</File>
+	<File name="Geometry.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="Geometry.h" open="0" top="0" tabpos="14">
+		<Cursor position="487" topLine="8" />
+	</File>
+	<File name="Impact.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="323" topLine="0" />
+	</File>
+	<File name="Impact.h" open="0" top="0" tabpos="0">
+		<Cursor position="277" topLine="0" />
+	</File>
+	<File name="Input.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="410" topLine="0" />
+	</File>
+	<File name="Input.h" open="0" top="0" tabpos="0">
+		<Cursor position="657" topLine="0" />
+	</File>
+	<File name="Level.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="457" topLine="16" />
+	</File>
+	<File name="Level.h" open="0" top="0" tabpos="0">
+		<Cursor position="335" topLine="0" />
+	</File>
+	<File name="Matrix.h" open="0" top="0" tabpos="2">
+		<Cursor position="2737" topLine="120" />
+	</File>
+	<File name="Object.h" open="0" top="0" tabpos="9">
+		<Cursor position="675" topLine="24" />
+	</File>
+	<File name="ObjectBase.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="306" topLine="0" />
+	</File>
+	<File name="ObjectBase.h" open="0" top="0" tabpos="0">
+		<Cursor position="733" topLine="18" />
+	</File>
+	<File name="Phase.Play.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1427" topLine="63" />
+	</File>
+	<File name="Phase.h" open="0" top="0" tabpos="0">
+		<Cursor position="412" topLine="20" />
+	</File>
+	<File name="Player.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="2532" topLine="119" />
+	</File>
+	<File name="Player.h" open="0" top="0" tabpos="7">
+		<Cursor position="1522" topLine="45" />
+	</File>
+	<File name="Playfield.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="193" topLine="0" />
+	</File>
+	<File name="Playfield.h" open="1" top="1" tabpos="4">
+		<Cursor position="864" topLine="0" />
+	</File>
+	<File name="Random.cpp" open="0" top="0" tabpos="9">
+		<Cursor position="83" topLine="0" />
+	</File>
+	<File name="Sinusoid.h" open="0" top="0" tabpos="4">
+		<Cursor position="422" topLine="0" />
+	</File>
+	<File name="Styx.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="283" topLine="8" />
+	</File>
+	<File name="Styx.h" open="0" top="0" tabpos="5">
+		<Cursor position="199" topLine="0" />
+	</File>
+	<File name="World.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="445" topLine="54" />
+	</File>
+	<File name="World.h" open="0" top="0" tabpos="3">
+		<Cursor position="499" topLine="10" />
+	</File>
+	<File name="Xiq.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="3072" topLine="133" />
+	</File>
+	<File name="Xiq.h" open="0" top="0" tabpos="12">
+		<Cursor position="602" topLine="13" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1396" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

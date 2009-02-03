@@ -1,0 +1,382 @@
+# depslib dependency file v1.0
+1233653447 source:/home/xian/src/xiq/Draw.cpp
+	"Common.h"
+	"Draw.h"
+	"BresenhamLineDraw.h"
+
+1233697629 /home/xian/src/xiq/Common.h
+	<cstdlib>
+	<math.h>
+	<iostream>
+	<assert.h>
+	<algorithm>
+	<list>
+	<vector>
+	<set>
+	<map>
+	<SDL.h>
+	"./Clamp.h"
+	"./ColorValue.h"
+	"./Geometry.h"
+	"./Direction.h"
+	"./GameTime.h"
+	"./Sinusoid.h"
+	"./Random.h"
+	"./Traits.h"
+	"Factory.h"
+	"Object.h"
+
+1210237441 /usr/include/SDL/SDL.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1210237441 /usr/include/SDL/SDL_platform.h
+
+1210237441 /usr/include/SDL/begin_code.h
+
+1210237441 /usr/include/SDL/close_code.h
+
+1210237441 /usr/include/SDL/SDL_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_keysym.h
+
+1210237441 /usr/include/SDL/SDL_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1210237441 /usr/include/SDL/SDL_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1210237441 /usr/include/SDL/SDL_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1233375246 /home/xian/src/xiq/Clamp.h
+
+1233567884 /home/xian/src/xiq/ColorValue.h
+
+1233617270 /home/xian/src/xiq/Geometry.h
+	"Matrix.h"
+
+1233612696 /home/xian/src/xiq/Direction.h
+
+1233665022 /home/xian/src/xiq/GameTime.h
+
+1233621213 /home/xian/src/xiq/Draw.h
+
+1233389628 /home/xian/src/xiq/BresenhamLineDraw.h
+
+1233694649 source:/home/xian/src/xiq/Player.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"Draw.h"
+
+1233653036 /home/xian/src/xiq/Player.h
+
+1233664340 source:/home/xian/src/xiq/Playfield.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"BresenhamLineDraw.h"
+	"Draw.h"
+	"Game.h"
+
+1233664326 /home/xian/src/xiq/Playfield.h
+
+1233664351 source:/home/xian/src/xiq/World.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"Xiq.h"
+	"Impact.h"
+	"Styx.h"
+	"Draw.h"
+
+1233665022 /home/xian/src/xiq/World.h
+
+1233662520 source:/home/xian/src/xiq/main.cpp
+	"Common.h"
+	"Game.h"
+
+1233563187 source:/home/xian/src/xiq/Geometry.cpp
+	"Common.h"
+
+1233663836 /home/xian/src/xiq/Object.h
+	"./ObjectBase.h"
+
+1233654422 source:/home/xian/src/xiq/Xiq.cpp
+	"Common.h"
+	"Draw.h"
+	"Object.h"
+	"Xiq.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+
+1233665022 /home/xian/src/xiq/Xiq.h
+
+1233659560 source:/home/xian/src/xiq/Random.cpp
+	"Common.h"
+	"Random.h"
+
+1233541284 /home/xian/src/xiq/Random.h
+
+1233546525 /home/xian/src/xiq/Sinusoid.h
+
+1233654553 source:/home/xian/src/xiq/Impact.cpp
+	"Common.h"
+	"Object.h"
+	"Draw.h"
+	"Impact.h"
+	"Game.h"
+
+1233665022 /home/xian/src/xiq/Impact.h
+
+1233653088 /home/xian/src/xiq/Styx.h
+
+1233654931 source:/home/xian/src/xiq/Styx.cpp
+	"Common.h"
+	"Object.h"
+	"Styx.h"
+	"Draw.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"BresenhamLineDraw.h"
+
+1233621106 /home/xian/src/xiq/Matrix.h
+
+1233665022 /home/xian/src/xiq/ObjectBase.h
+
+1233697504 /home/xian/src/xiq/Game.h
+	"Phase.h"
+
+1233664076 /home/xian/src/xiq/Factory.h
+	"Class.h"
+
+1233661176 /home/xian/src/xiq/Class.h
+
+1233697526 source:/home/xian/src/xiq/Game.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"Level.h"
+	"World.h"
+	"Game.h"
+	"Xiq.h"
+	"Styx.h"
+	"Impact.h"
+
+1233660836 /home/xian/src/xiq/Level.h
+
+1233656473 source:/home/xian/src/xiq/Phase.Attract.cpp
+
+1233656612 source:/home/xian/src/xiq/Phase.GameOver.HighScore.cpp
+
+1233656582 source:/home/xian/src/xiq/Phase.GameOver.cpp
+
+1233656542 source:/home/xian/src/xiq/Phase.LevelChange.cpp
+
+1233659600 source:/home/xian/src/xiq/Phase.Play.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Phase.h"
+	"Game.h"
+
+1233661382 /home/xian/src/xiq/Phase.h
+
+1233660992 source:/home/xian/src/xiq/Level.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"Level.h"
+	"Game.h"
+	"Xiq.h"
+
+1233660526 /home/xian/src/xiq/Traits.h
+
+1233663977 source:/home/xian/src/xiq/Factory.cpp
+	"Common.h"
+	"Object.h"
+	"Factory.h"
+
+1233661382 source:/home/xian/src/xiq/ObjectBase.cpp
+	"Common.h"
+	"ObjectBase.h"
+	"Factory.h"
+
+1233697590 source:/home/xian/src/xiq/Input.cpp
+	"Common.h"
+	"Input.h"
+
+1233697669 /home/xian/src/xiq/Input.h
+
