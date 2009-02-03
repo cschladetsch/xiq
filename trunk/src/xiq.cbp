@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="xiq" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Phases/;Objects/;Library/;Library/Headers/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/xiq" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-ansi" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/xiq" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`sdl-config --cflags`" />
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add option="`sdl-config --libs`" />
+		</Linker>
+		<Unit filename="BresenhamLineDraw.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Clamp.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Class.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="ColorValue.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Common.h" />
+		<Unit filename="Direction.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Draw.cpp">
+			<Option virtualFolder="Library/" />
+		</Unit>
+		<Unit filename="Draw.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Factory" />
+		<Unit filename="Factory.cpp">
+			<Option virtualFolder="Library/" />
+		</Unit>
+		<Unit filename="Factory.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
+		<Unit filename="GameTime.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Geometry" />
+		<Unit filename="Geometry.cpp">
+			<Option virtualFolder="Library/" />
+		</Unit>
+		<Unit filename="Geometry.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Impact.cpp" />
+		<Unit filename="Impact.h" />
+		<Unit filename="Input.cpp" />
+		<Unit filename="Input.h" />
+		<Unit filename="Level.cpp" />
+		<Unit filename="Level.h" />
+		<Unit filename="Matrix.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Object.h" />
+		<Unit filename="ObjectBase.cpp">
+			<Option virtualFolder="Library/" />
+		</Unit>
+		<Unit filename="ObjectBase.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Phase.Attract.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
+		<Unit filename="Phase.GameOver.HighScore.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
+		<Unit filename="Phase.GameOver.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
+		<Unit filename="Phase.LevelChange.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
+		<Unit filename="Phase.Play.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
+		<Unit filename="Phase.h" />
+		<Unit filename="Player.cpp">
+			<Option virtualFolder="Objects/" />
+		</Unit>
+		<Unit filename="Player.h" />
+		<Unit filename="Playfield.cpp" />
+		<Unit filename="Playfield.h" />
+		<Unit filename="Random.cpp">
+			<Option virtualFolder="Library/" />
+		</Unit>
+		<Unit filename="Random.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Sinusoid.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="Styx.cpp">
+			<Option virtualFolder="Objects/" />
+		</Unit>
+		<Unit filename="Styx.h" />
+		<Unit filename="Traits.h">
+			<Option virtualFolder="Library/Headers/" />
+		</Unit>
+		<Unit filename="World.cpp" />
+		<Unit filename="World.h" />
+		<Unit filename="Xiq.cpp">
+			<Option virtualFolder="Objects/" />
+		</Unit>
+		<Unit filename="Xiq.h" />
+		<Unit filename="cb.bmp" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
