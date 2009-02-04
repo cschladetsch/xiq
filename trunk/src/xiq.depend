@@ -380,3 +380,205 @@
 
 1233697669 /home/xian/src/xiq/Input.h
 
+1233704009 source:/home/xian/xiq/src/Draw.cpp
+	"Common.h"
+	"Draw.h"
+	"BresenhamLineDraw.h"
+
+1233704009 /home/xian/xiq/src/Common.h
+	<cstdlib>
+	<math.h>
+	<iostream>
+	<assert.h>
+	<algorithm>
+	<list>
+	<vector>
+	<set>
+	<map>
+	<SDL.h>
+	"./Clamp.h"
+	"./ColorValue.h"
+	"./Geometry.h"
+	"./Direction.h"
+	"./GameTime.h"
+	"./Sinusoid.h"
+	"./Random.h"
+	"./Traits.h"
+	"Factory.h"
+	"Object.h"
+
+1233704009 /home/xian/xiq/src/Clamp.h
+
+1233704009 /home/xian/xiq/src/ColorValue.h
+
+1233704009 /home/xian/xiq/src/Geometry.h
+	"Matrix.h"
+
+1233704009 /home/xian/xiq/src/Matrix.h
+
+1233704009 /home/xian/xiq/src/Direction.h
+
+1233704009 /home/xian/xiq/src/GameTime.h
+
+1233704009 /home/xian/xiq/src/Sinusoid.h
+
+1233704009 /home/xian/xiq/src/Random.h
+
+1233704009 /home/xian/xiq/src/Traits.h
+
+1233704009 /home/xian/xiq/src/Factory.h
+	"Class.h"
+
+1233704009 /home/xian/xiq/src/Class.h
+
+1233704009 /home/xian/xiq/src/Object.h
+	"./ObjectBase.h"
+
+1233704009 /home/xian/xiq/src/ObjectBase.h
+
+1233704009 /home/xian/xiq/src/Draw.h
+
+1233704009 /home/xian/xiq/src/BresenhamLineDraw.h
+
+1233704009 source:/home/xian/xiq/src/Factory.cpp
+	"Common.h"
+	"Object.h"
+	"Factory.h"
+
+1233704009 source:/home/xian/xiq/src/Game.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"Level.h"
+	"World.h"
+	"Game.h"
+	"Xiq.h"
+	"Styx.h"
+	"Impact.h"
+
+1233704009 /home/xian/xiq/src/Player.h
+
+1233704009 /home/xian/xiq/src/Playfield.h
+
+1233704009 /home/xian/xiq/src/Level.h
+
+1233704009 /home/xian/xiq/src/World.h
+
+1233704009 /home/xian/xiq/src/Game.h
+	"Phase.h"
+
+1233704009 /home/xian/xiq/src/Phase.h
+
+1233704009 /home/xian/xiq/src/Xiq.h
+
+1233704009 /home/xian/xiq/src/Styx.h
+
+1233704009 /home/xian/xiq/src/Impact.h
+
+1233704009 source:/home/xian/xiq/src/Geometry.cpp
+	"Common.h"
+
+1233704009 source:/home/xian/xiq/src/Impact.cpp
+	"Common.h"
+	"Object.h"
+	"Draw.h"
+	"Impact.h"
+	"Game.h"
+
+1233704009 source:/home/xian/xiq/src/Input.cpp
+	"Common.h"
+	"Input.h"
+
+1233704009 /home/xian/xiq/src/Input.h
+
+1233704009 source:/home/xian/xiq/src/Level.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"Level.h"
+	"Game.h"
+	"Xiq.h"
+
+1233704009 source:/home/xian/xiq/src/ObjectBase.cpp
+	"Common.h"
+	"ObjectBase.h"
+	"Factory.h"
+
+1233704009 source:/home/xian/xiq/src/Phase.Attract.cpp
+
+1233704009 source:/home/xian/xiq/src/Phase.GameOver.HighScore.cpp
+
+1233704009 source:/home/xian/xiq/src/Phase.GameOver.cpp
+
+1233704009 source:/home/xian/xiq/src/Phase.LevelChange.cpp
+
+1233704009 source:/home/xian/xiq/src/Phase.Play.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Phase.h"
+	"Game.h"
+
+1233704009 source:/home/xian/xiq/src/Player.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"Draw.h"
+
+1233704009 source:/home/xian/xiq/src/Playfield.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"BresenhamLineDraw.h"
+	"Draw.h"
+	"Game.h"
+
+1233704009 source:/home/xian/xiq/src/Random.cpp
+	"Common.h"
+	"Random.h"
+
+1233704009 source:/home/xian/xiq/src/Styx.cpp
+	"Common.h"
+	"Object.h"
+	"Styx.h"
+	"Draw.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"BresenhamLineDraw.h"
+
+1233704009 source:/home/xian/xiq/src/World.cpp
+	"Common.h"
+	"Object.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+	"Xiq.h"
+	"Impact.h"
+	"Styx.h"
+	"Draw.h"
+
+1233704009 source:/home/xian/xiq/src/Xiq.cpp
+	"Common.h"
+	"Draw.h"
+	"Object.h"
+	"Xiq.h"
+	"Player.h"
+	"Playfield.h"
+	"World.h"
+	"Game.h"
+
+1233704009 source:/home/xian/xiq/src/main.cpp
+	"Common.h"
+	"Game.h"
+
