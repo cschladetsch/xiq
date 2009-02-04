@@ -194,12 +194,8 @@ void World::AddImpact(int x, int y, float radius)
 
 void World::Draw(Matrix const &M)
 {
-	SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
-
 	playfield->Draw(M);
 	DrawObjects(M);
-
-	SDL_Flip(screen);
 }
 
 void World::DrawObjects(Matrix const &M)

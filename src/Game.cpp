@@ -11,6 +11,7 @@
 #include "Xiq.h"
 #include "Styx.h"
 #include "Impact.h"
+#include "Font.h"
 
 Game::Game(int width, int height)
 {
@@ -30,6 +31,11 @@ Game::Game(int width, int height)
 //	StartGame();
 //
 //	StartLevel();
+
+	font = new Font("font");
+//	font->DrawText(world->GetSurface(), Matrix(), Box(Point(0,0), Point(300,100)), MakeColor(255,255,255), "hello world");
+
+	phase = 0;
 
 	initialised = true;
 	finished = false;
@@ -132,7 +138,19 @@ void Game::Update()
 void Game::Draw()
 {
 //	phase->Draw();
+	SDL_Surface *surface = world->GetSurface();
+	SDL_FillRect(surface, 0, SDL_MapRGB(surface->format, 50, 50, 50));
+
 	world->Draw(Matrix());
+
+	float f = 4;
+	float sx = 8 + 4*sin(TimeNow()*f);
+	float sy = 8 + 4*cos(TimeNow()*f);
+	Matrix M = Matrix::Translate(-28,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
+	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefg");
+	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefg");
+
+	SDL_Flip(surface);
 }
 
 void Game::ParseInput()
@@ -140,10 +158,11 @@ void Game::ParseInput()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		if (event.type == SDL_QUIT)
-		{
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			finished = true;
-		}
+
+		if (event.type == SDL_QUIT)
+			finished = true;
 
 		if (!phase)
 			continue;
@@ -152,6 +171,7 @@ void Game::ParseInput()
 
 		if (handled)
 			continue;
+
 	}
 }
 

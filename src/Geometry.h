@@ -237,6 +237,15 @@ struct Box
 	Point top_right;
 	Point bottom_left;
 	Point bottom_right;
+
+	Box() { }
+	Box(Point TL, Point BR)
+	{
+		top_left = TL;
+		bottom_right = BR;
+		top_right = Point(BR.x, TL.y);
+		bottom_left = Point(TL.x, BR.y);
+	}
 };
 
 void DistanceFromLine(Point C, Vector A, Vector B, float &distance_segment, float &distance_line);
