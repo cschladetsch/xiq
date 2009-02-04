@@ -18,6 +18,10 @@
 
 #	include <SDL.h>
 
+#	include <boost/foreach.hpp>
+
+#	define foreach BOOST_FOREACH
+
 typedef unsigned char Unsigned8;
 typedef unsigned short Unsigned16;
 

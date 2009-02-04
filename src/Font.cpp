@@ -8,22 +8,14 @@
 #include <sstream>
 #include <iterator>
 
-#include <boost/foreach.hpp>
-#define foreach BOOST_FOREACH
-
 using namespace std;
-
-
-LineSegment Transform(LineSegment const &ls, Matrix const &matrix)
-{
-	return LineSegment(matrix*ls.first, matrix*ls.second);
-}
 
 void Font::Glyph::Draw(SDL_Surface *surface, Matrix const &matrix, Color color) const
 {
 	foreach (LineSegment const &line, lines)
 	{
-		DrawLineSegment(surface, Transform(line, matrix), color);
+//		DrawLineSegment(surface, Transform(line, matrix), color);
+		DrawLineSegmentAntiAliased(surface, Transform(line, matrix), color);
 	}
 }
 
@@ -36,12 +28,12 @@ bool Font::FromFile(const char *filename)
 		return false;
 	}
 
+	// dimensions of the glyph representation in the file
 	size_t y_dim = 8;
-	size_t x_dim = 8;
 	size_t glyph_num_lines = y_dim + 2;
+	size_t num_glyphs = 26;
 
 	// read the glyphs
-	size_t num_glyphs = 26;
 	for (size_t glyph_num = 0; glyph_num < num_glyphs; ++glyph_num)
 	{
 		// read the lines
@@ -51,7 +43,6 @@ bool Font::FromFile(const char *filename)
 			char buffer[2000];
 			if (!file.getline(buffer, sizeof(buffer)))
 			{
-//				std::cerr << "error in font file " << filename << std::endl;
 				goto end;
 			}
 			glyh_desc[n] = buffer;
@@ -65,7 +56,7 @@ bool Font::FromFile(const char *filename)
 		for (size_t y = 0; y < y_dim; ++y)
 		{
 			std::string const &line = glyh_desc[1 + y];
-			for (size_t x = 0; x < x_dim; ++x)
+			for (size_t x = 0; x < line.size(); ++x)
 			{
 				if (line[x] == '.')
 					continue;
@@ -74,10 +65,11 @@ bool Font::FromFile(const char *filename)
 		}
 
 		// read the point indices
-		stringstream str(glyh_desc[9]);
 		vector<int> indices;
-		copy(istream_iterator<int>(str), istream_iterator<int>(), back_inserter(indices));
-
+		copy(
+			istream_iterator<int>(stringstream(glyh_desc[9]))
+			, istream_iterator<int>()
+			, back_inserter(indices));
 		if ((indices.size() % 2) != 0)
 		{
 			std::cerr << "error in font file " << filename << ": num indices must be even" << endl;
@@ -93,6 +85,7 @@ bool Font::FromFile(const char *filename)
 			glyph.lines.push_back(LineSegment(points[n0], points[n1]));
 		}
 
+		// store result
 		glyphs[glyph.letter] = glyph;
 	}
 
@@ -101,7 +94,6 @@ end:
 	return false;
 }
 
-/// draw some text
 void Font::DrawText(SDL_Surface *surface, Matrix const &transform, Box const &box, Color color, const char *text) const
 {
 	(void)box;
@@ -111,16 +103,17 @@ void Font::DrawText(SDL_Surface *surface, Matrix const &transform, Box const &bo
 	// for each character in the string to draw
 	for (; text && *text; ++text)
 	{
-		char c = *text;
-		Glyphs::const_iterator iter = glyphs.find(c);
+		// find the glyph that represents the next character in the string
+		char letter = *text;
+		Glyphs::const_iterator iter = glyphs.find(letter);
 		if (iter == glyphs.end())
 			continue;
 
 		// draw it
 		iter->second.Draw(surface, matrix, color);
 
-		// TODO move to next location.
-		matrix = Matrix::Translate(10,0)*matrix;
+		// move to next location.
+		matrix = Matrix::Translate(9,0)*matrix;
 	}
 }
 

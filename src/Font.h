@@ -6,7 +6,7 @@
 /// a set of glyphs that can be used to draw text on a surface
 struct Font
 {
-	/// an element in the font, mapped from a character
+	/// an element in a font, mapped from a character
 	struct Glyph
 	{
 		typedef std::vector<LineSegment> Lines;
@@ -38,3 +38,5 @@ public:
 };
 
 #endif // FONT_H_INCLUDED
+
+//EOF

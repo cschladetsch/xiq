@@ -144,8 +144,8 @@ void Game::Draw()
 	world->Draw(Matrix());
 
 	float f = 4;
-	float sx = 8 + 4*sin(TimeNow()*f);
-	float sy = 8 + 4*cos(TimeNow()*f);
+	float sx = 14 + 7*sin(TimeNow()*f);
+	float sy = 14 + 7*cos(TimeNow()*f);
 	Matrix M = Matrix::Translate(-28,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
 	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefg");
 	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefg");
