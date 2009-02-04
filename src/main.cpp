@@ -1,7 +1,10 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
-#include "Game.h"
+#include "PhaseCommon.h"
+
+#include "Xiq.h"
+#include "Styx.h"
+#include "Impact.h"
 
 /// @mainpage XIQ
 /// XIQ is a fast and sweet clone of the class arcade game, <a href="http://en.wikipedia.org/wiki/Qix">QIX</a>
@@ -27,22 +30,46 @@
 /// <img src="http://upload.wikimedia.org/wikipedia/en/8/8d/Qixingame.png" />
 ///
 
+void RegisterTypes(Factory &factory)
+{
+	factory.AddClass<Playfield>();
+	factory.AddClass<Player>();
+	factory.AddClass<Xiq>();
+	factory.AddClass<Styx>();
+	factory.AddClass<Level>();
+	factory.AddClass<World>();
+	factory.AddClass<Impact>();
+	factory.AddClass<Game>();
+
+	factory.AddClass<Phase::Boot>();
+	factory.AddClass<Phase::Attract>();
+	factory.AddClass<Phase::Play>();
+}
+
 int main(int argc, char** argv)
 {
 	(void)argc;
 	(void)argv;
 
-	Game game(600, 400);
+	Factory factory;
+	RegisterTypes(factory);
 
-	if (!game.Initialised())
+	Game *game = factory.New<Game>();
+	game->game = game;
+	game->Create(600, 400);
+	if (!game->Initialised())
 		return 1;
 
-    while (!game.Finished())
-    {
-    	game.Update();
-    	game.Draw();
-	}
+	GameTime time;
+	Matrix transform;
 
+	for (;;)
+	{
+    	time.StartFrame();
+		if (!game->Update(time))
+			break;
+    	game->Draw(transform);
+	}
     return 0;
 }
 

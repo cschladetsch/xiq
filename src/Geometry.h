@@ -117,18 +117,6 @@ inline float DotProduct(Vector3 const &A, Vector3 const &B)
 
 #include "Matrix.h"
 
-//struct LineType
-//{
-//	enum Type
-//	{
-//		None, Line, NewLine, Edge
-//	};
-//	Type type;
-//	LineType(Type T = None) : type(T) { }
-//
-//	bool operator==(Type T) { return T == type; }
-//};
-
 /// A line-segment has a start and end point.
 struct LineSegment
 {

@@ -24,7 +24,7 @@ private:
 	bool hit_player;			///< if true, xiq has hit the player
 
 public:
-	Xiq();
+	void Prepare();
 
 	bool Update(GameTime);
 	void Draw(Matrix const &);

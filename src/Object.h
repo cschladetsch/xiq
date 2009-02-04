@@ -8,7 +8,7 @@
 /// Base class for all moving objects in the game
 struct Object : ObjectBase
 {
-protected:
+//protected:
 	friend struct Game;
 	Point location;
 	Direction direction;

@@ -75,6 +75,7 @@ int Playfield::CalcNewArea(Direction dir, Point P)
 	float percent = (float)num_filled/total;
 	percent_filled += percent;
 
+	//printf("CalcNewArea: %f %f = %d\n", P.x, P.y, num_filled);
 	return num_filled;
 }
 
