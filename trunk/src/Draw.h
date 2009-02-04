@@ -24,7 +24,14 @@ void SetPixel(SDL_Surface *surface, int x, int y, Color color, BlendMode = Blend
 
 Unsigned16 *WritePixel(Unsigned16 *out, Color color, short x, short y);
 
+void DrawLineSegmentAntiAliased(SDL_Surface *surface, int x0, int y0, int x1, int y1, Color color);
+
 void DrawLineSegment(SDL_Surface *surface, LineSegment const &line, Color color);
+inline void DrawLineSegmentAntiAliased(SDL_Surface *surface, LineSegment const &line, Color color)
+{
+	DrawLineSegmentAntiAliased(surface, line.first.x, line.first.y, line.second.x, line.second.y, color);
+}
+
 
 void DrawCircle(SDL_Surface *surface, Point::Ordinate x0, Point::Ordinate y0, int radius, Color color, BlendMode = BlendMode());
 

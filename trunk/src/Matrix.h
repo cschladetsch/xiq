@@ -145,6 +145,11 @@ inline Vector2 operator*(Matrix const &A, Vector2 const &B)
 	return A.Transform(B);
 }
 
+inline LineSegment Transform(LineSegment const &ls, Matrix const &matrix)
+{
+	return LineSegment(matrix*ls.first, matrix*ls.second);
+}
+
 #endif // MATRIX_H_INCLUDED
 
 //EOF
