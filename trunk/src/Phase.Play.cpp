@@ -1,6 +1,7 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
 #include "PhaseCommon.h"
+#include "Xiq.h"
 
 namespace Phase
 {
@@ -20,6 +21,9 @@ namespace Phase
 		world->Construct(600, 400);
 
 		GetRoot()->SetWorld(world);
+
+		Xiq *xiq = New<Xiq>();
+		world->AddObject(xiq);
 
 //		player->OnLifeLost += Delegate(this, &Play::PlayerLostLife);
 	}
@@ -115,10 +119,17 @@ namespace Phase
 //					space_down = true;
 //					break;
 				case SDLK_q:
-//					world->RestartLevel();
+					{
+						GetRoot()->PhaseChange(New<Phase::Play>());
+					}
 					break;
 				case SDLK_n:
 //					world->NextLevel();
+					break;
+				case SDLK_ESCAPE:
+					{
+						GetRoot()->PhaseChange(New<Phase::Boot>());
+					}
 					break;
 				default:
 					break;

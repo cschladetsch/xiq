@@ -26,6 +26,8 @@ public:
 	bool Update(GameTime);
 	void Draw(Matrix const &);
 
+	void AddObject(Object *Q) { objects.insert(Q); }
+
 	Playfield *GetPlayfield() { return playfield; }
 	Player *GetPlayer() { return player; }
 	Box GetBounds() const;

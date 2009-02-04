@@ -11,9 +11,6 @@ Game::Game(int width, int height)
 {
 	phase = 0;
 	world = 0;
-//	level = 0;
-//	world = 0;
-//	player = 0;
 	screen = 0;
 	factory = 0;
 	next_phase = 0;
@@ -27,11 +24,6 @@ Game::Game(int width, int height)
 	factory = new Factory();
 
 	RegisterTypes();
-
-//	player = New<Player>();
-//
-//	world = New<World>();
-//	world->Construct(width, height);
 
 	font = new Font("font");
 
@@ -49,6 +41,7 @@ void Game::RegisterTypes()
 	factory->AddClass<Styx>();
 	factory->AddClass<Level>();
 	factory->AddClass<World>();
+	factory->AddClass<Impact>();
 
 	factory->AddClass<Phase::Boot>();
 	factory->AddClass<Phase::Attract>();
@@ -59,15 +52,7 @@ Game::~Game()
 {
 	Delete(phase);
 	Delete(next_phase);
-//	Delete(player);
-//	Delete(level);
-//	Delete(world);
 }
-
-//World *Game::GetWorld() const
-//{
-//	return world;
-//}
 
 SDL_Surface *Game::GetSurface() const
 {
@@ -186,15 +171,12 @@ void Game::ParseInput()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
+		if (phase && phase->InputEvent(event))
+			continue;
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			finished = true;
 		if (event.type == SDL_QUIT)
 			finished = true;
-		if (!phase)
-			continue;
-		bool handled = phase->InputEvent(event);
-		if (handled)
-			continue;
 	}
 }
 

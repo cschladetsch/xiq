@@ -9,14 +9,16 @@
 
 #include "Draw.h"
 
-Player::Player()
+void Player::Prepare()
 {
 	speed = 180;
 	radius = 20;
 	drawing = false;
 	std::fill(wants_direction, wants_direction + 5, false);
 	num_lives = 3;
-	immunity_ends = 0;
+	Time now = GetRoot()->TimeNow();
+	immunity_ends = now + 3;
+	respawn_ends = now + 2;
 	score = 0;
 	location = Point(300,399);
 }
@@ -200,7 +202,6 @@ void Player::Draw(Matrix const &)
 
 void Player::Draw(Matrix const &M, Color color)
 {
-	printf("player::draw\n");
 	Point points[] =
 	{
 		Point(-1, 0),
