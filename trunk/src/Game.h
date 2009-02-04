@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
@@ -12,13 +12,20 @@
 struct Game
 {
 	Factory *factory;		///< source of all game objects: static and dynamic
-	int level;				///< current level
+	Level *level;			///< the current level; used to prepare
 	World *world;			///< current world. stores all dynamic game objects and the playfield
 	Player *player;			///< the player
+	GameTime time;
+
+	SDL_Surface *screen;
+
 	bool initialised;
 	bool finished;
-	bool space_down;
-	Phase::Base *phase;		///< the current phase of the game
+
+	Phase::Base *phase;			///< the current phase of the game
+	Phase::Base *next_phase;	///< the phase to transition to
+	Time transition_ends;		///< when the current transition ends
+
 	Font *font;
 
 public:
@@ -50,10 +57,13 @@ public:
 	World *GetWorld() const;
 	SDL_Surface *GetSurface() const;
 	Player *GetPlayer() const { return player; }
+	Font *GetFont() const { return font; }
 	GameTime GetTime() const;
+
 	Color MakeColor(int r, int g, int b) const;
 
-	void RestartLevel();
+	/// move to a new phase
+	void PhaseChange(Phase::Base *next_phase, Time transition_time = 0);
 
 protected:
 	void UpdateHUD();
@@ -64,6 +74,22 @@ protected:
 
 	/// player stops wanting the given direction
 	void PlayerUnDirects(Direction);
+
+	/// returns true iff the game is currently moving between phases
+	bool Transitioning() const;
+
+	/// perform transition between levels
+	void Transist();
+
+	/// end the current transition now
+	void EndTransition();
+
+private:
+	/// register game types with the object factory
+	void RegisterTypes();
+
+	/// prepare the SDL system
+	bool InitialiseSDL(int width, int height);
 };
 
 #endif // GAME_H_INCLUDED

@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef GEOMETRY_H_INCLUDED
 #	define GEOMETRY_H_INCLUDED
@@ -257,6 +257,11 @@ inline void DistanceFromLine(Point C, LineSegment line, float &distance_segment,
 
 /// return the nearest point of a given point to a line segment
 Point NearestPoint(LineSegment const &L, Point const &p3);
+
+inline LineSegment Transform(LineSegment const &ls, Matrix const &matrix)
+{
+	return LineSegment(matrix*ls.first, matrix*ls.second);
+}
 
 #endif // GEOMETRY_H_INCLUDED
 

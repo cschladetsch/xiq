@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #include "Common.h"
 #include "Object.h"
@@ -17,16 +17,16 @@ void Level::Start()
 {
 	Playfield *playfield = 0;
 	Player *player = 0;
-	GameTime time;
 
 	int width = playfield->GetWidth();
 	int height = playfield->GetHeight();
 
 	// start the player
 	Point start_pos(width/2, height - 1);
+	Time now = GetRoot()->TimeNow();
 	player->SetLocation(start_pos);
-	player->SetImmune(time.total + 4);
-	player->SetRespawn(time.total + 1);
+	player->SetImmune(now + 4);
+	player->SetRespawn(now + 1);
 	player->SetNumLives(3);
 
 	// add a xiq

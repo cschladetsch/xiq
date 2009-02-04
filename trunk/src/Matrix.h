@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef MATRIX_H_INCLUDED
 #define MATRIX_H_INCLUDED
@@ -143,11 +143,6 @@ inline Matrix operator*(Matrix const &A, Matrix const &B)
 inline Vector2 operator*(Matrix const &A, Vector2 const &B)
 {
 	return A.Transform(B);
-}
-
-inline LineSegment Transform(LineSegment const &ls, Matrix const &matrix)
-{
-	return LineSegment(matrix*ls.first, matrix*ls.second);
 }
 
 #endif // MATRIX_H_INCLUDED

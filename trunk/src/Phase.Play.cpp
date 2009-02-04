@@ -1,13 +1,26 @@
-#include "Common.h"
-#include "Object.h"
-#include "Player.h"
-#include "Playfield.h"
-#include "World.h"
-#include "Phase.h"
-#include "Game.h"
+// (C) 2009 christian.schladetsch@gmail.com
+
+#include "PhaseCommon.h"
 
 namespace Phase
 {
+	void Play::Prepare()
+	{
+		world = game->GetWorld();
+		player = game->GetPlayer();
+		playfield = world->GetPlayfield();
+		level = 0;
+	}
+
+	bool Play::Update(GameTime)
+	{
+		return true;
+	}
+
+	void Play::Draw(Matrix const &)
+	{
+	}
+
 	bool Play::InputEvent(SDL_Event const &event)
 	{
 		switch (event.type)
@@ -122,8 +135,6 @@ namespace Phase
 	{
 		player->SetWantsDirection(dir, false);
 	}
-
-
 }
 
 //EOF

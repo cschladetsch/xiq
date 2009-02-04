@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef LEVEL_H_INCLUDED
 #	define LEVEL_H_INCLUDED

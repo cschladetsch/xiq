@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef OBJECT_H_INCLUDED
 #	define OBJECT_H_INCLUDED
@@ -19,7 +19,10 @@ protected:
 	Game *game;
 
 public:
-	Object() : location(0,0), direction(), speed(0), collides(false) { }
+	Object() : location(0,0), direction(), speed(0), collides(false), game(0) { }
+
+	/// prepare object after construction
+	virtual void Prepare() { }
 
 	/// general update method for objects. return false to delete the object
 	virtual bool Update(GameTime) = 0;
@@ -34,6 +37,7 @@ public:
 	{
 		T *obj = ObjectBase::template New<T>();
 		obj->game = game;
+		obj->Prepare();
 		return obj;
 	}
 

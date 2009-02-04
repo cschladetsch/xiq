@@ -65,11 +65,9 @@ bool Font::FromFile(const char *filename)
 		}
 
 		// read the point indices
+		stringstream str(glyh_desc[9]);
 		vector<int> indices;
-		copy(
-			istream_iterator<int>(stringstream(glyh_desc[9]))
-			, istream_iterator<int>()
-			, back_inserter(indices));
+		copy(istream_iterator<int>(str), istream_iterator<int>(), back_inserter(indices));
 		if ((indices.size() % 2) != 0)
 		{
 			std::cerr << "error in font file " << filename << ": num indices must be even" << endl;

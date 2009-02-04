@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef SINUSOID_H_INCLUDED
 #define SINUSOID_H_INCLUDED

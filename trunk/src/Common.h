@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 /// @file Common includes for all source files
 
@@ -56,6 +56,14 @@ struct Game;
 
 struct Font;
 
+namespace Phase
+{
+	struct Boot;
+	struct Play;
+	struct Attract;
+	struct Transition;
+};
+
 struct TypeNumbers
 {
 	enum Value
@@ -68,6 +76,11 @@ struct TypeNumbers
 		Level,
 		World,
 		Game,
+
+		PhaseBoot,
+		PhaseAttract,
+		PhasePlay,
+		PhaseTransition,
 	};
 };
 
@@ -82,6 +95,11 @@ XIQ_TRAITS(Playfield);
 XIQ_TRAITS(Level);
 XIQ_TRAITS(World);
 XIQ_TRAITS(Game);
+
+CGL_TRAITS(Phase::Boot, TypeNumbers::PhaseBoot);
+CGL_TRAITS(Phase::Attract, TypeNumbers::PhaseAttract);
+CGL_TRAITS(Phase::Play, TypeNumbers::PhasePlay);
+CGL_TRAITS(Phase::Transition, TypeNumbers::PhaseTransition);
 
 #include "Factory.h"
 #include "Object.h"

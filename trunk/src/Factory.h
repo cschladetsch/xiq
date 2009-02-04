@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef FACTORY_H_INCLUDED
 #define FACTORY_H_INCLUDED
@@ -48,11 +48,23 @@ public:
 	/// retreive an object given its handle
 	ObjectBase *GetObject(Handle handle) const;
 
-	/// delete an existing object
+	/// delete an existing object.
+	/// resources will be deleted on the next PurSge (see Factory::Purge)
 	void Delete(ObjectBase *);
 	void Delete(Handle handle);
 
-	/// release resources for all objects pendind deletion
+	/// return true if the given object `exists`.
+	/// when an object is Deleted as above, it still exists
+	/// in system memory until the Purge method is called
+	/// on the factory that made the object.
+	/// Exists() returns false for objects that have:
+	///		* never created
+	///		* have been created and have been released
+	///		* currently created, but have been deleted, waiting for next Purge
+	bool Exists(ObjectBase *) const;
+	bool Exists(Handle) const;
+
+	/// release resources for all objects pending deletion
 	void Purge();
 };
 

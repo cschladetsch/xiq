@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="BresenhamLineDraw.h" open="0" top="0" tabpos="8">
 		<Cursor position="3624" topLine="135" />
 	</File>
 	<File name="Clamp.h" open="0" top="0" tabpos="10">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Class.h" open="1" top="0" tabpos="2">
+	<File name="Class.h" open="0" top="0" tabpos="2">
 		<Cursor position="694" topLine="0" />
 	</File>
 	<File name="ColorValue.h" open="0" top="0" tabpos="8">
@@ -25,20 +25,26 @@
 	<File name="Draw.h" open="0" top="0" tabpos="3">
 		<Cursor position="580" topLine="6" />
 	</File>
-	<File name="Factory.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="12" topLine="0" />
+	<File name="Factory.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1618" topLine="59" />
 	</File>
 	<File name="Factory.h" open="0" top="0" tabpos="2">
-		<Cursor position="724" topLine="23" />
+		<Cursor position="1665" topLine="51" />
 	</File>
-	<File name="Game.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="2710" topLine="139" />
+	<File name="Font.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="447" topLine="0" />
 	</File>
-	<File name="Game.h" open="0" top="0" tabpos="3">
-		<Cursor position="111" topLine="0" />
+	<File name="Game.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="2970" topLine="165" />
 	</File>
-	<File name="GameTime.h" open="0" top="0" tabpos="3">
-		<Cursor position="362" topLine="0" />
+	<File name="Game.h" open="1" top="0" tabpos="4">
+		<Cursor position="1908" topLine="72" />
+	</File>
+	<File name="GameTime.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="339" topLine="9" />
+	</File>
+	<File name="GameTime.h" open="1" top="0" tabpos="5">
+		<Cursor position="835" topLine="18" />
 	</File>
 	<File name="Geometry.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="0" />
@@ -46,8 +52,8 @@
 	<File name="Geometry.h" open="0" top="0" tabpos="14">
 		<Cursor position="487" topLine="8" />
 	</File>
-	<File name="Impact.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="323" topLine="0" />
+	<File name="Impact.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="507" topLine="2" />
 	</File>
 	<File name="Impact.h" open="0" top="0" tabpos="0">
 		<Cursor position="277" topLine="0" />
@@ -58,8 +64,8 @@
 	<File name="Input.h" open="0" top="0" tabpos="0">
 		<Cursor position="657" topLine="0" />
 	</File>
-	<File name="Level.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="457" topLine="16" />
+	<File name="Level.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="529" topLine="16" />
 	</File>
 	<File name="Level.h" open="0" top="0" tabpos="0">
 		<Cursor position="335" topLine="0" />
@@ -71,27 +77,36 @@
 		<Cursor position="675" topLine="24" />
 	</File>
 	<File name="ObjectBase.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="306" topLine="0" />
+		<Cursor position="414" topLine="8" />
 	</File>
 	<File name="ObjectBase.h" open="0" top="0" tabpos="0">
-		<Cursor position="733" topLine="18" />
+		<Cursor position="613" topLine="15" />
+	</File>
+	<File name="Phase.Attract.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="226" topLine="0" />
+	</File>
+	<File name="Phase.Boot.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="64" topLine="0" />
 	</File>
 	<File name="Phase.Play.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1427" topLine="63" />
+		<Cursor position="257" topLine="0" />
 	</File>
 	<File name="Phase.h" open="0" top="0" tabpos="0">
-		<Cursor position="412" topLine="20" />
+		<Cursor position="345" topLine="0" />
 	</File>
-	<File name="Player.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="2532" topLine="119" />
+	<File name="PhaseCommon.h" open="0" top="0" tabpos="0">
+		<Cursor position="272" topLine="0" />
+	</File>
+	<File name="Player.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="508" topLine="15" />
 	</File>
 	<File name="Player.h" open="0" top="0" tabpos="7">
 		<Cursor position="1522" topLine="45" />
 	</File>
-	<File name="Playfield.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="193" topLine="0" />
+	<File name="Playfield.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="1029" topLine="41" />
 	</File>
-	<File name="Playfield.h" open="1" top="1" tabpos="4">
+	<File name="Playfield.h" open="0" top="0" tabpos="4">
 		<Cursor position="864" topLine="0" />
 	</File>
 	<File name="Random.cpp" open="0" top="0" tabpos="9">
@@ -106,11 +121,11 @@
 	<File name="Styx.h" open="0" top="0" tabpos="5">
 		<Cursor position="199" topLine="0" />
 	</File>
-	<File name="World.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="445" topLine="54" />
+	<File name="World.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="593" topLine="28" />
 	</File>
-	<File name="World.h" open="0" top="0" tabpos="3">
-		<Cursor position="499" topLine="10" />
+	<File name="World.h" open="1" top="0" tabpos="3">
+		<Cursor position="318" topLine="4" />
 	</File>
 	<File name="Xiq.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3072" topLine="133" />
@@ -118,7 +133,7 @@
 	<File name="Xiq.h" open="0" top="0" tabpos="12">
 		<Cursor position="602" topLine="13" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
+	<File name="main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="1396" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch.net
 
 #include "Common.h"
 #include "Object.h"
@@ -8,12 +8,12 @@
 
 bool Impact::Update(GameTime time)
 {
-	return time.total > time_to_die;
+	return time.IsBefore(time_to_die);
 }
 
 void Impact::Draw(Matrix const &)
 {
-	float a = time_to_die - GetRoot()->GetTime().total;
+	float a = time_to_die - GetRoot()->GetTime().TotalElapsedSeconds();
 	if (a > 1)
 		a = 1;
 	a *= a;

@@ -1,12 +1,6 @@
 // (C) 2009 christian.schladetsch.net
 
-#include "Common.h"
-#include "Object.h"
-#include "Player.h"
-#include "Playfield.h"
-#include "Level.h"
-#include "World.h"
-#include "Game.h"
+#include "PhaseCommon.h"
 
 #include "Xiq.h"
 #include "Styx.h"
@@ -15,9 +9,39 @@
 
 Game::Game(int width, int height)
 {
+	phase = 0;
+	level = 0;
+	world = 0;
+	player = 0;
+	screen = 0;
+	factory = 0;
+	next_phase = 0;
+	font = 0;
+
+	initialised = false;
+
+	if (!InitialiseSDL(width, height))
+		return;
+
 	factory = new Factory();
 
-	// register types
+	RegisterTypes();
+
+	player = New<Player>();
+
+	world = New<World>();
+	world->Construct(width, height);
+
+	font = new Font("font");
+
+	PhaseChange(New<Phase::Boot>());
+
+	initialised = true;
+	finished = false;
+}
+
+void Game::RegisterTypes()
+{
 	factory->AddClass<Playfield>();
 	factory->AddClass<Player>();
 	factory->AddClass<Xiq>();
@@ -25,24 +49,17 @@ Game::Game(int width, int height)
 	factory->AddClass<Level>();
 	factory->AddClass<World>();
 
-	world = New<World>();
-	world->Construct(width, height);
-
-//	StartGame();
-//
-//	StartLevel();
-
-	font = new Font("font");
-//	font->DrawText(world->GetSurface(), Matrix(), Box(Point(0,0), Point(300,100)), MakeColor(255,255,255), "hello world");
-
-	phase = 0;
-
-	initialised = true;
-	finished = false;
+	factory->AddClass<Phase::Boot>();
+	factory->AddClass<Phase::Attract>();
+	factory->AddClass<Phase::Play>();
 }
 
 Game::~Game()
 {
+	Delete(phase);
+	Delete(player);
+	Delete(level);
+	Delete(world);
 }
 
 World *Game::GetWorld() const
@@ -52,7 +69,7 @@ World *Game::GetWorld() const
 
 SDL_Surface *Game::GetSurface() const
 {
-	return GetWorld()->GetSurface();
+	return screen;
 }
 
 GameTime Game::GetTime() const
@@ -67,7 +84,41 @@ Color Game::MakeColor(int r, int g, int b) const
 
 Time Game::TimeNow() const
 {
-	return world->GetGameTime().total;
+	return world->GetGameTime().TotalElapsedSeconds();
+}
+
+bool Game::Transitioning() const
+{
+	return transition_ends > TimeNow() && next_phase != 0;
+}
+
+void Game::Transist()
+{
+
+}
+
+void Game::EndTransition()
+{
+	Delete(phase);
+	phase = next_phase;
+	next_phase = 0;
+	transition_ends = 0;
+}
+
+void Game::PhaseChange(Phase::Base *next, Time transition_time)
+{
+	if (!next)
+	{
+		return;
+	}
+
+	if (Transitioning())
+	{
+		EndTransition();
+	}
+
+	transition_ends = TimeNow() + transition_time;
+	next_phase = next;
 }
 
 //void Game::InitialiseLevel()
@@ -122,6 +173,15 @@ void Game::Update()
 
 	world->Update(GameTime());
 
+	if (Transitioning())
+	{
+		Transist();
+	}
+	else if (phase)
+	{
+		phase->Update(world->GetGameTime());
+	}
+
 //	float completed = world->GetPlayfield()->GetPercentFilled();
 //	if (completed > 0.75f)
 //	{
@@ -133,24 +193,6 @@ void Game::Update()
 //
 //		StartLevel();
 //	}
-}
-
-void Game::Draw()
-{
-//	phase->Draw();
-	SDL_Surface *surface = world->GetSurface();
-	SDL_FillRect(surface, 0, SDL_MapRGB(surface->format, 50, 50, 50));
-
-	world->Draw(Matrix());
-
-	float f = 4;
-	float sx = 14 + 7*sin(TimeNow()*f);
-	float sy = 14 + 7*cos(TimeNow()*f);
-	Matrix M = Matrix::Translate(-28,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
-	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefg");
-	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefg");
-
-	SDL_Flip(surface);
 }
 
 void Game::ParseInput()
@@ -175,6 +217,31 @@ void Game::ParseInput()
 	}
 }
 
+void Game::Draw()
+{
+//	phase->Draw();
+	SDL_Surface *surface = world->GetSurface();
+	SDL_FillRect(surface, 0, SDL_MapRGB(surface->format, 50, 50, 50));
+
+	if (world)
+		world->Draw(Matrix());
+
+	if (phase)
+		phase->Draw(Matrix());
+
+	// test for font system
+	float f = 4;
+	float sx = 14 + 7*sin(TimeNow()*f);
+	float sy = 14 + 7*cos(TimeNow()*f);
+	Matrix M = Matrix::Translate(-28,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
+	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefg");
+	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefg");
+
+	UpdateHUD();
+
+	SDL_Flip(surface);
+}
+
 void Game::UpdateHUD()
 {
 	char buffer[1024];
@@ -182,11 +249,25 @@ void Game::UpdateHUD()
 	SDL_WM_SetCaption(buffer, 0);
 }
 
-//void World::NextLevel()
-//{
-//	Clear();
-//	current_level++;
-//	StartLevel();
-//}
+bool Game::InitialiseSDL(int width, int height)
+{
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        return false;
+    }
 
+    // make sure SDL cleans up before exit
+    atexit(SDL_Quit);
+
+    screen = SDL_SetVideoMode(width, height, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    if (!screen)
+    {
+        printf("Unable to create window: %s\n", SDL_GetError());
+        return false;
+    }
+
+	SDL_WM_SetCaption("XIQ != QIX", "XIQ");
+	return true;
+}
 //EOF
