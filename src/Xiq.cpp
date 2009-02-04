@@ -172,7 +172,6 @@ void Xiq::Draw(Matrix const &/*matrix*/)
 		SetPixel(x0 + y, y0 - x, color);
 		SetPixel(x0 - y, y0 - x, color);
 	}
-
 }
 
 //EOF

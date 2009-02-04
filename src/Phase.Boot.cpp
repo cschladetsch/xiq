@@ -16,7 +16,7 @@ namespace Phase
 		{
 			GetRoot()->PhaseChange(New<Phase::Play>());
 		}
-		return !space;
+		return space;
 	}
 
 	bool Boot::Update(GameTime)

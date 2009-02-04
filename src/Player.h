@@ -17,7 +17,7 @@ struct Player : Object
 	int score;
 
 public:
-	Player();
+	void Prepare();
 
 	int GetNumLives() const { return num_lives; }
 	void SetNumLives(int N) { num_lives = N; }
