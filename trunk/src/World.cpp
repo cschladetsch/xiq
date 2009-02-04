@@ -16,8 +16,13 @@
 // create the world, given viewport extents
 void World::Construct(int width, int height)
 {
+	GetRoot()->SetWorld(this);
 	playfield = New<Playfield>();
 	playfield->Create(width, height);
+	player = New<Player>();
+
+	objects.insert(player);
+//	objects.insert(playfield);
 }
 
 World::~World()
@@ -26,33 +31,11 @@ World::~World()
 	Clear();
 }
 
-bool World::Update(GameTime)
+bool World::Update(GameTime time)
 {
-	UpdateObjects();
+	UpdateObjects(time);
 	CollisionDetection();
 	return true;
-}
-
-Box World::GetBounds() const
-{
-	int width = playfield->GetWidth();
-	int height = playfield->GetHeight();
-	Box box;
-	box.top_left = Point(0,0);
-	box.top_right = Point(width - 1, 0);
-	box.bottom_left = Point(0, height - 1);
-	box.bottom_right = Point(width - 1, height - 1);
-	return box;
-}
-
-SDL_Surface *World::GetSurface() const
-{
-	return GetRoot()->GetSurface();
-}
-
-Point World::GetMidPoint() const
-{
-	return Point(playfield->GetWidth()/2, playfield->GetHeight()/2);
 }
 
 void World::Clear()
@@ -63,83 +46,50 @@ void World::Clear()
 
 void World::DeleteObjects()
 {
-	Objects::const_iterator obj = objects.begin(), end = objects.end();
-	for (; obj != end; ++obj)
+	foreach (Object *object, objects)
 	{
-		(*obj)->Delete();
+		object->Delete();
 	}
 	objects.clear();
 }
 
 void World::CollisionDetection()
 {
-	Player *player = GetRoot()->GetPlayer();
-	if (player && player->IsImmune())
+	foreach (Object *A, objects)
 	{
-		return;
-	}
-
-// TODO: events
-//	// test if xiq hit a line
-//	if (xiq->HasHitPlayer())
-//	{
-//		xiq->SetHitPlayer(false);
-//		player->LoseLife();
-//		if (player->HasNoLives())
-//		{
-//			EndGame();
-//		}
-//		return;
-//	}
-
-	// test all other objects
-	Objects::const_iterator obj = objects.begin(), end = objects.end();
-	for (; obj != end; ++obj)
-	{
-		Object *object = *obj;
-
-		if (!object->Collides())
+		if (!A->Collides())
 			continue;
 
-		float distance = (object->GetLocation() - player->GetLocation()).Length();
-		if (distance < object->GetRadius() + player->GetRadius())
+		foreach (Object *B, objects)
 		{
-// TODO: Events
-//			player->LoseLife();
-//			if (player->HasNoLives())
-//			{
-//				EndGame();
-//			}
-			return;
+			if (!B->Collides())
+				continue;
+			if (A == B)
+				continue;
+
+			float distance = (A->GetLocation() - B->GetLocation()).Length();
+			bool collision = distance < A->GetRadius() + B->GetRadius();
+			if (collision)
+			{
+
+//				OnCollide(A, B);
+			}
 		}
 	}
 }
 
-void World::UpdateObjects()
+void World::UpdateObjects(GameTime time)
 {
-	typedef std::vector<Object *> Deathrow;
-	Deathrow deathrow;
-
-	// iterate over objects, updating each
-	// add objects that fail to update  to deathrow for later deletion
-	Objects::const_iterator obj = objects.begin(), end = objects.end();
-	for (; obj != end; ++obj)
+	// iterate over objects, updating each.
+	// copy the container, as the loop will alter it
+	std::vector<Object *> tmp(objects.begin(), objects.end());
+	foreach (Object *object, tmp)
 	{
-		Object *object = *obj;
-		bool lives = object->Update(game_time);
-		if (!lives)
+		if (!object->Update(time))
 		{
-			deathrow.push_back(object);
+			objects.erase(objects.find(object));
+			object->Delete();
 		}
-	}
-
-	// for each object in deathrow, remove from objects container and delete
-	Deathrow::const_iterator dr_start = deathrow.begin(), dr_end = deathrow.end();
-	for (; dr_start != dr_end; ++dr_start)
-	{
-		Object *object = *dr_start;
-		objects.erase(objects.find(object));
-		object->Delete();
 	}
 }
 
@@ -155,6 +105,23 @@ void World::AddImpact(int x, int y, float radius)
 	impact->time_to_die = now + 0.35f;
 
 	objects.insert(impact);
+}
+
+Box World::GetBounds() const
+{
+	int width = playfield->GetWidth();
+	int height = playfield->GetHeight();
+	Box box;
+	box.top_left = Point(0,0);
+	box.top_right = Point(width - 1, 0);
+	box.bottom_left = Point(0, height - 1);
+	box.bottom_right = Point(width - 1, height - 1);
+	return box;
+}
+
+Point World::GetMidPoint() const
+{
+	return Point(playfield->GetWidth()/2, playfield->GetHeight()/2);
 }
 
 void World::Draw(Matrix const &M)

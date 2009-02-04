@@ -12,9 +12,6 @@
 struct Game
 {
 	Factory *factory;		///< source of all game objects: static and dynamic
-	Level *level;			///< the current level; used to prepare
-	World *world;			///< current world. stores all dynamic game objects and the playfield
-	Player *player;			///< the player
 	GameTime time;
 
 	SDL_Surface *screen;
@@ -28,16 +25,13 @@ struct Game
 
 	Font *font;
 
+	World *world;
+
 public:
 	Game(int width, int height);
 	~Game();
 
-	// start a new game
-	void Start();
-	void StartLevel();
-	void NextLevel();
-	void End();
-
+	/// create a new object of type T using the factorys
 	template <class T>
 	T *New()
 	{
@@ -46,27 +40,37 @@ public:
 		return obj;
 	}
 
+	/// top-level update method
 	void Update();
+
+	/// top-level draw method
 	void Draw();
 
-	Time TimeNow() const;
-
+	/// returns true if the application is intending to close
 	bool Finished() const { return finished; }
+
+	/// returns true if all subsystems initialised correctly
 	bool Initialised() const { return initialised; }
 
-	World *GetWorld() const;
-	SDL_Surface *GetSurface() const;
-	Player *GetPlayer() const { return player; }
+	/// returns the default font
 	Font *GetFont() const { return font; }
+
+	/// returns the game-time structure
 	GameTime GetTime() const;
 
+	/// returns the time at the start of this frame
+	Time TimeNow() const;
+
+	SDL_Surface *GetSurface() const;
 	Color MakeColor(int r, int g, int b) const;
 
 	/// move to a new phase
 	void PhaseChange(Phase::Base *next_phase, Time transition_time = 0);
 
+	void SetWorld(World *W) { world = W; }
+	World *GetWorld() const { return world; }
+
 protected:
-	void UpdateHUD();
 	void ParseInput();
 
 	/// deal with intention of player to move in the given direction

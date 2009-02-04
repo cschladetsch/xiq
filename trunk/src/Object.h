@@ -31,6 +31,7 @@ public:
 	virtual void Draw(Matrix const &) = 0;
 
 	Game *GetRoot() const { return game; }
+	Playfield *GetPlayfield() const;
 
 	template <class T>
 	T *New()

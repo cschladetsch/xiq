@@ -45,13 +45,13 @@ public:
 	}
 
 	/// return true if the given time is earlier than the total time
-	bool IsBefore(Time T)
+	bool IsBefore(Time T) const
 	{
 		return TotalElapsedSeconds() < T;
 	}
 
 	/// return true if the given time is equal to or later than the total time
-	bool IsAfter(Time T)
+	bool IsAfter(Time T) const
 	{
 		return TotalElapsedSeconds() >= T;
 	}

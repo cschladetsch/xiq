@@ -31,7 +31,7 @@ bool Font::FromFile(const char *filename)
 	// dimensions of the glyph representation in the file
 	size_t y_dim = 8;
 	size_t glyph_num_lines = y_dim + 2;
-	size_t num_glyphs = 26;
+	size_t num_glyphs = 30;
 
 	// read the glyphs
 	for (size_t glyph_num = 0; glyph_num < num_glyphs; ++glyph_num)
@@ -90,6 +90,15 @@ bool Font::FromFile(const char *filename)
 end:
 	file.close();
 	return false;
+}
+
+void Font::DrawShadowedText(SDL_Surface *surface, Matrix const &transform, Box const &box, Color color, const char *text) const
+{
+	// translate shadow before or after??
+//	Matrix shadow = Matrix::Translate(1,1)*transform;
+	Matrix shadow = transform*Matrix::Translate(3,3);
+	DrawText(surface, shadow, box, SDL_MapRGB(surface->format, 0,0,0), text);
+	DrawText(surface, transform, box, color, text);
 }
 
 void Font::DrawText(SDL_Surface *surface, Matrix const &transform, Box const &box, Color color, const char *text) const

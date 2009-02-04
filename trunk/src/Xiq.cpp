@@ -93,29 +93,32 @@ bool Xiq::Update(GameTime time)
 void Xiq::SetPixel(int x, int y, Color color)
 {
 	SDL_Surface *surface = GetRoot()->GetSurface();
+	World *world = GetRoot()->GetWorld();
+	Playfield *playfield = world->GetPlayfield();
+	Player *player = world->GetPlayer();
+
 	if (x < 0 || y < 0 || x >= surface->w  || y >= surface->h)
 	{
 		// if we clip against the edge, apply a restorative force
-		force += Vector(GetRoot()->GetWorld()->GetMidPoint() - Vector(x,y));
-		GetRoot()->GetWorld()->AddImpact(x,y, GetRadius()*6);
+		force += Vector(world->GetMidPoint() - Vector(x,y));
+		world->AddImpact(x,y, GetRadius()*6);
 		return;
 	}
 
-	Playfield::Element element = GetRoot()->GetWorld()->GetPlayfield()->At(x, y);
+	Playfield::Element element = playfield->At(x, y);
 	if (element == Playfield::NewLine)
 	{
-		if (!GetRoot()->GetPlayer()->IsImmune())
+		if (!player->IsImmune())
 		{
-			GetRoot()->GetWorld()->AddImpact(x,y, GetRadius()*6);
-			hit_player = true;
-//			hit_player_location = Vector(x,y);
+			world->AddImpact(x,y, GetRadius()*6);
+//			player->OnHit(...);
 		}
 	}
 	if (element != Playfield::Empty)
 	{
 		// if we hit something, apply a force to move towards the player
 		force += (location - Vector(x,y))*5;
-		GetRoot()->GetWorld()->AddImpact(x,y, GetRadius()*6);
+		world->AddImpact(x,y, GetRadius()*6);
 	}
 
 	char *pixels = (char *)surface->pixels;

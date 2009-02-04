@@ -37,6 +37,7 @@ namespace Phase
 	struct Boot : Base
 	{
 		void Prepare();
+		bool InputEvent(SDL_Event const &);
 		bool Update(GameTime);
 		void Draw(Matrix const &);
 	};
@@ -52,13 +53,16 @@ namespace Phase
 	/// the main play phase
 	struct Play : Base
 	{
-		Player *player;
-		Playfield *playfield;
-		Level *level;
 		World *world;
+
+		int level;
+
+		Play();
+		~Play();
 
 		// overrides for Object
 		void Prepare();
+		void SetLevel(int level);
 		bool Update(GameTime);
 		void Draw(Matrix const &);
 

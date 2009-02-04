@@ -4,21 +4,59 @@
 
 namespace Phase
 {
-	void Play::Prepare()
+	Play::Play()
 	{
-		world = game->GetWorld();
-		player = game->GetPlayer();
-		playfield = world->GetPlayfield();
-		level = 0;
 	}
 
-	bool Play::Update(GameTime)
+	Play::~Play()
 	{
+		::Delete(world);
+	}
+
+	void Play::Prepare()
+	{
+		level = 0;
+		world = New<World>();
+		world->Construct(600, 400);
+
+		GetRoot()->SetWorld(world);
+
+//		player->OnLifeLost += Delegate(this, &Play::PlayerLostLife);
+	}
+
+//	void Play::PlayerLostLife()
+//	{
+//		world->GetPlayfield()->RemoveNewLines(Playfield::Empty);
+//	}
+
+	bool Play::Update(GameTime time)
+	{
+		world->Update(time);
+
+		// test for completion
+		float filled = world->GetPlayfield()->GetPercentFilled();
+		if (filled > 0.75f)
+		{
+			float over = filled - 0.75f;
+			world->GetPlayer()->AddScore(over * 100 * 1000);
+
+			Play *next_level = New<Phase::Play>();
+			next_level->SetLevel(level + 1);
+			GetRoot()->PhaseChange(next_level, 3);
+		}
 		return true;
 	}
 
-	void Play::Draw(Matrix const &)
+	void Play::SetLevel(int l)
 	{
+		level = l;
+		int num_styx = Clamp<int>(level*3/2, 0, 6);
+
+	}
+
+	void Play::Draw(Matrix const &matrix)
+	{
+		world->Draw(matrix);
 	}
 
 	bool Play::InputEvent(SDL_Event const &event)
@@ -92,6 +130,7 @@ namespace Phase
 
 	void Play::PlayerDirects(Direction dir)
 	{
+		Player *player = world->GetPlayer();
 		player->SetWantsDirection(dir, true);
 
 		if (dir == player->GetDirection().Opposite())
@@ -102,6 +141,7 @@ namespace Phase
 		Vector V = dir.GetVector();				// direction of movement
 		Point N = player->GetLocation() + V;	// intended next location
 
+		Playfield *playfield = world->GetPlayfield();
 		if (playfield->OutOfBounds(N))
 			return;
 
@@ -133,7 +173,7 @@ namespace Phase
 
 	void Play::PlayerUnDirects(Direction dir)
 	{
-		player->SetWantsDirection(dir, false);
+		world->GetPlayer()->SetWantsDirection(dir, false);
 	}
 }
 
