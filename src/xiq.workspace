@@ -2,6 +2,5 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="xiq.cbp" active="1" />
-		<Project filename="../cgl/cgl.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

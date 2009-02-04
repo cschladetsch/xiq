@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef CLAMP_H_INCLUDED
 #define CLAMP_H_INCLUDED

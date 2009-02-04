@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #include "Common.h"
 #include "Draw.h"
@@ -56,7 +56,7 @@ void Xiq::SetRadius(float R)
 
 bool Xiq::Update(GameTime time)
 {
-	float t = time.total;
+	float t = time.TotalElapsedSeconds();
 	SetRadius(radius_waves[0](t) + radius_waves[1](t));
 
 	angle += RandomRanged(-0.3f, 0.3f);
@@ -68,7 +68,7 @@ bool Xiq::Update(GameTime time)
 	Vector center = location + steer*sqrt(2);
 	Point target = center + Vector(cos(angle), sin(angle));
 	steer = (target - location).Normalised();
-	force += steer*time.delta*5000;
+	force += steer*time.DeltaSeconds()*5000;
 
 	// see http://en.wikipedia.org/wiki/Verlet_integration:
 	// np = p0*2 - p1 + a*t*t;
@@ -81,7 +81,7 @@ bool Xiq::Update(GameTime time)
 	Vector accel = force*(1.0f/mass);
 	Point next_location = location*2.0f - last_pos + accel*dt*dt;
 
-	Vector vel = (next_location - location).Normalised()*speed*time.delta;
+	Vector vel = (next_location - location).Normalised()*speed*time.DeltaMillis();
 
 	last_pos = location;
 	location += vel;
@@ -128,7 +128,7 @@ void Xiq::Draw(Matrix const &/*matrix*/)
 	float x0 = location.x;
 	float y0 = location.y;
 
-	float t = GetRoot()->GetTime().total;
+	Time t = GetRoot()->TimeNow();
 	float r = colors[0](t);
 	float g = colors[1](t);
 	float b = colors[2](t);

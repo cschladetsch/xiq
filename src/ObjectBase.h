@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef OBJECTBASE_H_INCLUDED
 #define OBJECTBASE_H_INCLUDED
@@ -34,6 +34,9 @@ public:
 		return GetFactory()->template New<T>();
 	}
 };
+
+bool Exists(ObjectBase *);
+void Delete(ObjectBase *);
 
 #endif // OBJECTBASE_H_INCLUDED
 

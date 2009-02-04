@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #include "Common.h"
 #include "Object.h"
@@ -50,7 +50,7 @@ void Playfield::MovePlayer(Player &player, GameTime time, Element what)
 	Vector v = dir.GetVector();
 	float speed = player.GetSpeed();
 	Point location = player.GetLocation();
-	Point end_pos = location + v*speed*time.delta;
+	Point end_pos = location + v*speed*time.DeltaMillis();
 
 	// something is wrong with movement... it is jerky and slows down on horizontals??
 //	if (dir == Direction::Left) end_pos += Vector(-1,0);

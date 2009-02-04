@@ -71,6 +71,7 @@
 		<Unit filename="Font.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="GameTime.cpp" />
 		<Unit filename="GameTime.h">
 			<Option virtualFolder="Library/Headers/" />
 		</Unit>
@@ -100,6 +101,9 @@
 		<Unit filename="Phase.Attract.cpp">
 			<Option virtualFolder="Phases/" />
 		</Unit>
+		<Unit filename="Phase.Boot.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
 		<Unit filename="Phase.GameOver.HighScore.cpp">
 			<Option virtualFolder="Phases/" />
 		</Unit>
@@ -113,6 +117,7 @@
 			<Option virtualFolder="Phases/" />
 		</Unit>
 		<Unit filename="Phase.h" />
+		<Unit filename="PhaseCommon.h" />
 		<Unit filename="Player.cpp">
 			<Option virtualFolder="Objects/" />
 		</Unit>

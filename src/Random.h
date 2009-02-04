@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef RANDOM_H_INCLUDED
 #define RANDOM_H_INCLUDED

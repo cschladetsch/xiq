@@ -51,15 +51,29 @@ ObjectBase *Factory::GetObject(Handle handle) const
 	return instance == instances.end() ? 0 : instance->second;
 }
 
+bool Factory::Exists(ObjectBase *base) const
+{
+	if (!base)
+		return false;
+	return Exists(base->GetHandle());
+}
+
+bool Factory::Exists(Handle handle) const
+{
+	if (deathrow.find(handle) != deathrow.end())
+		return false;
+	return instances.find(handle) != instances.end();
+}
+
 void Factory::Purge()
 {
+	// make a copy of deathrow, since as we delete objects they may
+	// in turn delete other objects, which would change deathrow
 	std::vector<Handle> cp(deathrow.begin(), deathrow.end());
 	deathrow.clear();
 
-	std::vector<Handle>::const_iterator begin = cp.begin(), end = cp.end();
-	for (; begin != end; ++begin)
+	foreach (Handle handle, cp)
 	{
-		Handle handle = *begin;
 		ObjectBase *base = GetObject(handle);
 		if (base)
 		{

@@ -1,8 +1,7 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #ifndef PHASE_H_INCLUDED
 #define PHASE_H_INCLUDED
-
 
 struct Level;
 
@@ -32,22 +31,22 @@ namespace Phase
 	{
 		/// optionally override to handle input during the phase
 		virtual bool InputEvent(SDL_Event const &) { return false; }
-
-		//virtual void UpdateTransition(GameTime) = 0;
 	};
 
 	/// loading/boot phase
 	struct Boot : Base
 	{
+		void Prepare();
 		bool Update(GameTime);
-		void Draw();
+		void Draw(Matrix const &);
 	};
 
 	/// the attract phase runs the game in a demo loop
 	struct Attract : Base
 	{
+		void Prepare();
 		bool Update(GameTime);
-		void Draw();
+		void Draw(Matrix const &);
 	};
 
 	/// the main play phase
@@ -57,9 +56,9 @@ namespace Phase
 		Playfield *playfield;
 		Level *level;
 		World *world;
-		Game *game;
 
 		// overrides for Object
+		void Prepare();
 		bool Update(GameTime);
 		void Draw(Matrix const &);
 
@@ -72,8 +71,9 @@ namespace Phase
 	};
 
 	/// animation for moving from one level to another
-	struct LevelTransition : Base
+	struct Transition : Base
 	{
+		void Prepare();
 		bool Update(GameTime);
 		void Draw();
 	};
@@ -81,6 +81,7 @@ namespace Phase
 	/// show the end score, high-scores and allow player to enter name
 	struct GameOver : Base
 	{
+		void Prepare();
 		bool Update(GameTime);
 		void Draw();
 	};

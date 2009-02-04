@@ -1,4 +1,4 @@
-// (C) 2009 www.christian.schladetsch.net
+// (C) 2009 christian.schladetsch@gmail.com
 
 #include "Common.h"
 #include "Object.h"
@@ -24,7 +24,7 @@ void Player::LoseLife()
 {
 	if (num_lives > 0)
 		--num_lives;
-	Time now = GetRoot()->GetTime().total;
+	Time now = GetRoot()->TimeNow();
 	respawn_ends = now + 1.5;
 	immunity_ends = now + 3.5;
 
