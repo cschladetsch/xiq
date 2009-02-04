@@ -9,10 +9,10 @@ struct Font
 	/// an element in the font, mapped from a character
 	struct Glyph
 	{
+		typedef std::vector<LineSegment> Lines;
+		Lines lines;
 		char letter;
-		typedef std::vector<LineSegment> lines;
-
-		void Draw(SDL_Surface *, Matrix const &, Color);
+		void Draw(SDL_Surface *, Matrix const &, Color) const;
 	};
 	typedef std::map<char, Glyph> Glyphs;
 
@@ -20,6 +20,16 @@ private:
 	Glyphs glyphs;
 
 public:
+	Font()
+	{
+	}
+
+	/// create a font given the filename to load from
+	Font(const char *filename)
+	{
+		FromFile(filename);
+	}
+
 	/// read a font description from a file
 	bool FromFile(const char *);
 

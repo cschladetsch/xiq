@@ -50,6 +50,8 @@ struct Level;
 struct World;
 struct Game;
 
+struct Font;
+
 struct TypeNumbers
 {
 	enum Value

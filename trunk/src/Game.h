@@ -19,6 +19,7 @@ struct Game
 	bool finished;
 	bool space_down;
 	Phase::Base *phase;		///< the current phase of the game
+	Font *font;
 
 public:
 	Game(int width, int height);

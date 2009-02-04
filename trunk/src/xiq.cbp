@@ -67,6 +67,8 @@
 		<Unit filename="Factory.h">
 			<Option virtualFolder="Library/Headers/" />
 		</Unit>
+		<Unit filename="Font.cpp" />
+		<Unit filename="Font.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="GameTime.h">
@@ -140,6 +142,7 @@
 		</Unit>
 		<Unit filename="Xiq.h" />
 		<Unit filename="cb.bmp" />
+		<Unit filename="font" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
