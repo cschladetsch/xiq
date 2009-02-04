@@ -60,7 +60,6 @@
 		<Unit filename="Draw.h">
 			<Option virtualFolder="Library/Headers/" />
 		</Unit>
-		<Unit filename="Factory" />
 		<Unit filename="Factory.cpp">
 			<Option virtualFolder="Library/" />
 		</Unit>
@@ -75,7 +74,6 @@
 		<Unit filename="GameTime.h">
 			<Option virtualFolder="Library/Headers/" />
 		</Unit>
-		<Unit filename="Geometry" />
 		<Unit filename="Geometry.cpp">
 			<Option virtualFolder="Library/" />
 		</Unit>
@@ -116,6 +114,9 @@
 		<Unit filename="Phase.Play.cpp">
 			<Option virtualFolder="Phases/" />
 		</Unit>
+		<Unit filename="Phase.Test.cpp">
+			<Option virtualFolder="Phases/" />
+		</Unit>
 		<Unit filename="Phase.h" />
 		<Unit filename="PhaseCommon.h" />
 		<Unit filename="Player.cpp">
@@ -146,7 +147,6 @@
 			<Option virtualFolder="Objects/" />
 		</Unit>
 		<Unit filename="Xiq.h" />
-		<Unit filename="cb.bmp" />
 		<Unit filename="font" />
 		<Unit filename="main.cpp" />
 		<Extensions>
