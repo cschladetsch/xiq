@@ -9,7 +9,7 @@
 #include "World.h"
 #include "Game.h"
 
-Xiq::Xiq()
+void Xiq::Prepare()
 {
 	collides = true;
 	angle = RandomUnit();
@@ -20,8 +20,6 @@ Xiq::Xiq()
 	max_speed = 50;
 
 	force = RandomUnitVector()*1000;
-
-	last_pos = location = Vector(300,200);
 
 	radius_waves[0].amplitude = 60;
 	radius_waves[0].frequency = 1.3f;
@@ -43,6 +41,8 @@ Xiq::Xiq()
 	colors[2].frequency = 1.5f;
 
 	hit_player = false;
+
+	location = last_pos = GetRoot()->GetWorld()->GetMidPoint();
 }
 
 void Xiq::SetRadius(float R)
@@ -56,6 +56,8 @@ void Xiq::SetRadius(float R)
 
 bool Xiq::Update(GameTime time)
 {
+	printf("Xiq::Update: pos=%f %f\n", location.x, location.y);
+
 	float t = time.TotalElapsedSeconds();
 	SetRadius(radius_waves[0](t) + radius_waves[1](t));
 
@@ -68,7 +70,7 @@ bool Xiq::Update(GameTime time)
 	Vector center = location + steer*sqrt(2);
 	Point target = center + Vector(cos(angle), sin(angle));
 	steer = (target - location).Normalised();
-	force += steer*time.DeltaSeconds()*5000;
+	force += steer*5;
 
 	// see http://en.wikipedia.org/wiki/Verlet_integration:
 	// np = p0*2 - p1 + a*t*t;
@@ -81,7 +83,7 @@ bool Xiq::Update(GameTime time)
 	Vector accel = force*(1.0f/mass);
 	Point next_location = location*2.0f - last_pos + accel*dt*dt;
 
-	Vector vel = (next_location - location).Normalised()*speed*time.DeltaMillis();
+	Vector vel = (next_location - location).Normalised()*speed*time.DeltaSeconds();
 
 	last_pos = location;
 	location += vel;

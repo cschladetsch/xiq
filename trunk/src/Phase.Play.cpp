@@ -2,6 +2,7 @@
 
 #include "PhaseCommon.h"
 #include "Xiq.h"
+#include "Styx.h"
 
 namespace Phase
 {
@@ -24,6 +25,15 @@ namespace Phase
 
 		Xiq *xiq = New<Xiq>();
 		world->AddObject(xiq);
+
+		Styx *styx = New<Styx>();
+		Point spawn_point(0,0);
+		styx->SetLocation(spawn_point);
+		styx->SetRadius(15);
+		styx->SetDirection(Direction::Down);
+		styx->SetSpeed(40);
+		styx->SetColor(GetRoot()->MakeColor(255,0,0));
+		world->AddObject(styx);
 
 //		player->OnLifeLost += Delegate(this, &Play::PlayerLostLife);
 	}

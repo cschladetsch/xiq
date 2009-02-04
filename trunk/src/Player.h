@@ -43,6 +43,7 @@ public:
 
 	/// change the direction the player is moving
 	void SetDirection(Direction);
+	void SetLocation(Point P);
 
 	/// return true if the player wants to move in the given direction
 	bool WantsDirection(Direction D) const { return wants_direction[D.value]; }

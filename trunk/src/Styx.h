@@ -7,6 +7,7 @@
 struct Styx : Object
 {
 	Sinusoid rot;
+	bool move_toward_player;
 
 	Styx();
 	bool Update(GameTime);

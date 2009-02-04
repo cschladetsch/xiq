@@ -13,6 +13,11 @@
 
 #include "Draw.h"
 
+Playfield *Object::GetPlayfield() const
+{
+	return GetRoot()->GetWorld()->GetPlayfield();
+}
+
 // create the world, given viewport extents
 void World::Construct(int width, int height)
 {
@@ -22,6 +27,9 @@ void World::Construct(int width, int height)
 	player = New<Player>();
 
 	objects.insert(player);
+
+	time_last_impact = GetRoot()->TimeNow();
+	min_impact_time = 1.0f/20.0f;//0.0f;
 //	objects.insert(playfield);
 }
 

@@ -18,7 +18,7 @@ void Player::Prepare()
 	num_lives = 3;
 	Time now = GetRoot()->TimeNow();
 	immunity_ends = now + 3;
-	respawn_ends = now + 2;
+	respawn_ends = 0;//now + 2;
 	score = 0;
 	location = Point(300,399);
 }
@@ -28,7 +28,7 @@ void Player::LoseLife()
 	if (num_lives > 0)
 	{
 		--num_lives;
-		//OnLifeLost();
+		//TODO OnLifeLost();
 	}
 	Time now = GetRoot()->TimeNow();
 	respawn_ends = now + 1.5;
@@ -54,13 +54,13 @@ void Player::SetDirection(Direction dir)
 	direction = dir;
 }
 
-void Player::SetWantsDirection(Direction D, bool F)
+void Player::SetWantsDirection(Direction dir, bool wants)
 {
-	if (D == direction)
+	if (dir == direction)
 		SetDirection(Direction::None);
 
-	wants_direction[D.value] = F;
-	if (F == false)
+	wants_direction[dir.value] = wants;
+	if (wants == false)
 	{
 		for (int n = 0; n < 4; ++n)
 		{
@@ -73,12 +73,16 @@ void Player::SetWantsDirection(Direction D, bool F)
 	}
 }
 
+void Player::SetLocation(Point P)
+{
+	//printf("Player::SetLocation: %f %f\n", P.x, P.y);
+	location = P;
+}
+
 bool Player::Update(GameTime time)
 {
 	if (!Moving())
 		return true;
-
-//	printf("%f %f\n", location.x, location.y);
 
 	Playfield *playfield = GetPlayfield();
 
@@ -86,21 +90,28 @@ bool Player::Update(GameTime time)
 	Direction dir = GetDirection();
 	Vector v = dir.GetVector();
 	float speed = GetSpeed();
-	Point location = GetLocation();
-	float distance = speed*time.DeltaSeconds();
-	Point end_pos = location + v*distance;
+	double distance = speed*time.DeltaSeconds();
+//	Point end_pos = location + v*distance;
 
 	Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
 
+	//printf("step=%g, distance=%g\n", time.DeltaSeconds(), distance);
+
+	// while there is still some distance 	to move
 	while (distance > 0)
 	{
-		float step_dist = Clamp(distance, 0.0f, 1.0f);
-		if (step_dist < 0.5f)
-		{
-			SetLocation(location + v*step_dist);
-			return true;
-		}
+		// move at most one unit
+		double step_dist = Clamp(distance, 0.0, 1.0);
 		Point next = location + v*step_dist;
+//		// if moving less than half of a pixel, move and return
+//		if (step_dist < 0.5)
+//		{
+//			playfield->Set(next, what);
+//			SetLocation(next);
+//			return true;
+//		}
+
+		// get the element at the proposed next location
 		Playfield::Element e_next = playfield->At(next);
 
 		if (playfield->OutOfBounds(next))
@@ -123,6 +134,7 @@ bool Player::Update(GameTime time)
 		{
 			int num_filled = playfield->CalcNewArea(dir, next);
 			double score = (double )num_filled*num_filled/10000000.;
+			SetLocation(next);
 			AddScore((int)score);
 			SetDrawing(false);
 			return true;
@@ -153,9 +165,14 @@ bool Player::Update(GameTime time)
 			}
 		}
 
+		// write to the playfield
 		playfield->Set(next, what);
-		SetLocation(next);
+
+		// remove the covered distance
 		distance -= step_dist;
+
+		// update position
+		SetLocation(next);
 	}
 	return true;
 }

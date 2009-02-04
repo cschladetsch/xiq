@@ -3,13 +3,20 @@
 #ifndef GAMETIME_H_INCLUDED
 #define GAMETIME_H_INCLUDED
 
-typedef float Time, DeltaTime, TimeDelta;
+// TODO: deal with this cross platform
+// ...also need to deal with CPU afinity...
+#include <sys/time.h>
+
+
+typedef double Time, DeltaTime, TimeDelta;
 
 /// stores timing information for update frames
 struct GameTime
 {
 private:
-	Time first;					///< when this object was created
+	timeval first;					///< when this object was created
+	timeval prev_frame_start;
+
 	Time start_frame_millis;	///< when current frame started
 	Time end_frame_millis;		///< when current frame started
 	Time total_millis;			///< seconds since start of game

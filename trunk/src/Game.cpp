@@ -1,18 +1,15 @@
 // (C) 2009 christian.schladetsch.net
 
-#include "PhaseCommon.h"
-
-#include "Xiq.h"
-#include "Styx.h"
-#include "Impact.h"
+#include "Common.h"
+#include "Game.h"
+#include "Phase.h"
 #include "Font.h"
 
-Game::Game(int width, int height)
+void Game::Create(int width, int height)
 {
 	phase = 0;
 	world = 0;
 	screen = 0;
-	factory = 0;
 	next_phase = 0;
 	font = 0;
 
@@ -21,37 +18,19 @@ Game::Game(int width, int height)
 	if (!InitialiseSDL(width, height))
 		return;
 
-	factory = new Factory();
-
-	RegisterTypes();
-
 	font = new Font("font");
 
-	PhaseChange(New<Phase::Boot>());
+//	PhaseChange(New<Phase::Boot>());
+	PhaseChange(New<Phase::Play>());
 
 	initialised = true;
 	finished = false;
 }
 
-void Game::RegisterTypes()
-{
-	factory->AddClass<Playfield>();
-	factory->AddClass<Player>();
-	factory->AddClass<Xiq>();
-	factory->AddClass<Styx>();
-	factory->AddClass<Level>();
-	factory->AddClass<World>();
-	factory->AddClass<Impact>();
-
-	factory->AddClass<Phase::Boot>();
-	factory->AddClass<Phase::Attract>();
-	factory->AddClass<Phase::Play>();
-}
-
 Game::~Game()
 {
-	Delete(phase);
-	Delete(next_phase);
+	::Delete(phase);
+	::Delete(next_phase);
 }
 
 SDL_Surface *Game::GetSurface() const
@@ -89,7 +68,7 @@ void Game::Transist()
 
 void Game::EndTransition()
 {
-	Delete(phase);
+	::Delete(phase);
 	phase = next_phase;
 	next_phase = 0;
 	transition_ends = 0;
@@ -151,7 +130,7 @@ void Game::PhaseChange(Phase::Base *next, Time transition_time)
 //
 //}
 
-void Game::Update()
+bool Game::Update(GameTime)
 {
 	time.StartFrame();
 	ParseInput();
@@ -163,7 +142,8 @@ void Game::Update()
 	{
 		phase->Update(time);
 	}
-	factory->Purge();
+	GetFactory()->Purge();
+	return !finished;
 }
 
 void Game::ParseInput()
@@ -180,11 +160,11 @@ void Game::ParseInput()
 	}
 }
 
-void Game::Draw()
+void Game::Draw(Matrix const &transform)
 {
 	SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 30, 30, 50));
 	if (phase)
-		phase->Draw(Matrix());
+		phase->Draw(transform);
 	SDL_Flip(screen);
 }
 
@@ -208,11 +188,6 @@ bool Game::InitialiseSDL(int width, int height)
 
 	SDL_WM_SetCaption("XIQ != QIX", "XIQ");
 	return true;
-}
-
-Playfield *Object::GetPlayfield() const
-{
-	return GetRoot()->GetWorld()->GetPlayfield();
 }
 
 //EOF

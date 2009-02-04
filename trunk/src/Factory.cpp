@@ -8,6 +8,11 @@ Factory::Factory() : next_handle(0)
 {
 }
 
+Factory::~Factory()
+{
+	Purge();
+}
+
 ObjectBase *Factory::NewFromClass(ClassBase *klass)
 {
 	assert(klass != 0);

@@ -9,13 +9,11 @@
 ///
 /// stores the object factory for all other objects in the system.
 /// manages the phase transitions and controls the main processing loop
-struct Game
+struct Game : Object
 {
-	Factory *factory;		///< source of all game objects: static and dynamic
 	GameTime time;
 
 	SDL_Surface *screen;
-
 	bool initialised;
 	bool finished;
 
@@ -28,23 +26,14 @@ struct Game
 	World *world;
 
 public:
-	Game(int width, int height);
+	void Create(int width, int height);
 	~Game();
 
-	/// create a new object of type T using the factorys
-	template <class T>
-	T *New()
-	{
-		T *obj = factory->template New<T>();
-		obj->game = this;
-		return obj;
-	}
-
 	/// top-level update method
-	void Update();
+	bool Update(GameTime);
 
 	/// top-level draw method
-	void Draw();
+	void Draw(Matrix const &);
 
 	/// returns true if the application is intending to close
 	bool Finished() const { return finished; }
@@ -87,10 +76,6 @@ protected:
 
 	/// end the current transition now
 	void EndTransition();
-
-private:
-	/// register game types with the object factory
-	void RegisterTypes();
 
 	/// prepare the SDL system
 	bool InitialiseSDL(int width, int height);
