@@ -84,7 +84,7 @@ Color Game::MakeColor(int r, int g, int b) const
 
 Time Game::TimeNow() const
 {
-	return world->GetGameTime().TotalElapsedSeconds();
+	return time.TotalElapsedSeconds();
 }
 
 bool Game::Transitioning() const
@@ -169,6 +169,8 @@ void Game::PhaseChange(Phase::Base *next, Time transition_time)
 
 void Game::Update()
 {
+	time.StartFrame();
+
 	ParseInput();
 
 	world->Update(GameTime());
@@ -231,11 +233,11 @@ void Game::Draw()
 
 	// test for font system
 	float f = 4;
-	float sx = 14 + 7*sin(TimeNow()*f);
-	float sy = 14 + 7*cos(TimeNow()*f);
-	Matrix M = Matrix::Translate(-28,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
-	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefg");
-	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefg");
+	float sx = 4 + 1*sin(TimeNow()*f);
+	float sy = 4 + 1*cos(TimeNow()*f);
+	Matrix M = Matrix::Translate(-46,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
+	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefghijklm");
+	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefghijklm");
 
 	UpdateHUD();
 
