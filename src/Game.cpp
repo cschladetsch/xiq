@@ -10,9 +10,10 @@
 Game::Game(int width, int height)
 {
 	phase = 0;
-	level = 0;
 	world = 0;
-	player = 0;
+//	level = 0;
+//	world = 0;
+//	player = 0;
 	screen = 0;
 	factory = 0;
 	next_phase = 0;
@@ -27,10 +28,10 @@ Game::Game(int width, int height)
 
 	RegisterTypes();
 
-	player = New<Player>();
-
-	world = New<World>();
-	world->Construct(width, height);
+//	player = New<Player>();
+//
+//	world = New<World>();
+//	world->Construct(width, height);
 
 	font = new Font("font");
 
@@ -57,15 +58,16 @@ void Game::RegisterTypes()
 Game::~Game()
 {
 	Delete(phase);
-	Delete(player);
-	Delete(level);
-	Delete(world);
+	Delete(next_phase);
+//	Delete(player);
+//	Delete(level);
+//	Delete(world);
 }
 
-World *Game::GetWorld() const
-{
-	return world;
-}
+//World *Game::GetWorld() const
+//{
+//	return world;
+//}
 
 SDL_Surface *Game::GetSurface() const
 {
@@ -74,7 +76,7 @@ SDL_Surface *Game::GetSurface() const
 
 GameTime Game::GetTime() const
 {
-	return world->GetGameTime();
+	return time;
 }
 
 Color Game::MakeColor(int r, int g, int b) const
@@ -89,12 +91,15 @@ Time Game::TimeNow() const
 
 bool Game::Transitioning() const
 {
-	return transition_ends > TimeNow() && next_phase != 0;
+	return next_phase != 0 && time.IsAfter(transition_ends);
 }
 
 void Game::Transist()
 {
-
+	if (time.IsAfter(transition_ends))
+	{
+		EndTransition();
+	}
 }
 
 void Game::EndTransition()
@@ -108,15 +113,9 @@ void Game::EndTransition()
 void Game::PhaseChange(Phase::Base *next, Time transition_time)
 {
 	if (!next)
-	{
 		return;
-	}
-
 	if (Transitioning())
-	{
 		EndTransition();
-	}
-
 	transition_ends = TimeNow() + transition_time;
 	next_phase = next;
 }
@@ -170,31 +169,16 @@ void Game::PhaseChange(Phase::Base *next, Time transition_time)
 void Game::Update()
 {
 	time.StartFrame();
-
 	ParseInput();
-
-	world->Update(GameTime());
-
 	if (Transitioning())
 	{
 		Transist();
 	}
 	else if (phase)
 	{
-		phase->Update(world->GetGameTime());
+		phase->Update(time);
 	}
-
-//	float completed = world->GetPlayfield()->GetPercentFilled();
-//	if (completed > 0.75f)
-//	{
-//		float over = completed - 0.75f;
-//		player->AddScore(over * 100 * 1000);
-//		current_level++;
-//
-//		DeleteObjects();
-//
-//		StartLevel();
-//	}
+	factory->Purge();
 }
 
 void Game::ParseInput()
@@ -204,51 +188,22 @@ void Game::ParseInput()
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			finished = true;
-
 		if (event.type == SDL_QUIT)
 			finished = true;
-
 		if (!phase)
 			continue;
-
 		bool handled = phase->InputEvent(event);
-
 		if (handled)
 			continue;
-
 	}
 }
 
 void Game::Draw()
 {
-//	phase->Draw();
-	SDL_Surface *surface = world->GetSurface();
-	SDL_FillRect(surface, 0, SDL_MapRGB(surface->format, 50, 50, 50));
-
-	if (world)
-		world->Draw(Matrix());
-
+	SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 30, 30, 50));
 	if (phase)
 		phase->Draw(Matrix());
-
-	// test for font system
-	float f = 4;
-	float sx = 4 + 1*sin(TimeNow()*f);
-	float sy = 4 + 1*cos(TimeNow()*f);
-	Matrix M = Matrix::Translate(-46,-4)*Matrix::Scale(sx,sy)*Matrix::Rotation(TimeNow())*Matrix::Translate(300,200);
-	font->DrawText(surface, M*Matrix::Translate(2,2), Box(Point(50,50), Point(400,200)), MakeColor(0,0,0), "abcdefghijklm");
-	font->DrawText(surface, M, Box(Point(50,50), Point(400,200)), MakeColor(255,255,255), "abcdefghijklm");
-
-	UpdateHUD();
-
-	SDL_Flip(surface);
-}
-
-void Game::UpdateHUD()
-{
-	char buffer[1024];
-	sprintf(buffer, "XIQ - Level %d Score %d: %d%% complete, %d lives", 1/*current_level*/, player->GetScore(), (int)(100*GetWorld()->GetPlayfield()->GetPercentFilled()), player->GetNumLives());
-	SDL_WM_SetCaption(buffer, 0);
+	SDL_Flip(screen);
 }
 
 bool Game::InitialiseSDL(int width, int height)
@@ -259,7 +214,7 @@ bool Game::InitialiseSDL(int width, int height)
         return false;
     }
 
-    // make sure SDL cleans up before exit
+    // make sure SDL clseans up before exit
     atexit(SDL_Quit);
 
     screen = SDL_SetVideoMode(width, height, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
@@ -272,4 +227,10 @@ bool Game::InitialiseSDL(int width, int height)
 	SDL_WM_SetCaption("XIQ != QIX", "XIQ");
 	return true;
 }
+
+Playfield *Object::GetPlayfield() const
+{
+	return GetRoot()->GetWorld()->GetPlayfield();
+}
+
 //EOF

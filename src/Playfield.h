@@ -55,12 +55,13 @@ public:
 	/// remove all occurances of NewLine from the playfield, replacing them with Line elements
 	void RemoveNewLines(Element = Line);
 
-protected:
+	/// return end of sequence of points by rasterising linesegment p0->p1
+	Point *LineDraw(Point p0, Point p1, Point *out) const;
+
+//protected:
 	/// fills the playfield with new element data along a given line
 	void DrawLineSegment(LineSegment const &line, Element what);
 
-	/// return end of sequence of points by rasterising linesegment p0->p1
-	Point *LineDraw(Point p0, Point p1, Point *out) const;
 
 	/// collision handler for player moving from p0 to p1, with new_start over current
 	void Collision(Point p0, Element new_start, Element current);

@@ -18,18 +18,21 @@ Player::Player()
 	num_lives = 3;
 	immunity_ends = 0;
 	score = 0;
+	location = Point(300,399);
 }
 
 void Player::LoseLife()
 {
 	if (num_lives > 0)
+	{
 		--num_lives;
+		//OnLifeLost();
+	}
 	Time now = GetRoot()->TimeNow();
 	respawn_ends = now + 1.5;
 	immunity_ends = now + 3.5;
 
 	SetDirection(Direction::None);
-	GetRoot()->GetWorld()->GetPlayfield()->RemoveNewLines(Playfield::Empty);
 	if (IsDrawing())
 	{
 		drawing = false;
@@ -73,14 +76,91 @@ bool Player::Update(GameTime time)
 	if (!Moving())
 		return true;
 
-	// plot the trajectory against the playfield-> this will fire events,
-	// and possibly clip the movement
-	GetRoot()->GetWorld()->GetPlayfield()->MovePlayer(*this, time, IsDrawing() ? Playfield::NewLine : Playfield::Line);
+//	printf("%f %f\n", location.x, location.y);
+
+	Playfield *playfield = GetPlayfield();
+
+	// determine the path of movement
+	Direction dir = GetDirection();
+	Vector v = dir.GetVector();
+	float speed = GetSpeed();
+	Point location = GetLocation();
+	float distance = speed*time.DeltaSeconds();
+	Point end_pos = location + v*distance;
+
+	Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
+
+	while (distance > 0)
+	{
+		float step_dist = Clamp(distance, 0.0f, 1.0f);
+		if (step_dist < 0.5f)
+		{
+			SetLocation(location + v*step_dist);
+			return true;
+		}
+		Point next = location + v*step_dist;
+		Playfield::Element e_next = playfield->At(next);
+
+		if (playfield->OutOfBounds(next))
+			break;
+
+		// can't move into filled locations
+		if (e_next == Playfield::Filled)
+			break;
+
+		// can't go through an existing new line
+		if (drawing && e_next == Playfield::NewLine)
+			break;
+
+		// can only move on lines when not creating new one
+		if (!drawing && e_next != Playfield::Line)
+			break;
+
+		// complete an area if we are drawing and hit an existing line
+		if (drawing && e_next == Playfield::Line)
+		{
+			int num_filled = playfield->CalcNewArea(dir, next);
+			double score = (double )num_filled*num_filled/10000000.;
+			AddScore((int)score);
+			SetDrawing(false);
+			return true;
+		}
+
+		// test for movement into a perpendicular line
+		if (!drawing)
+		{
+			for (int n = Direction::Left; n < Direction::Last; ++n)
+			{
+				Direction dir = Direction::Type(n);
+				if (!WantsDirection(dir))
+					continue;
+				Point P = next + dir.GetVector();
+				if (playfield->OutOfBounds(P))
+					continue;
+				if (playfield->At(P) == Playfield::Line)
+				{
+					// change movement.
+					// we should really continue along the new
+					// path, because as it stands the player will
+					// move a shorter distance when cornering.
+					// but i doubt it will matter.
+					SetDirection(dir);
+					SetLocation(location + v);
+					return true;
+				}
+			}
+		}
+
+		playfield->Set(next, what);
+		SetLocation(next);
+		distance -= step_dist;
+	}
 	return true;
 }
 
 void Player::AddScore(int s)
 {
+	//OnScoreAdded(this, s);
 	score += s;
 }
 
@@ -120,6 +200,7 @@ void Player::Draw(Matrix const &)
 
 void Player::Draw(Matrix const &M, Color color)
 {
+	printf("player::draw\n");
 	Point points[] =
 	{
 		Point(-1, 0),
@@ -141,7 +222,7 @@ void Player::Draw(Matrix const &M, Color color)
 void Player::DrawRespawn()
 {
 	float remaining = respawn_ends - GetRoot()->TimeNow();
-	float radius = GetRoot()->GetWorld()->GetPlayfield()->GetWidth()*remaining*remaining;
+	float radius = 600*remaining*remaining;
 	float C = 255;
 	Color color1 = GetRoot()->MakeColor(C,0,0);
 	Color color2 = GetRoot()->MakeColor(0,C,0);

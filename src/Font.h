@@ -35,6 +35,9 @@ public:
 
 	/// draw some text
 	void DrawText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
+
+	/// draw text with a shadow
+	void DrawShadowedText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
 };
 
 #endif // FONT_H_INCLUDED

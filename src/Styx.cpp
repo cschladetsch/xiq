@@ -20,38 +20,38 @@ Styx::Styx()
 
 bool Styx::Update(GameTime /*time*/)
 {
-	Playfield const &pf = *GetRoot()->GetWorld()->GetPlayfield();
-
-	// create set of possibile directions to move in
-	std::vector<Direction> choices;
-	for (int n = 0; n < 4; ++n)
-	{
-		Direction dir = (Direction::Type)n;
-
-		// can't reverse direction
-		if (dir.Opposite() == direction)
-			continue;
-
-		Playfield::Element element = pf.At(location + dir.GetVector());
-		if (element == Playfield::Line)
-		{
-			choices.push_back(Direction::Type(n));
-		}
-	}
-
-	// if we have no where to go, reverse
-	if (choices.empty())
-	{
-		direction = direction.Opposite();
-	}
-	else
-	{
-		// choose new direction, move
-		int where = RandomRanged(0, choices.size());
-		direction = choices[where];
-	}
-
-	location += direction.GetVector();//*speed*time.delta;
+//	Playfield const &pf = *GetRoot()->GetWorld()->GetPlayfield();
+//
+//	// create set of possibile directions to move in
+//	std::vector<Direction> choices;
+//	for (int n = 0; n < 4; ++n)
+//	{
+//		Direction dir = (Direction::Type)n;
+//
+//		// can't reverse direction
+//		if (dir.Opposite() == direction)
+//			continue;
+//
+//		Playfield::Element element = pf.At(location + dir.GetVector());
+//		if (element == Playfield::Line)
+//		{
+//			choices.push_back(Direction::Type(n));
+//		}
+//	}
+//
+//	// if we have no where to go, reverse
+//	if (choices.empty())
+//	{
+//		direction = direction.Opposite();
+//	}
+//	else
+//	{
+//		// choose new direction, move
+//		int where = RandomRanged(0, choices.size());
+//		direction = choices[where];
+//	}
+//
+//	location += direction.GetVector();//*speed*time.delta;
 	return true;
 }
 

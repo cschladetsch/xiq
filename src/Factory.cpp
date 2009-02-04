@@ -4,7 +4,7 @@
 #include "Object.h"
 #include "Factory.h"
 
-Factory::Factory()
+Factory::Factory() : next_handle(0)
 {
 }
 

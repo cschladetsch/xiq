@@ -40,104 +40,6 @@ bool Playfield::Update(GameTime)
 	return true;
 }
 
-void Playfield::MovePlayer(Player &player, GameTime time, Element what)
-{
-	if (!player.Moving())
-		return;
-
-	// determine the path of movement
-	Direction dir = player.GetDirection();
-	Vector v = dir.GetVector();
-	float speed = player.GetSpeed();
-	Point location = player.GetLocation();
-	Point end_pos = location + v*speed*time.DeltaMillis();
-
-	// something is wrong with movement... it is jerky and slows down on horizontals??
-//	if (dir == Direction::Left) end_pos += Vector(-1,0);
-//	if (dir == Direction::Right) end_pos += Vector(1,0);
-	LineSegment movement(location, end_pos);
-
-	// rasterise the line-segement
-	Point buffer[10*1000];
-	Point *start = buffer;
-	Point *end = LineDraw(movement.first, movement.second, buffer);
-
-	bool drawing = player.IsDrawing();
-
-	// traverse the points
-	while (start != end)
-	{
-		Point next = *start++;
-		Element e_next = At(next);
-
-		if (OutOfBounds(next))
-		{
-			break;
-		}
-
-		// can't move into filled locations
-		if (e_next == Filled)
-		{
-			break;
-		}
-
-		// skip the position that the player is currently on
-		if (player.GetLocation() == next)
-		{
-			goto next_location;
-		}
-
-		// can't go through an existing new line
-		if (drawing && e_next == NewLine)
-		{
-			break;
-		}
-
-		// can only move on lines when not creating new one
-		if (!drawing && e_next != Line)
-		{
-			break;
-		}
-
-		// complete an area if we are drawing and hit an existing line
-		if (drawing && e_next == Line)
-		{
-			int num_filled = CalcNewArea(dir, next);
-			double score = (double )num_filled*num_filled/10000000.;
-			player.AddScore((int)score);
-			player.SetDrawing(false);
-			return;
-		}
-
-		// test for movement into a perpendicular line
-		if (!drawing)
-		{
-			for (int n = Direction::Left; n < Direction::Last; ++n)
-			{
-				Direction dir = Direction::Type(n);
-				if (!player.WantsDirection(dir))
-					continue;
-				Point P = next + dir.GetVector();
-				if (OutOfBounds(P))
-					continue;
-				if (At(P) == Line)
-				{
-					// change movement
-					player.SetDirection(dir);
-					player.SetLocation(next);
-					return;
-				}
-			}
-		}
-
-next_location:
-		if (e_next == Filled)
-			break;
-		Set(next, what);
-		player.SetLocation(next);
-	}
-}
-
 // calculate a new area to fill after the player completes a loop on the playfield
 // dir is the direction the player was travelling, and P is the point that completed the loop
 int Playfield::CalcNewArea(Direction dir, Point P)
@@ -280,8 +182,13 @@ skip:		for (x++; x < width && At(x, y) != ov; x++)
 
 Point *Playfield::LineDraw(Point p0, Point p1, Point *out) const
 {
-	int vx = p1.x - p0.x;
-	int vy = p1.y - p0.y;
+	float vx = p1.x - p0.x;
+	float vy = p1.y - p0.y;
+
+//	// ?? round to nearest whole number
+//	if (vx < 0) vx -= 0.5f; else vx += 0.5f;
+//	if (vy < 0) vy -= 0.5f; else vy += 0.5f;
+
 	int nx = abs(vx);			// length to move in x
 	int ny = abs(vy);			// length to move in y
 	int dx = vx > 0 ? 1 : -1;	// direction of x
