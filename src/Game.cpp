@@ -5,6 +5,9 @@
 #include "Phase.h"
 #include "Font.h"
 
+// may want this later; but for the moment just stick with raw audio
+//#include "SDL/SDL_mixer.h"
+
 void Game::Create(int width, int height)
 {
 	phase = 0;
@@ -93,65 +96,31 @@ void Game::PhaseChange(Phase::Base *next, Time transition_time)
 	next_phase = next;
 }
 
-//void Game::InitialiseLevel()
-//{
-//	Styx *styx = new Styx();
-//	styx->SetWorld(this);
-//
-//	float radius_mul = current_level*0.5f;
-//
-//	Point spawn_point(0,0);
-//	styx->SetLocation(spawn_point);
-//	styx->SetRadius(15*radius_mul);
-//	styx->SetDirection(Direction::Down);
-//	styx->SetSpeed(40);
-//	styx->SetColor(MakeColor(255,0,0));
-//	objects.insert(styx);
-//
-//	if (current_level > 1)
-//	{
-//
-//		Styx *styx2 = new Styx();
-//		styx2->SetWorld(this);
-//
-//		styx2->SetLocation(Point(GetPlayfield().GetWidth() - 1,0));
-//		styx2->SetRadius(8*radius_mul);
-//		styx2->SetDirection(Direction::Down);
-//		styx2->SetSpeed(100);
-//		styx2->SetColor(MakeColor(100,0,250));
-//
-//		objects.insert(styx2);
-//	}
-//	if (current_level > 2)
-//	{
-//
-//		Styx *styx2 = new Styx();
-//		styx2->SetWorld(this);
-//
-//		styx2->SetLocation(Point(GetPlayfield().GetWidth() - 1, playfield.GetHeight() - 1));
-//		styx2->SetRadius(22*radius_mul);
-//		styx2->SetDirection(Direction::Left);
-//		styx2->SetSpeed(100);
-//		styx2->SetColor(MakeColor(50,255,250));
-//
-//		objects.insert(styx2);
-//	}
-//
-//}
-
 bool Game::Update(GameTime)
 {
 	time.StartFrame();
-	ParseInput();
-	if (Transitioning())
+
+	SDL_LockAudio();
 	{
-		Transist();
+		ParseInput();
+		if (Transitioning())
+		{
+			Transist();
+		}
+		else if (phase)
+		{
+			phase->Update(time);
+		}
 	}
-	else if (phase)
-	{
-		phase->Update(time);
-	}
+	SDL_UnlockAudio();
+
 	GetFactory()->Purge();
+
+	if (finished)
+	{
+		SDL_CloseAudio();
+	}
+
 	return !finished;
 }
 
@@ -177,9 +146,64 @@ void Game::Draw(Matrix const &transform)
 	SDL_Flip(screen);
 }
 
+#include "World.h"
+#include "Player.h"
+
+float t_last;
+bool first = true;
+double target_frequency;
+double frequency;
+
+void AudioCallback(void *userdata, Uint8 *stream, int len)
+{
+	Game *game = (Game *)userdata;
+	Phase::Play *play = game->GetPhase<Phase::Play>();
+	if (!play)
+	{
+		return;
+	}
+
+	typedef Sint8 Sample;
+	double playback_rate = 8000;
+	double dt = 1.0f/playback_rate;
+	int sample_num_bytes = sizeof(Sample);
+
+	target_frequency = 200;
+
+	Player *player = game->GetWorld()->GetPlayer();
+	Direction dir = player->GetDirection();
+
+	if (dir == Direction::None)
+	{
+		target_frequency = 0;
+	}
+
+	target_frequency += dir.value*200;
+	frequency += (target_frequency - frequency)/5;
+
+	Sample *buffer = (Sample *)stream;
+	int num_samples = len/sample_num_bytes;
+
+	double t = t_last;
+	for (int n = 0; n < num_samples; ++n)
+	{
+		double value = sin(t*frequency);
+		Sample sample = 127*value;
+		buffer[n] = sample;
+		t += dt;
+
+//		// half-way through, move closer to target
+//		if (n > num_samples/2)
+//		{
+//			frequency += (target_frequency - frequency)/2;
+//		}
+	}
+	t_last = t;
+}
+
 bool Game::InitialiseSDL(int width, int height)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
     {
         printf( "Unable to init SDL: %s\n", SDL_GetError() );
         return false;
@@ -194,6 +218,26 @@ bool Game::InitialiseSDL(int width, int height)
         printf("Unable to create window: %s\n", SDL_GetError());
         return false;
     }
+
+    SDL_AudioSpec desired, obtained;
+
+	// latency is freq/samples
+    desired.freq = 8000;
+    desired.format = AUDIO_S8;
+    desired.samples = 256;
+    desired.channels = 1;
+    desired.callback = AudioCallback;
+    desired.userdata = this;
+    if (SDL_OpenAudio(&desired, &obtained) < 0)
+    {
+        printf("Unable to open audio device: %s\n", SDL_GetError());
+        return 1;
+    }
+
+	printf("audio: freq=%d; samples=%d; channels=%d\n", obtained.freq, obtained.samples, obtained.channels);
+
+	// lol
+	SDL_PauseAudio(0);
 
 	SDL_WM_SetCaption("XIQ != QIX", "XIQ");
 	return true;

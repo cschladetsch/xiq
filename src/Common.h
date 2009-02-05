@@ -17,6 +17,7 @@
 #	include <map>
 
 #	include <SDL.h>
+#	include <SDL_audio.h>
 
 #	include <boost/foreach.hpp>
 
