@@ -61,6 +61,16 @@ void World::DeleteObjects()
 	objects.clear();
 }
 
+void Trace(Object *object)
+{
+	if (!Exists(object))
+	{
+		printf("Null Object\n");
+		return;
+	}
+	printf("Object type=%d; radius=%f; pos=%f,%f\n", object->GetTypeNumber(), object->GetRadius(), object->GetLocation().x, object->GetLocation().y);
+}
+
 void World::CollisionDetection()
 {
 	foreach (Object *A, objects)
@@ -79,8 +89,12 @@ void World::CollisionDetection()
 			bool collision = distance < A->GetRadius() + B->GetRadius();
 			if (collision)
 			{
-
-//				OnCollide(A, B);
+				if (!player->IsImmune() && (A->IsType<Player>() || B->IsType<Player>()))
+				{
+					Trace(A);
+					Trace(B);
+					player->LoseLife();
+				}
 			}
 		}
 	}

@@ -31,6 +31,12 @@ namespace Phase
 	{
 		/// optionally override to handle input during the phase
 		virtual bool InputEvent(SDL_Event const &) { return false; }
+
+		/// optionally override to enter this phaes, given last phase
+		virtual void Enter(Base * /*previous*/) {  }
+
+		/// optionally override to leave this phaes, given next phase
+		virtual void Leave(Base * /*next*/) {  Delete(); }
 	};
 
 	/// loading/boot phase
@@ -68,6 +74,7 @@ namespace Phase
 
 		// overrides for Phase
 		bool InputEvent(SDL_Event const &);
+		void Leave(Base  * /*next*/) { /* don't delete when leaving - GameOver phase will do that */ }
 
 	protected:
 		void PlayerDirects(Direction);
@@ -85,9 +92,15 @@ namespace Phase
 	/// show the end score, high-scores and allow player to enter name
 	struct GameOver : Base
 	{
+		int score;
+		Base *prev;
+
 		void Prepare();
+		void Enter(Base *previous);
+		bool InputEvent(SDL_Event const &);
 		bool Update(GameTime);
-		void Draw();
+		void Draw(Matrix const &);
+		void Leave(Base *next);
 	};
 }
 

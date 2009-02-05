@@ -61,7 +61,7 @@ public:
 	///		* never created
 	///		* have been created and have been released
 	///		* currently created, but have been deleted, waiting for next Purge
-	bool Exists(ObjectBase *) const;
+	bool Exists(ObjectBase const *) const;
 	bool Exists(Handle) const;
 
 	/// release resources for all objects pending deletion

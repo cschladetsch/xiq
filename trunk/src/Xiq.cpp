@@ -16,8 +16,8 @@ void Xiq::Prepare()
 	steer = RandomUnitVector();
 
 	SetRadius(30);
-	speed = 50;
-	max_speed = 50;
+	speed = 100;
+	max_speed = 100;
 
 	force = RandomUnitVector()*1000;
 
@@ -56,8 +56,6 @@ void Xiq::SetRadius(float R)
 
 bool Xiq::Update(GameTime time)
 {
-	printf("Xiq::Update: pos=%f %f\n", location.x, location.y);
-
 	float t = time.TotalElapsedSeconds();
 	SetRadius(radius_waves[0](t) + radius_waves[1](t));
 
@@ -113,7 +111,7 @@ void Xiq::SetPixel(int x, int y, Color color)
 		if (!player->IsImmune())
 		{
 			world->AddImpact(x,y, GetRadius()*6);
-//			player->OnHit(...);
+			player->LoseLife();
 		}
 	}
 	if (element != Playfield::Empty)

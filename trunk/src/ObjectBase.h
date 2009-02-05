@@ -22,7 +22,7 @@ public:
 
 	Factory *GetFactory() const;
 	ClassBase const *GetClass() const { return klass; }
-	TypeNumber *GetTypeNumber() const;
+	TypeNumber GetTypeNumber() const;
 	Handle GetHandle() const { return handle; }
 
 	virtual void Construct() { }
@@ -33,9 +33,16 @@ public:
 	{
 		return GetFactory()->template New<T>();
 	}
+	bool Exists() const;
+
+	template <class T>
+	bool IsType() const
+	{
+		return GetTypeNumber() == Traits<T>::Number;
+	}
 };
 
-bool Exists(ObjectBase *);
+bool Exists(ObjectBase const *);
 void Delete(ObjectBase *);
 
 #endif // OBJECTBASE_H_INCLUDED

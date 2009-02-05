@@ -20,8 +20,8 @@ void Game::Create(int width, int height)
 
 	font = new Font("font");
 
-//	PhaseChange(New<Phase::Boot>());
-	PhaseChange(New<Phase::Play>());
+	PhaseChange(New<Phase::Boot>());
+//	PhaseChange(New<Phase::Play>());
 
 	initialised = true;
 	finished = false;
@@ -68,7 +68,16 @@ void Game::Transist()
 
 void Game::EndTransition()
 {
-	::Delete(phase);
+	if (phase)
+	{
+		phase->Leave(next_phase);
+	}
+	if (next_phase)
+	{
+		next_phase->Enter(phase);
+	}
+
+//	::Delete(phase);
 	phase = next_phase;
 	next_phase = 0;
 	transition_ends = 0;

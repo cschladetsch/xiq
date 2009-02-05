@@ -44,6 +44,7 @@ void RegisterTypes(Factory &factory)
 	factory.AddClass<Phase::Boot>();
 	factory.AddClass<Phase::Attract>();
 	factory.AddClass<Phase::Play>();
+	factory.AddClass<Phase::GameOver>();
 }
 
 int main(int argc, char** argv)

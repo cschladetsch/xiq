@@ -11,34 +11,42 @@
 
 void Player::Prepare()
 {
+	collides = true;
 	speed = 180;
 	radius = 20;
 	drawing = false;
 	std::fill(wants_direction, wants_direction + 5, false);
 	num_lives = 3;
 	Time now = GetRoot()->TimeNow();
-	immunity_ends = now + 3;
-	respawn_ends = 0;//now + 2;
+	immunity_ends = now + 2;
+	respawn_ends = now + 2;
 	score = 0;
 	location = Point(300,399);
 }
 
 void Player::LoseLife()
 {
-	if (num_lives > 0)
-	{
-		--num_lives;
-		//TODO OnLifeLost();
-	}
+	if (num_lives == 0)
+		return;
+
+	--num_lives;
+	bool dead = num_lives == 0;
+
 	Time now = GetRoot()->TimeNow();
-	respawn_ends = now + 1.5;
-	immunity_ends = now + 3.5;
+	respawn_ends = now + (dead ? 2 : 1);
+	immunity_ends = now + 2;
 
 	SetDirection(Direction::None);
-	if (IsDrawing())
+	if (IsDrawing() && !dead)
 	{
 		drawing = false;
 		location = launch_point;
+	}
+
+	// remove the new line we were making
+	if (!dead)
+	{
+			GetPlayfield()->RemoveNewLines(Playfield::Empty);
 	}
 }
 
@@ -81,7 +89,7 @@ void Player::SetLocation(Point P)
 
 bool Player::Update(GameTime time)
 {
-	if (!Moving())
+	if (!Moving() || num_lives == 0)
 		return true;
 
 	Playfield *playfield = GetPlayfield();
@@ -96,6 +104,8 @@ bool Player::Update(GameTime time)
 	Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
 
 	//printf("step=%g, distance=%g\n", time.DeltaSeconds(), distance);
+
+	distance = 1;
 
 	// while there is still some distance 	to move
 	while (distance > 0)
@@ -204,6 +214,10 @@ void Player::Draw(Matrix const &)
 	{
 		DrawRespawn();
 	}
+	if (HasNoLives())
+	{
+		return;
+	}
 
 	Point P = GetLocation();
 	float L = GetRadius()/2.0f;
@@ -240,13 +254,31 @@ void Player::Draw(Matrix const &M, Color color)
 void Player::DrawRespawn()
 {
 	float remaining = respawn_ends - GetRoot()->TimeNow();
-	float radius = 600*remaining*remaining;
+	float alpha = 1 + 300*remaining*remaining;
+
+	float radius = alpha;
+	bool dead = HasNoLives();
+
+	if (dead)
+	{
+		radius = (remaining/2.0f)*500;//radius = 300 - alpha;
+	}
+
+//	printf("radius: %d %f\n", HasNoLives(), radius);
+
 	float C = 255;
+
 	Color color1 = GetRoot()->MakeColor(C,0,0);
 	Color color2 = GetRoot()->MakeColor(0,C,0);
 	Color color3 = GetRoot()->MakeColor(0,0,C);
+
+	if (dead)
+	{
+		color2 = GetRoot()->MakeColor(C,C,0);
+		color3 = GetRoot()->MakeColor(C,C,C);
+	}
 	SDL_Surface *surface = GetRoot()->GetSurface();
-	for (int n = 0; n < 10; ++n, radius *= 0.80f)
+	for (int n = 0; n < 20; ++n, radius *= 0.80f)
 	{
 		DrawCircle(surface, location.x - 1, location.y - 1, radius + 1, color1);
 		DrawCircle(surface, location.x + 0, location.y + 0, radius + 0, color2);
