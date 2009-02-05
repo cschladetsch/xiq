@@ -91,8 +91,8 @@ void World::CollisionDetection()
 			{
 				if (!player->IsImmune() && (A->IsType<Player>() || B->IsType<Player>()))
 				{
-					Trace(A);
-					Trace(B);
+//					Trace(A);
+//					Trace(B);
 					player->LoseLife();
 				}
 			}

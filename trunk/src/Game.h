@@ -59,6 +59,17 @@ public:
 	void SetWorld(World *W) { world = W; }
 	World *GetWorld() const { return world; }
 
+	/// return the current phase downcast to a given specific phase if it matches
+	template <class T>
+	T *GetPhase() const { return InPhase<T>() ? static_cast<T *>(GetPhaseBase()) : 0; }
+
+	/// return true if currently in the given phase
+	template <class T>
+	bool InPhase() const { return GetPhaseBase() && GetPhaseBase()->IsType<T>(); }
+
+	/// return the current game phase base
+	Phase::Base *GetPhaseBase() const { return phase; }
+
 protected:
 	void ParseInput();
 

@@ -52,7 +52,7 @@ bool Font::FromFile(const char *filename)
 		Glyph glyph;
 		std::vector<Point> points;
 		glyph.letter = glyh_desc[0][0];
-		cout << "glyph: " << glyph.letter << endl;
+		//cout << "glyph: " << glyph.letter << endl;
 		for (size_t y = 0; y < y_dim; ++y)
 		{
 			std::string const &line = glyh_desc[1 + y];
