@@ -75,7 +75,7 @@ int Playfield::CalcNewArea(Direction dir, Point P)
 	float percent = (float)num_filled/total;
 	percent_filled += percent;
 
-	//printf("CalcNewArea: %f %f = %d\n", P.x, P.y, num_filled);
+	printf("CalcNewArea: %f %f = %d (%f filled)\n", P.x, P.y, num_filled, percent_filled);
 	return num_filled;
 }
 
@@ -227,8 +227,8 @@ void Playfield::Draw(Matrix const &)
 	Color green = SDL_MapRGB(surface->format, 0,255,0);
 	Color blue = SDL_MapRGB(surface->format, 0,0,255);
 	Color white = SDL_MapRGB(surface->format, 255,255,255);
-	Color gray = SDL_MapRGB(surface->format, 100,100,100);
-	Color cyan = SDL_MapRGB(surface->format, 200,0,200);
+	Color gray = SDL_MapRGB(surface->format, 30,30,50);
+	Color cyan = SDL_MapRGB(surface->format, 50,50,100);
 
 	for (int y = 0; y < height; ++y)
 	{

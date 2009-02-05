@@ -62,6 +62,7 @@ namespace Phase
 	struct Play;
 	struct Attract;
 	struct Transition;
+	struct GameOver;
 };
 
 struct TypeNumbers
@@ -81,6 +82,7 @@ struct TypeNumbers
 		PhaseAttract,
 		PhasePlay,
 		PhaseTransition,
+		PhaseGameOver,
 	};
 };
 
@@ -100,6 +102,7 @@ CGL_TRAITS(Phase::Boot, TypeNumbers::PhaseBoot);
 CGL_TRAITS(Phase::Attract, TypeNumbers::PhaseAttract);
 CGL_TRAITS(Phase::Play, TypeNumbers::PhasePlay);
 CGL_TRAITS(Phase::Transition, TypeNumbers::PhaseTransition);
+CGL_TRAITS(Phase::GameOver, TypeNumbers::PhaseGameOver);
 
 #include "Factory.h"
 #include "Object.h"

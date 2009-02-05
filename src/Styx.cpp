@@ -15,7 +15,7 @@
 Styx::Styx()
 {
 	collides = true;
-	move_towards_player = true;
+	move_toward_player = true;
 }
 
 bool Styx::Update(GameTime time)
@@ -49,7 +49,7 @@ bool Styx::Update(GameTime time)
 		// choose new random direction
 		SetDirection(choices[RandomRanged(0, choices.size())]);
 
-		if (move_towards_player && choices.size() > 1)
+		if (move_toward_player && choices.size() > 1)
 		{
 			Point pos_player = GetRoot()->GetWorld()->GetPlayer()->GetLocation();
 			float min_dist = 0;

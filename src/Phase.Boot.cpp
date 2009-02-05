@@ -30,6 +30,8 @@ namespace Phase
 		SDL_Surface *surface = GetRoot()->GetSurface();
 		Time now = GetRoot()->TimeNow();
 
+		font->DrawText(surface, Matrix::Translate(20,4), Box(), GetRoot()->MakeColor(100,100,100), "build 0-2");
+
 		// draw the 'xiq' text rotating underneath
 		std::string xiq = "xiq";
 		int len = xiq.size();
@@ -65,7 +67,7 @@ namespace Phase
 			std::string text = "press-space";
 			int len = text.size();
 
-			float scale = 3 + 3*sin(now*2);
+			float scale = 4 + 1.5*sin(now*2);
 
 			Matrix M =
 				Matrix::Translate(-len*4 - 2,-4)

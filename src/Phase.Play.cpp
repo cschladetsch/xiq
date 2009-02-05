@@ -1,6 +1,7 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
 #include "PhaseCommon.h"
+#include "Font.h"
 #include "Xiq.h"
 #include "Styx.h"
 
@@ -33,6 +34,17 @@ namespace Phase
 		styx->SetDirection(Direction::Down);
 		styx->SetSpeed(40);
 		styx->SetColor(GetRoot()->MakeColor(255,0,0));
+		styx->move_toward_player = true;
+		world->AddObject(styx);
+
+		styx = New<Styx>();
+		spawn_point = Point(599,0);
+		styx->SetLocation(spawn_point);
+		styx->SetRadius(8);
+		styx->SetDirection(Direction::Down);
+		styx->SetSpeed(40);
+		styx->SetColor(GetRoot()->MakeColor(0,0,255));
+		styx->move_toward_player = false;
 		world->AddObject(styx);
 
 //		player->OnLifeLost += Delegate(this, &Play::PlayerLostLife);
@@ -47,6 +59,12 @@ namespace Phase
 	{
 		world->Update(time);
 
+		if (world->GetPlayer()->GetNumLives() == 0)
+		{
+			GetRoot()->PhaseChange(New<GameOver>());
+			return true;
+		}
+
 		// test for completion
 		float filled = world->GetPlayfield()->GetPercentFilled();
 		if (filled > 0.75f)
@@ -56,7 +74,7 @@ namespace Phase
 
 			Play *next_level = New<Phase::Play>();
 			next_level->SetLevel(level + 1);
-			GetRoot()->PhaseChange(next_level, 3);
+			GetRoot()->PhaseChange(next_level);//, 3);
 		}
 		return true;
 	}
@@ -71,6 +89,25 @@ namespace Phase
 	void Play::Draw(Matrix const &matrix)
 	{
 		world->Draw(matrix);
+
+		// draw the score
+		Matrix transform;
+		Color color;
+
+		char text[1000];
+
+		sprintf(text, "score %06d", world->GetPlayer()->GetScore());
+		int len = strlen(text);
+		color = GetRoot()->MakeColor(255,255,255);
+		transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,15);
+		GetRoot()->GetFont()->DrawShadowedText(GetRoot()->GetSurface(), transform, Box(), color, text);
+
+
+		sprintf(text, "lives %d", world->GetPlayer()->GetNumLives());
+		len = strlen(text);
+		color = GetRoot()->MakeColor(255,255,255);
+		transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,30);
+		GetRoot()->GetFont()->DrawShadowedText(GetRoot()->GetSurface(), transform, Box(), color, text);
 	}
 
 	bool Play::InputEvent(SDL_Event const &event)

@@ -21,6 +21,7 @@ ObjectBase *Factory::NewFromClass(ClassBase *klass)
 	ObjectBase *base = klass->Create();
 	base->handle = ++next_handle;
 	base->Construct();
+	instances[base->handle] = base;
 	return base;
 }
 
@@ -56,7 +57,7 @@ ObjectBase *Factory::GetObject(Handle handle) const
 	return instance == instances.end() ? 0 : instance->second;
 }
 
-bool Factory::Exists(ObjectBase *base) const
+bool Factory::Exists(ObjectBase const *base) const
 {
 	if (!base)
 		return false;
