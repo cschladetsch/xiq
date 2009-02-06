@@ -1,6 +1,7 @@
 //// (C) 2009 christian.schladetsch@gmail.com
 //
-//#include "PhaseCommon.h"
+#include "Precompiled.h"
+#include "PhaseCommon.h"
 //
 //namespace Phase
 //{

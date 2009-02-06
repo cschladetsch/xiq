@@ -1,5 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
+#include "Precompiled.h"
 #include "PhaseCommon.h"
 #include "Font.h"
 
@@ -43,9 +44,9 @@ namespace Phase
 
 		Font *font = GetRoot()->GetFont();
 		char text[1000];
-		sprintf(text, "score %06d", score);
-		int len = strlen(text);
-		Matrix matrix = Matrix::Translate(-len*4,-4)*Matrix::Scale(3,3)*Matrix::Translate(300,200);
+		sprintf_s(text, 1000, "score %06d", score);
+		size_t len = strlen(text);
+		Matrix matrix = Matrix::Translate(-(int)len*4,-4)*Matrix::Scale(3,3)*Matrix::Translate(300,200);
 		Color color = GetRoot()->MakeColor(255,255,0);
 		font->DrawShadowedText(GetRoot()->GetSurface(), matrix, Box(), color, text);
 	}

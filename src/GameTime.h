@@ -5,8 +5,20 @@
 
 // TODO: deal with this cross platform
 // ...also need to deal with CPU afinity...
+#ifdef LINUX
 #include <sys/time.h>
 
+namespace Platform
+{
+	typedef timeval TimeValue;
+}
+
+#else
+namespace Platform
+{
+	typedef __int64 TimeValue;
+}
+#endif
 
 typedef double Time, DeltaTime, TimeDelta;
 
@@ -14,8 +26,8 @@ typedef double Time, DeltaTime, TimeDelta;
 struct GameTime
 {
 private:
-	timeval first;					///< when this object was created
-	timeval prev_frame_start;
+	Platform::TimeValue first;					///< when this object was created
+	Platform::TimeValue prev_frame_start;
 
 	Time start_frame_millis;	///< when current frame started
 	Time end_frame_millis;		///< when current frame started
@@ -65,7 +77,7 @@ public:
 
 private:
 	/// get the number of seconds since this object was created
-	Time TakeSample() const;
+	Platform::TimeValue TakeSample() const;
 };
 
 #endif // GAMETIME_H_INCLUDED

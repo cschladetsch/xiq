@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "Object.h"
 #include "Styx.h"
 #include "Draw.h"

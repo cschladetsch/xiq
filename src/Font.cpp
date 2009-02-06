@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch.net
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "Font.h"
 #include "Draw.h"
 
@@ -37,7 +37,7 @@ bool Font::FromFile(const char *filename)
 	for (size_t glyph_num = 0; glyph_num < num_glyphs; ++glyph_num)
 	{
 		// read the lines
-		std::string glyh_desc[glyph_num_lines];
+		std::vector<std::string> glyh_desc(glyph_num_lines);
 		for (size_t n = 0; n < glyph_num_lines; ++n)
 		{
 			char buffer[2000];
