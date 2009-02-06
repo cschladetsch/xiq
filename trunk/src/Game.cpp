@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch.net
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "Game.h"
 #include "Phase.h"
 #include "Font.h"

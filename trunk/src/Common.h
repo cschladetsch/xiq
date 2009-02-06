@@ -23,6 +23,28 @@
 
 #	define foreach BOOST_FOREACH
 
+///// #include "Platform/Config.h"
+
+#ifdef CGL_PLATFORM_VISTA
+
+#define CGL_COMPILER_NAME VisualC
+#define CGL_COMPILER_VISUAL_C
+
+#define CGL_PLATFORM_NAME Vista
+
+#define CGL_TARGET_NAME Vista
+#define CGL_TARGET_VISTA
+
+#endif
+
+
+#ifdef CGL_COMPILER_VISUAL_C
+#	pragma warning(disable:4244)
+#endif
+
+//// #endif PLATFORM_CONFIG_H
+
+
 typedef unsigned char Unsigned8;
 typedef unsigned short Unsigned16;
 

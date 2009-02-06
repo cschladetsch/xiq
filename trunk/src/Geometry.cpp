@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
+#include "Precompiled.h"
 
 Point NearestPoint(LineSegment const &L, Point const &p3)
 {

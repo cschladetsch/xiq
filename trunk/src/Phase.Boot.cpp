@@ -1,5 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
+#include "Precompiled.h"
 #include "PhaseCommon.h"
 #include "Font.h"
 
@@ -34,11 +35,11 @@ namespace Phase
 
 		// draw the 'xiq' text rotating underneath
 		std::string xiq = "xiq";
-		int len = xiq.size();
+		size_t len = xiq.size();
 		float scale = 8;
 		float angle = now;
 		Matrix M =
-			Matrix::Translate(-len*4,-4)
+			Matrix::Translate(-(int)len*4,-4)
 			*Matrix::Scale(scale,scale)
 			*Matrix::Rotation(angle)
 			*Matrix::Translate(300,200);
@@ -65,12 +66,12 @@ namespace Phase
 		// draw 'press space' zooming in and out
 		{
 			std::string text = "press-space";
-			int len = text.size();
+			size_t len = text.size();
 
 			float scale = 4 + 1.5*sin(now*2);
 
 			Matrix M =
-				Matrix::Translate(-len*4 - 2,-4)
+				Matrix::Translate(-(int)len*4 - 2,-4)
 				*Matrix::Scale(scale,scale)
 				*Matrix::Translate(300,200);
 

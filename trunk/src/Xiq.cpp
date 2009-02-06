@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "Draw.h"
 #include "Object.h"
 #include "Xiq.h"
@@ -65,7 +65,7 @@ bool Xiq::Update(GameTime time)
 	while (angle < 0)
 		angle += math::two_pi;
 
-	Vector center = location + steer*sqrt(2);
+	Vector center = location + steer*sqrt(2.0f);
 	Point target = center + Vector(cos(angle), sin(angle));
 	steer = (target - location).Normalised();
 	force += steer*5;

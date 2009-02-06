@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "ObjectBase.h"
 #include "Factory.h"
 

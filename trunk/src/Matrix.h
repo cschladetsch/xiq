@@ -26,7 +26,7 @@ struct Matrix
 
 	Matrix()
 	{
-		std::fill(_, _ + 9, 0);
+		std::fill(_, _ + 9, 0.f);
 		m[0][0] = m[1][1] = m[2][2] = 1;
 	}
 	Matrix(Ordinate _0, Ordinate _1, Ordinate _2

@@ -1,6 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#include "Common.h"
+#include "Precompiled.h"
 #include "GameTime.h"
 
 GameTime::GameTime()
@@ -13,7 +13,9 @@ GameTime::GameTime()
 	use_fixed_step = false;
 	fixed_step_millis = 0;
 
+#ifdef CGL_PLATFORM_UNIX
 	gettimeofday(&first, 0);
+#endif
 
 	prev_frame_start = first;
 	delta_millis = 0;
@@ -26,6 +28,7 @@ void GameTime::StartFrame()
 //	delta_millis = now - start_frame_millis;
 //	start_frame_millis = now;
 
+#ifdef CGL_PLATFORM_UNIX
 	timeval now;
 	gettimeofday(&now, 0);
 
@@ -40,9 +43,14 @@ void GameTime::StartFrame()
 	total_millis = (now.tv_sec - first.tv_sec)*1000. + (now.tv_usec - first.tv_usec)/1000.;
 
 	prev_frame_start = now;
+
+#else
+	delta_millis = 4;//1.0f/60.0f;
+	total_millis += delta_millis;
+#endif
 }
 
-Time GameTime::TakeSample() const
+Platform::TimeValue GameTime::TakeSample() const
 {
 	assert(0);
 	return 0;
