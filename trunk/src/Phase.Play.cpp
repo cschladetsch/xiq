@@ -97,14 +97,14 @@ namespace Phase
 
 		char text[1000];
 
-		sprintf(text, "score %06d", world->GetPlayer()->GetScore());
-		int len = strlen(text);
+		sprintf_s(text, 1000, "score %06d", world->GetPlayer()->GetScore());
+		size_t len = strlen(text);
 		color = GetRoot()->MakeColor(255,255,255);
 		transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,15);
 		GetRoot()->GetFont()->DrawShadowedText(GetRoot()->GetSurface(), transform, Box(), color, text);
 
 
-		sprintf(text, "lives %d", world->GetPlayer()->GetNumLives());
+		sprintf_s(text, 1000, "lives %d", world->GetPlayer()->GetNumLives());
 		len = strlen(text);
 		color = GetRoot()->MakeColor(255,255,255);
 		transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,30);

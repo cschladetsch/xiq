@@ -73,7 +73,7 @@ bool Styx::Update(GameTime time)
 
 void Styx::Draw(Matrix const &)
 {
-	float freq = 2.2;
+	float freq = 2.2f;
 	float angle = GetRoot()->TimeNow()*freq;
 	float radius = GetRadius();
 
