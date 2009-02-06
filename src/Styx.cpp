@@ -47,7 +47,7 @@ bool Styx::Update(GameTime time)
 	else
 	{
 		// choose new random direction
-		SetDirection(choices[RandomRanged(0, choices.size())]);
+		SetDirection(choices[rand() % choices.size()]);
 
 		if (move_toward_player && choices.size() > 1)
 		{
