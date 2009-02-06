@@ -1,21 +1,30 @@
 XIQ - A QIX clone written quickly
+
+
 (C) 2009 Christian Schladetsch
 
-http://www.schladetsch.net
-http://www.schladetsch.net/xiq
+
+
+http://spamfiltered.wordpress.com
+
+
+
 
 INSTRUCTIONS
+
+
 Move with the cursor keys or WASD.
 
-You can move along existing (green) lines freely (including internal ones).
 
-To start making a new area, press and hold the space key.
+Get hit and you lose a life. 
 
-Get hit and you die. You have three lives.
+You have three lives.
+
+
 
 BUILD INSTRUCTIONS
-To build the game, you will need the SDL libraries. A project file for
-Code::Blocks is included, but making it yourself should be pretty easy.
-Just compile and link with all source files and the SDL library.
 
 
+To build the game, you will need the SDL and boost libraries. 
+
+Projects for Code::Blocks and Visual Studio 2005 are included.
