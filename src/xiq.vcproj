@@ -406,6 +406,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Class.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ColorValue.h"
 				>
 			</File>
@@ -422,6 +426,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameTime.h"
 				>
 			</File>
@@ -434,11 +450,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Input.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Matrix.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ObjectBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Phase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PhaseCommon.h"
 				>
 			</File>
 			<File
@@ -463,6 +499,10 @@
 			</File>
 			<File
 				RelativePath=".\Styx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Traits.h"
 				>
 			</File>
 			<File
