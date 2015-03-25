@@ -1,0 +1,9 @@
+
+Debug/
+Backup/
+ipch/
+*.swp
+*.suo
+*.sdf
+
+
