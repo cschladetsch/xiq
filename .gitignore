@@ -1,7 +1,7 @@
 
-Debug/
-Backup/
-ipch/
+Debug/*
+Backup/*
+ipch/*
 *.swp
 *.suo
 *.sdf
