@@ -10,6 +10,66 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\BresenhamLineDraw.h" />
+    <ClInclude Include="Include\Clamp.h" />
+    <ClInclude Include="Include\Class.h" />
+    <ClInclude Include="Include\ColorValue.h" />
+    <ClInclude Include="Include\Common.h" />
+    <ClInclude Include="Include\Direction.h" />
+    <ClInclude Include="Include\Draw.h" />
+    <ClInclude Include="Include\Factory.h" />
+    <ClInclude Include="Include\Font.h" />
+    <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\GameTime.h" />
+    <ClInclude Include="Include\Geometry.h" />
+    <ClInclude Include="Include\Impact.h" />
+    <ClInclude Include="Include\Input.h" />
+    <ClInclude Include="Include\Level.h" />
+    <ClInclude Include="Include\Matrix.h" />
+    <ClInclude Include="Include\Object.h" />
+    <ClInclude Include="Include\ObjectBase.h" />
+    <ClInclude Include="Include\Phase.h" />
+    <ClInclude Include="Include\PhaseCommon.h" />
+    <ClInclude Include="Include\Player.h" />
+    <ClInclude Include="Include\Playfield.h" />
+    <ClInclude Include="Include\Precompiled.h" />
+    <ClInclude Include="Include\Random.h" />
+    <ClInclude Include="Include\Sinusoid.h" />
+    <ClInclude Include="Include\Styx.h" />
+    <ClInclude Include="Include\Traits.h" />
+    <ClInclude Include="Include\World.h" />
+    <ClInclude Include="Include\Xiq.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Draw.cpp" />
+    <ClCompile Include="Source\Factory.cpp" />
+    <ClCompile Include="Source\Font.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\GameTime.cpp" />
+    <ClCompile Include="Source\Geometry.cpp" />
+    <ClCompile Include="Source\Impact.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Level.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\ObjectBase.cpp" />
+    <ClCompile Include="Source\Phase.Attract.cpp" />
+    <ClCompile Include="Source\Phase.Boot.cpp" />
+    <ClCompile Include="Source\Phase.GameOver.cpp" />
+    <ClCompile Include="Source\Phase.GameOver.HighScore.cpp" />
+    <ClCompile Include="Source\Phase.LevelChange.cpp" />
+    <ClCompile Include="Source\Phase.Play.cpp" />
+    <ClCompile Include="Source\Phase.Test.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Playfield.cpp" />
+    <ClCompile Include="Source\Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\Styx.cpp" />
+    <ClCompile Include="Source\World.cpp" />
+    <ClCompile Include="Source\Xiq.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E2EEBE44-4427-4545-B4B7-F0EB53A56491}</ProjectGuid>
     <RootNamespace>xiq</RootNamespace>
@@ -44,7 +104,7 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\SDK\Boost;C:\SDK\SDL\SDL-1.2.13\include;c:\sdk\DirectX</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\SDK\Boost;C:\SDK\SDL\SDL-1.2.13\include;$(SolutionDir)\include;c:\sdk\DirectX</IncludePath>
     <LibraryPath>C:\SDK\Direct\Lib\x64;c:\sdk\SDL\SDL-1.2.13\VisualC\SDL\Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,93 +156,6 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Draw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp" />
-    <ClCompile Include="Font.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameTime.cpp" />
-    <ClCompile Include="Geometry.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Impact.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="main.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="ObjectBase.cpp" />
-    <ClCompile Include="Phase.Attract.cpp" />
-    <ClCompile Include="Phase.Boot.cpp" />
-    <ClCompile Include="Phase.GameOver.cpp" />
-    <ClCompile Include="Phase.GameOver.HighScore.cpp" />
-    <ClCompile Include="Phase.LevelChange.cpp" />
-    <ClCompile Include="Phase.Play.cpp" />
-    <ClCompile Include="Phase.Test.cpp" />
-    <ClCompile Include="Player.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Playfield.cpp" />
-    <ClCompile Include="Precompiled.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Random.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Styx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Xiq.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BresenhamLineDraw.h" />
-    <ClInclude Include="Clamp.h" />
-    <ClInclude Include="Class.h" />
-    <ClInclude Include="ColorValue.h" />
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="Direction.h" />
-    <ClInclude Include="Draw.h" />
-    <ClInclude Include="Factory.h" />
-    <ClInclude Include="Font.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameTime.h" />
-    <ClInclude Include="Geometry.h" />
-    <ClInclude Include="Impact.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectBase.h" />
-    <ClInclude Include="Phase.h" />
-    <ClInclude Include="PhaseCommon.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Playfield.h" />
-    <ClInclude Include="Precompiled.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="Sinusoid.h" />
-    <ClInclude Include="Styx.h" />
-    <ClInclude Include="Traits.h" />
-    <ClInclude Include="World.h" />
-    <ClInclude Include="Xiq.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
