@@ -7,6 +7,13 @@
 #include "Styx.h"
 #include "Impact.h"
 
+#pragma comment(lib, "sdl.lib")
+#pragma comment(lib, "sdlmain.lib")
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dxguid.lib")
+
 /// @mainpage XIQ
 /// XIQ is a fast and sweet clone of the class arcade game, <a href="http://en.wikipedia.org/wiki/Qix">QIX</a>
 ///

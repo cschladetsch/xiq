@@ -44,8 +44,8 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\SDK\Boost;C:\SDK\SDL\SDL-1.2.13\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);External</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\SDK\Boost;C:\SDK\SDL\SDL-1.2.13\include;c:\sdk\DirectX</IncludePath>
+    <LibraryPath>C:\SDK\Direct\Lib\x64;c:\sdk\SDL\SDL-1.2.13\VisualC\SDL\Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -70,8 +70,8 @@
       <DebugInformationFormat />
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sdl.lib;sdlmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>External;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\SDK\SDL\SDL-1.2.13\VisualC\SDL\Debug;C:\SDK\SDL\SDL-1.2.13\VisualC\SDLmain\Debug\;C:\SDK\DirectX\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
