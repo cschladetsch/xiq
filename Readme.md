@@ -10,11 +10,12 @@ Nothing else is used. So when a line has to be drawn, I had to write a line-draw
 
 There is a custom Font library as well.
 
-Basically, I wrote this to see what I could with just:
+Basically, I wrote this to see what I could with the following self-imposed limitations:
 
-1. A framebuffer of RGB pixels.
-1. A sound buffer of unsigned 8-bit bytes.
-1. An input system that I could poll for key down/key up.
+1. A *framebuffer* of R8G8B8A0 pixels.
+1. A *sound-buffer* of unsigned 8-bit bytes.
+1. An *input system* that I could poll for key down/key up.
+1. One weekend.
 1. And *absolutely nothing else*.
 
 So, yeah, it's a simple, badly-drawn game with no fancy graphics or sound or music or fonts. But it has graphics and sound and music and fonts, all custom made from the ground up.
