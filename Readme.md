@@ -6,9 +6,11 @@ Now, this may seem like a really small, trivial and badly written game. And it i
 
 *However* it is written with practically no 3rd-party library source or components. It uses a framebuffer of NxM pixels, and a sound buffer of unsigned 8-bit bytes. These are provided by SDL, as well as input.
 
-Nothing else is used. So when a line has to be drawn, I had to write a line-draw algorithm. When a sound effect had to be played, I had to write the sound values directly to the byte array for the sound buffer.
+Nothing else is used. So when a line has to be drawn, I had to write a line-draw algorithm. Want to draw a circle? Then write the algorithm to plot the points of a circle (quickly). 
 
-There is a custom Font library as well.
+When a sound effect had to be played, I had to write the sound values directly to the byte array for the sound buffer.
+
+There is a custom **FontLibrary** as well. As well as an **ObjectFactory** and **GamePhase** management system.
 
 Basically, I wrote this to see what I could with the following self-imposed limitations:
 
