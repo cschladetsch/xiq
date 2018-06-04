@@ -29,7 +29,7 @@ You have three lives.
 
 ## Build Instructions
 
-To build the game, you will need the SDL and boost libraries. 
+To build the game, you will need the SDL and boost libraries. The only Boost library that I eventually used was Boost.ForEach which is a header-only part of Boost.Preprocessor and TODO remove this depedancy. I only used it because it was there are at the time.
 
 To build for windows, you will also need at least DirectX 9.0 SDK.
 
