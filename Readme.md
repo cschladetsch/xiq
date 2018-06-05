@@ -27,6 +27,8 @@ Move with the cursor keys or WASD.
 Get hit and you lose a life. 
 You have three lives.
 
+Yes, I know there's a problem with the game area being half the screen. That's a consequence of the 23-minute port from SDL1 to SDL2 and can't see much point fixing it.
+
 ## Build Instructions
 
 To build the game, you will need the SDL and boost libraries. The only Boost library that I eventually used was Boost.ForEach which is a header-only part of Boost.Preprocessor and TODO remove this depedancy. I only used it because it was there are at the time.

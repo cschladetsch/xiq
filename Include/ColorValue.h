@@ -2,5 +2,5 @@
 
 #pragma once
 
-typedef Unsigned16 Color;
+typedef uint32_t Color;
 
