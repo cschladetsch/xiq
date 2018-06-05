@@ -1,7 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef GAME_H_INCLUDED
-#define GAME_H_INCLUDED
+#pragma once
 
 #include "Phase.h"
 
@@ -11,87 +10,86 @@
 /// manages the phase transitions and controls the main processing loop
 struct Game : Object
 {
-	GameTime time;
+    GameTime time;
 
-	SDL_Surface *screen;
-	bool initialised;
-	bool finished;
+    SDL_Window* window;
+    SDL_Renderer *renderer;
+    SDL_Surface *screen;
+    bool initialised;
+    bool finished;
 
-	Phase::Base *phase;			///< the current phase of the game
-	Phase::Base *next_phase;	///< the phase to transition to
-	Time transition_ends;		///< when the current transition ends
+    Phase::Base *phase;            ///< the current phase of the game
+    Phase::Base *next_phase;    ///< the phase to transition to
+    Time transition_ends;        ///< when the current transition ends
 
-	Font *font;
+    Font *font;
 
-	World *world;
+    World *world;
 
 public:
-	void Create(int width, int height);
-	~Game();
+    void Create(int width, int height);
+    ~Game();
 
-	/// top-level update method
-	bool Update(GameTime);
+    /// top-level update method
+    bool Update(GameTime);
 
-	/// top-level draw method
-	void Draw(Matrix const &);
+    /// top-level draw method
+    void Draw(Matrix const &);
 
-	/// returns true if the application is intending to close
-	bool Finished() const { return finished; }
+    /// returns true if the application is intending to close
+    bool Finished() const { return finished; }
 
-	/// returns true if all subsystems initialised correctly
-	bool Initialised() const { return initialised; }
+    /// returns true if all subsystems initialised correctly
+    bool Initialised() const { return initialised; }
 
-	/// returns the default font
-	Font *GetFont() const { return font; }
+    /// returns the default font
+    Font *GetFont() const { return font; }
 
-	/// returns the game-time structure
-	GameTime GetTime() const;
+    /// returns the game-time structure
+    GameTime GetTime() const;
 
-	/// returns the time at the start of this frame
-	Time TimeNow() const;
+    /// returns the time at the start of this frame
+    Time TimeNow() const;
 
-	SDL_Surface *GetSurface() const;
-	Color MakeColor(int r, int g, int b) const;
+    SDL_Surface *GetSurface() const;
+    Color MakeColor(int r, int g, int b) const;
 
-	/// move to a new phase
-	void PhaseChange(Phase::Base *next_phase, Time transition_time = 0);
+    /// move to a new phase
+    void PhaseChange(Phase::Base *next_phase, Time transition_time = 0);
 
-	void SetWorld(World *W) { world = W; }
-	World *GetWorld() const { return world; }
+    void SetWorld(World *W) { world = W; }
+    World *GetWorld() const { return world; }
 
-	/// return the current phase downcast to a given specific phase if it matches
-	template <class T>
-	T *GetPhase() const { return InPhase<T>() ? static_cast<T *>(GetPhaseBase()) : 0; }
+    /// return the current phase downcast to a given specific phase if it matches
+    template <class T>
+    T *GetPhase() const { return InPhase<T>() ? static_cast<T *>(GetPhaseBase()) : 0; }
 
-	/// return true if currently in the given phase
-	template <class T>
-	bool InPhase() const { return GetPhaseBase() && GetPhaseBase()->IsType<T>(); }
+    /// return true if currently in the given phase
+    template <class T>
+    bool InPhase() const { return GetPhaseBase() && GetPhaseBase()->IsType<T>(); }
 
-	/// return the current game phase base
-	Phase::Base *GetPhaseBase() const { return phase; }
+    /// return the current game phase base
+    Phase::Base *GetPhaseBase() const { return phase; }
 
 protected:
-	void ParseInput();
+    void ParseInput();
 
-	/// deal with intention of player to move in the given direction
-	void PlayerDirects(Direction);
+    /// deal with intention of player to move in the given direction
+    void PlayerDirects(Direction);
 
-	/// player stops wanting the given direction
-	void PlayerUnDirects(Direction);
+    /// player stops wanting the given direction
+    void PlayerUnDirects(Direction);
 
-	/// returns true iff the game is currently moving between phases
-	bool Transitioning() const;
+    /// returns true iff the game is currently moving between phases
+    bool Transitioning() const;
 
-	/// perform transition between levels
-	void Transist();
+    /// perform transition between levels
+    void Transist();
 
-	/// end the current transition now
-	void EndTransition();
+    /// end the current transition now
+    void EndTransition();
 
-	/// prepare the SDL system
-	bool InitialiseSDL(int width, int height);
+    /// prepare the SDL system
+    bool InitialiseSDL(int width, int height);
 };
 
-#endif // GAME_H_INCLUDED
-
-//EOF

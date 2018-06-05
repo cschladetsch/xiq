@@ -7,13 +7,6 @@
 #include "Styx.h"
 #include "Impact.h"
 
-#pragma comment(lib, "sdl.lib")
-#pragma comment(lib, "sdlmain.lib")
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "d3dx9.lib")
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "dxguid.lib")
-
 /// @mainpage XIQ
 /// XIQ is a fast and sweet clone of the class arcade game, <a href="http://en.wikipedia.org/wiki/Qix">QIX</a>
 ///
@@ -40,46 +33,46 @@
 
 void RegisterTypes(Factory &factory)
 {
-	factory.AddClass<Playfield>();
-	factory.AddClass<Player>();
-	factory.AddClass<Xiq>();
-	factory.AddClass<Styx>();
-	factory.AddClass<Level>();
-	factory.AddClass<World>();
-	factory.AddClass<Impact>();
-	factory.AddClass<Game>();
+    factory.AddClass<Playfield>();
+    factory.AddClass<Player>();
+    factory.AddClass<Xiq>();
+    factory.AddClass<Styx>();
+    factory.AddClass<Level>();
+    factory.AddClass<World>();
+    factory.AddClass<Impact>();
+    factory.AddClass<Game>();
 
-	factory.AddClass<Phase::Boot>();
-	factory.AddClass<Phase::Attract>();
-	factory.AddClass<Phase::Play>();
-	factory.AddClass<Phase::GameOver>();
+    factory.AddClass<Phase::Boot>();
+    factory.AddClass<Phase::Attract>();
+    factory.AddClass<Phase::Play>();
+    factory.AddClass<Phase::GameOver>();
 }
 
 int main(int argc, char** argv)
 {
-	(void)argc;
-	(void)argv;
+    (void)argc;
+    (void)argv;
 
-	Factory factory;
-	RegisterTypes(factory);
+    Factory factory;
+    RegisterTypes(factory);
 
-	Game *game = factory.New<Game>();
-	game->game = game;
-	game->Create(600, 400);
-	if (!game->Initialised())
-		return 1;
+    Game *game = factory.New<Game>();
+    game->game = game;
+    game->Create(600, 400);
+    if (!game->Initialised())
+        return 1;
 
-	GameTime time;
-	Matrix transform;
+    GameTime time;
+    Matrix transform;
 
-	for (;;)
-	{
-    	time.StartFrame();
-		if (!game->Update(time))
-			break;
-    	game->Draw(transform);
-	}
+    for (;;)
+    {
+        time.StartFrame();
+        if (!game->Update(time))
+            break;
+        game->Draw(transform);
+    }
     return 0;
 }
 
-//EOF
+

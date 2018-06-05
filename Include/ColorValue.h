@@ -1,8 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef COLORVALUE_H_INCLUDED
-#define COLORVALUE_H_INCLUDED
+#pragma once
 
 typedef Unsigned16 Color;
 
-#endif // COLORVALUE_H_INCLUDED

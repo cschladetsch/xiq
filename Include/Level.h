@@ -1,7 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef LEVEL_H_INCLUDED
-#	define LEVEL_H_INCLUDED
+#pragma once
 
 /// @brief a description of a level in the game
 ///
@@ -9,19 +8,16 @@
 /// a playfield
 struct Level : Object
 {
-	Time time_last_impact;
-	Time min_impact_time;
+    Time time_last_impact;
+    Time min_impact_time;
 
-	Level();
+    Level();
 
-	// Object overloads
-	bool Update(GameTime);
-	void Draw(Matrix const &);
+    // Object overloads
+    bool Update(GameTime);
+    void Draw(Matrix const &);
 
-	// list<object construct params>
-	void Start();
+    // list<object construct params>
+    void Start();
 };
 
-#endif // LEVEL_H_INCLUDED
-
-//EOF

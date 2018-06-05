@@ -1,7 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef RANDOM_H_INCLUDED
-#define RANDOM_H_INCLUDED
+#pragma once
 
 /// returns a random number in range 0..1
 float RandomUnit();
@@ -10,8 +9,5 @@ float RandomUnit();
 float RandomRanged(float min, float max);
 
 /// returns a unit-vector pointing in a random direction
-Vector RandomUnitVector();
+Vector2 RandomUnitVector();
 
-#endif // RANDOM_H_INCLUDED
-
-//EOF

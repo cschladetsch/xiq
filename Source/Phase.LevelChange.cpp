@@ -6,19 +6,19 @@
 //
 //namespace Phase
 //{
-//	void ::Construct()
-//	{
-//	}
+//    void ::Construct()
+//    {
+//    }
 //
-//	bool Boot::Update(GameTime)
-//	{
-//		return true;
-//	}
+//    bool Boot::Update(GameTime)
+//    {
+//        return true;
+//    }
 //
-//	void Boot::Draw(Matrix const &)
-//	{
-//	}
+//    void Boot::Draw(Matrix const &)
+//    {
+//    }
 //}
 //
-////EOF
+//
 //

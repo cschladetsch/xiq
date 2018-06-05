@@ -1,7 +1,6 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef XIQ_H_INCLUDED
-#define XIQ_H_INCLUDED
+#pragma once
 
 /// @brief The titular enemy of the game, Xiq
 ///
@@ -11,34 +10,31 @@
 struct Xiq : Object
 {
 private:
-	Point last_pos;		///< used for verlet integration
-	float max_speed;
-	float mass;
-	Vector force;
+    Point2 last_pos;        ///< used for verlet integration
+    float max_speed;
+    float mass;
+    Vector2 force;
 
-	Vector steer;
-	float angle;				///< for wandering
-	Sinusoid radius_waves[2];	///< for radius changes
-	Sinusoid colors[3];			///< for color animation
+    Vector2 steer;
+    float angle;                ///< for wandering
+    Sinusoid radius_waves[2];    ///< for radius changes
+    Sinusoid colors[3];            ///< for color animation
 
-	bool hit_player;			///< if true, xiq has hit the player
+    bool hit_player;            ///< if true, xiq has hit the player
 
 public:
-	void Prepare();
+    void Prepare();
 
-	bool Update(GameTime);
-	void Draw(Matrix const &);
+    bool Update(GameTime);
+    void Draw(Matrix const &);
 
-	void SetRadius(float);
+    void SetRadius(float);
 
-	bool HasHitPlayer() const { return hit_player; }
-	void SetHitPlayer(bool T = true) { hit_player = T; }
+    bool HasHitPlayer() const { return hit_player; }
+    void SetHitPlayer(bool T = true) { hit_player = T; }
 
 protected:
-	/// custom SetPixel to provide forces against world elements
-	void SetPixel(int x, int y, Color color);
+    /// custom SetPixel to provide forces against world elements
+    void SetPixel(int x, int y, Color color);
 };
 
-#endif // XIQ_H_INCLUDED
-
-//EOF
