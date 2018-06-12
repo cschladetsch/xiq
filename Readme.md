@@ -4,7 +4,7 @@ This is a _very_ simple game based on the old arcade game, **Qix**.
 
 Now, this may seem like a really small, trivial and badly written game. And it is.
 
-*However* it is written with practically no 3rd-party library source or components. It uses a framebuffer of NxM pixels, and a sound buffer of unsigned 8-bit bytes. These are provided by SDL, as well as input.
+*However* it is written with practically no 3rd-party library source or components. It uses a framebuffer of pixels, and a sound buffer of unsigned 8-bit bytes. These are provided by SDL, as well as input.
 
 Nothing else is used. So when a line has to be drawn, I had to write a line-draw algorithm. Want to draw a circle? Then write the algorithm to plot the points of a circle (quickly). 
 
