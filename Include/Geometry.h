@@ -1,118 +1,114 @@
 // (C) 2009 christian.schladetsch@gmail.com
 
-#ifndef GEOMETRY_H_INCLUDED
-#	define GEOMETRY_H_INCLUDED
+#pragma once
 
 namespace math
 {
-	static const float pi = 3.1415926f;
-	static const float two_pi = 2.0f*pi;
+    static const float pi = 3.1415926f;
+    static const float two_pi = 2.0f*pi;
 }
 
 /// A two-dimensional vector (also used for points)
-struct Vector
+struct Vector2
 {
-	typedef float Ordinate;
+    typedef float Ordinate;
 
-	Ordinate x, y;
+    Ordinate x, y;
 
-	Vector() : x(0), y(0) { }
-	Vector(Ordinate _x, Ordinate _y) : x(_x), y(_y) { }
+    Vector2() : x(0), y(0) { }
+    Vector2(Ordinate _x, Ordinate _y) : x(_x), y(_y) { }
 
-	friend bool operator==(Vector const &A, Vector const &B)
-	{
-		return A.x == B.x && A.y == B.y;
-	}
+    friend bool operator==(Vector2 const &A, Vector2 const &B)
+    {
+        return A.x == B.x && A.y == B.y;
+    }
 
-	Vector &operator*=(float F)
-	{
-		x *= F;
-		y *= F;
-		return *this;
-	}
+    Vector2 &operator*=(float F)
+    {
+        x *= F;
+        y *= F;
+        return *this;
+    }
 
-	Vector &operator+=(Vector const &V)
-	{
-		x += V.x;
-		y += V.y;
-		return *this;
-	}
+    Vector2 &operator+=(Vector2 const &V)
+    {
+        x += V.x;
+        y += V.y;
+        return *this;
+    }
 
-	Vector &operator-=(Vector const &V)
-	{
-		x -= V.x;
-		y -= V.y;
-		return *this;
-	}
+    Vector2 &operator-=(Vector2 const &V)
+    {
+        x -= V.x;
+        y -= V.y;
+        return *this;
+    }
 
-	Vector Normalised() const
-	{
-		float mag = Length();
-		if (mag == 0) return Vector(1,0);
-		return Vector(x/mag, y/mag);
-	}
+    Vector2 Normalised() const
+    {
+        float mag = Length();
+        if (mag == 0) return Vector2(1,0);
+        return Vector2(x/mag, y/mag);
+    }
 
-	void Normalise()
-	{
-		*this = Normalised();
-	}
+    void Normalise()
+    {
+        *this = Normalised();
+    }
 
-	float LengthSquared() const { return x*x + y*y; }
-	float Length() const { return sqrt(LengthSquared()); }
+    float LengthSquared() const { return x*x + y*y; }
+    float Length() const { return sqrt(LengthSquared()); }
 
-	Vector Normal() const
-	{
-		return Vector(-y, x).Normalised();
-	}
+    Vector2 Normal() const
+    {
+        return Vector2(-y, x).Normalised();
+    }
 
-	Vector OtherNormal() const
-	{
-		return Vector(y, -x).Normalised();
-	}
+    Vector2 OtherNormal() const
+    {
+        return Vector2(y, -x).Normalised();
+    }
 };
 
-// TODO: should be typedef Vector2 Vector; but Vector came before i added Vector3...
-typedef Vector Vector2;
+typedef Vector2 Point2;
 
-inline Vector operator*(Vector const &V, float F)
+inline Vector2 operator*(Vector2 const &V, float F)
 {
-	return Vector(V) *= F;
+    return Vector2(V) *= F;
 }
 
-inline Vector operator+(Vector const &A, Vector const &B)
+inline Vector2 operator+(Vector2 const &A, Vector2 const &B)
 {
-	return Vector(A) += B;
+    return Vector2(A) += B;
 }
 
-inline Vector operator-(Vector const &A, Vector const &B)
+inline Vector2 operator-(Vector2 const &A, Vector2 const &B)
 {
-	return Vector(A) -= B;
+    return Vector2(A) -= B;
 }
 
-inline float DotProduct(Vector const &A, Vector const &B)
+inline float DotProduct(Vector2 const &A, Vector2 const &B)
 {
-	return A.x*B.x + A.y*B.y;
+    return A.x*B.x + A.y*B.y;
 }
 
-inline float Angle(Vector const &A, Vector const &B)
+inline float Angle(Vector2 const &A, Vector2 const &B)
 {
-	return acos(DotProduct(A.Normalised(),B.Normalised()));
+    return acos(DotProduct(A.Normalised(),B.Normalised()));
 }
-
-typedef Vector Point;
 
 /// a 3D vector, also a homogenous 2D point
 struct Vector3
 {
-	typedef float Ordinate;
-	Ordinate x, y, z;
-	Vector3() : x(0), y(0), z(0) {}
-	Vector3(Ordinate _x, Ordinate _y, Ordinate _z) : x(_x), y(_y), z(_z) { }
+    typedef float Ordinate;
+    Ordinate x, y, z;
+    Vector3() : x(0), y(0), z(0) {}
+    Vector3(Ordinate _x, Ordinate _y, Ordinate _z) : x(_x), y(_y), z(_z) { }
 };
 
 inline float DotProduct(Vector3 const &A, Vector3 const &B)
 {
-	return A.x*B.x + A.y*B.y + A.z*B.z;
+    return A.x*B.x + A.y*B.y + A.z*B.z;
 }
 
 #include "Matrix.h"
@@ -120,137 +116,136 @@ inline float DotProduct(Vector3 const &A, Vector3 const &B)
 /// A line-segment has a start and end point.
 struct LineSegment
 {
-	Point first, second;
+    Point2 first, second;
 
-	LineSegment() { }
-	LineSegment(Point const &F, Point const &S) : first(F), second(S) { }
+    LineSegment() { }
+    LineSegment(Point2 const &F, Point2 const &S) : first(F), second(S) { }
 
-	/// return the vector of the line segment
-	Vector GetVector() const { return second - first; }
+    /// return the vector of the line segment
+    Vector2 GetVector() const { return second - first; }
 
-	/// return a point point on the linesegment at a given parameterised time
-	Point AtTime(float T) const { return first + GetVector()*T; }
+    /// return a point point on the linesegment at a given parameterised time
+    Point2 AtTime(float T) const { return first + GetVector()*T; }
 
-	/// return a normal to the line
-	Vector Normal() const
-	{
-		return GetVector().Normal();
-	}
+    /// return a normal to the line
+    Vector2 Normal() const
+    {
+        return GetVector().Normal();
+    }
 
-	/// return the other normal to the line
-	Vector OtherNormal() const
-	{
-		return GetVector().OtherNormal();
-	}
+    /// return the other normal to the line
+    Vector2 OtherNormal() const
+    {
+        return GetVector().OtherNormal();
+    }
 };
 
 /// reflect a vector from a line-segment
-inline Vector Reflect(Vector const &V, LineSegment const &L)
+inline Vector2 Reflect(Vector2 const &V, LineSegment const &L)
 {
-	Vector N = L.Normal();
-	return V - N*2.0f*DotProduct(N, V);
+    Vector2 N = L.Normal();
+    return V - N*2.0f*DotProduct(N, V);
 }
 
 /// an indefinite-length line
 struct Line
 {
-	float a, b, c;	// ax + by = c
+    float a, b, c;    // ax + by = c
 
-	Line() : a(0), b(0), c(0)
-	{
-	}
-	Line(LineSegment const &segment)
-	{
-		CreateFrom(segment);
-	}
-	Line(Point A, Point B)
-	{
-		CreateFrom(LineSegment(A,B));
-	}
+    Line() : a(0), b(0), c(0)
+    {
+    }
 
-	void CreateFrom(LineSegment const &segment)
-	{
-		float x1 = segment.first.x;
-		float y1 = segment.first.y;
-		float x2 = segment.second.x;
-		float y2 = segment.second.y;
-		a = y2 - y1;
-		b = x1 - x2;
-		c = a*x1 + b*y1;
-	}
+    Line(LineSegment const &segment)
+    {
+        CreateFrom(segment);
+    }
 
-	/// return the intersection of two lines, or Point() if they are parallel
-	static Point Intersection(Line const &L1, Line const &L2)
-	{
-		float det = Determinant(L1, L2);
-		if (det == 0)
-		{
-			return Point(); //Lines are parallel
-		}
-		float A1 = L1.a, B1 = L1.b, C1 = L1.c;
-		float A2 = L2.a, B2 = L2.b, C2 = L2.c;
-		float x = (B2*C1 - B1*C2)/det;
-		float y = (A1*C2 - A2*C1)/det;
-		return Point(x, y);
-	}
+    Line(Point2 A, Point2 B)
+    {
+        CreateFrom(LineSegment(A,B));
+    }
 
-	static float Determinant(Line const &L1, Line const &L2)
-	{
-		float A1 = L1.a, B1 = L1.b;
-		float A2 = L2.a, B2 = L2.b;
-		return A1*B2 - A2*B1;
-	}
+    void CreateFrom(LineSegment const &segment)
+    {
+        float x1 = segment.first.x;
+        float y1 = segment.first.y;
+        float x2 = segment.second.x;
+        float y2 = segment.second.y;
+        a = y2 - y1;
+        b = x1 - x2;
+        c = a*x1 + b*y1;
+    }
 
-	/// returns true if the two lines intersects
-	static bool Intersects(Line const &L1, Line const &L2)
-	{
-		return Determinant(L1, L2) != 0;
-	}
+    /// return the intersection of two lines, or Point() if they are parallel
+    static Point2 Intersection(Line const &L1, Line const &L2)
+    {
+        float det = Determinant(L1, L2);
+        if (det == 0)
+        {
+            return Point2(); //Lines are parallel
+        }
+        float A1 = L1.a, B1 = L1.b, C1 = L1.c;
+        float A2 = L2.a, B2 = L2.b, C2 = L2.c;
+        float x = (B2*C1 - B1*C2)/det;
+        float y = (A1*C2 - A2*C1)/det;
+        return Point2(x, y);
+    }
 
-	Point Intersection(Line const &other) const
-	{
-		return Intersection(*this, other);
-	}
+    static float Determinant(Line const &L1, Line const &L2)
+    {
+        float A1 = L1.a, B1 = L1.b;
+        float A2 = L2.a, B2 = L2.b;
+        return A1*B2 - A2*B1;
+    }
 
-	bool Intersects(Line const &other) const
-	{
-		return Intersects(*this, other);
-	}
+    /// returns true if the two lines intersects
+    static bool Intersects(Line const &L1, Line const &L2)
+    {
+        return Determinant(L1, L2) != 0;
+    }
+
+    Point2 Intersection(Line const &other) const
+    {
+        return Intersection(*this, other);
+    }
+
+    bool Intersects(Line const &other) const
+    {
+        return Intersects(*this, other);
+    }
 };
 
 /// an axis-aligned rectangle
 struct Box
 {
-	Point top_left;
-	Point top_right;
-	Point bottom_left;
-	Point bottom_right;
+    Point2 top_left;
+    Point2 top_right;
+    Point2 bottom_left;
+    Point2 bottom_right;
 
-	Box() { }
-	Box(Point TL, Point BR)
-	{
-		top_left = TL;
-		bottom_right = BR;
-		top_right = Point(BR.x, TL.y);
-		bottom_left = Point(TL.x, BR.y);
-	}
+    Box() { }
+    Box(Point2 TL, Point2 BR)
+    {
+        top_left = TL;
+        bottom_right = BR;
+        top_right = Point2(BR.x, TL.y);
+        bottom_left = Point2(TL.x, BR.y);
+    }
 };
 
-void DistanceFromLine(Point C, Vector A, Vector B, float &distance_segment, float &distance_line);
+void DistanceFromLine(Point2 C, Vector2 A, Vector2 B, float &distance_segment, float &distance_line);
 
-inline void DistanceFromLine(Point C, LineSegment line, float &distance_segment, float &distance_line)
+inline void DistanceFromLine(Point2 C, LineSegment line, float &distance_segment, float &distance_line)
 {
-	DistanceFromLine(C, line.first, line.second, distance_segment, distance_line);
+    DistanceFromLine(C, line.first, line.second, distance_segment, distance_line);
 }
 
 /// return the nearest point of a given point to a line segment
-Point NearestPoint(LineSegment const &L, Point const &p3);
+Point2 NearestPoint(LineSegment const &L, Point2 const &p3);
 
 inline LineSegment Transform(LineSegment const &ls, Matrix const &matrix)
 {
-	return LineSegment(matrix*ls.first, matrix*ls.second);
+    return LineSegment(matrix*ls.first, matrix*ls.second);
 }
 
-#endif // GEOMETRY_H_INCLUDED
-
-//EOF

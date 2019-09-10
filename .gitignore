@@ -5,6 +5,8 @@ ipch/*
 *.swp
 *.suo
 *.sdf
+x64/
+.vs/
 
 
 xiq.opensdf

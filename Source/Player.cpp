@@ -11,279 +11,279 @@
 
 void Player::Prepare()
 {
-	collides = true;
-	speed = 180;
-	radius = 20;
-	drawing = false;
-	std::fill(wants_direction, wants_direction + 5, false);
-	num_lives = 3;
-	Time now = GetRoot()->TimeNow();
-	immunity_ends = now + 2;
-	respawn_ends = now + 2;
-	score = 0;
-	location = Point(300,399);
+    collides = true;
+    speed = 180;
+    radius = 20;
+    drawing = false;
+    std::fill(wants_direction, wants_direction + 5, false);
+    num_lives = 3;
+    Time now = GetRoot()->TimeNow();
+    immunity_ends = now + 2;
+    respawn_ends = now + 2;
+    score = 0;
+    location = Point2(300,399);
 }
 
 void Player::LoseLife()
 {
-	if (num_lives == 0)
-		return;
+    if (num_lives == 0)
+        return;
 
-	--num_lives;
-	bool dead = num_lives == 0;
+    --num_lives;
+    bool dead = num_lives == 0;
 
-	Time now = GetRoot()->TimeNow();
-	respawn_ends = now + (dead ? 2 : 1);
-	immunity_ends = now + 2;
+    Time now = GetRoot()->TimeNow();
+    respawn_ends = now + (dead ? 2 : 1);
+    immunity_ends = now + 2;
 
-	SetDirection(Direction::None);
-	if (IsDrawing() && !dead)
-	{
-		drawing = false;
-		location = launch_point;
-	}
+    SetDirection(Direction::None);
+    if (IsDrawing() && !dead)
+    {
+        drawing = false;
+        location = launch_point;
+    }
 
-	// remove the new line we were making
-	if (!dead)
-	{
-			GetPlayfield()->RemoveNewLines(Playfield::Empty);
-	}
+    // remove the new line we were making
+    if (!dead)
+    {
+            GetPlayfield()->RemoveNewLines(Playfield::Empty);
+    }
 }
 
 void Player::Move(LineSegment const &traversed)
 {
-	location = traversed.second;
+    location = traversed.second;
 }
 
 void Player::SetDirection(Direction dir)
 {
-	if (dir == direction)
-		return;
-	direction = dir;
+    if (dir == direction)
+        return;
+    direction = dir;
 }
 
 void Player::SetWantsDirection(Direction dir, bool wants)
 {
-	if (dir == direction)
-		SetDirection(Direction::None);
+    if (dir == direction)
+        SetDirection(Direction::None);
 
-	wants_direction[dir.value] = wants;
-	if (wants == false)
-	{
-		for (int n = 0; n < 4; ++n)
-		{
-			if (wants_direction[n])
-			{
-				SetDirection(Direction::Type(n));
-				return;
-			}
-		}
-	}
+    wants_direction[dir.value] = wants;
+    if (wants == false)
+    {
+        for (int n = 0; n < 4; ++n)
+        {
+            if (wants_direction[n])
+            {
+                SetDirection(Direction::Type(n));
+                return;
+            }
+        }
+    }
 }
 
-void Player::SetLocation(Point P)
+void Player::SetLocation(Point2 P)
 {
-	//printf("Player::SetLocation: %f %f\n", P.x, P.y);
-	location = P;
+    //printf("Player::SetLocation: %f %f\n", P.x, P.y);
+    location = P;
 }
 
 bool Player::Update(GameTime time)
 {
-	if (!Moving() || num_lives == 0)
-		return true;
+    if (!Moving() || num_lives == 0)
+        return true;
 
-	Playfield *playfield = GetPlayfield();
+    Playfield *playfield = GetPlayfield();
 
-	// determine the path of movement
-	Direction dir = GetDirection();
-	Vector v = dir.GetVector();
-	float speed = GetSpeed();
-	double distance = speed*time.DeltaSeconds();
-//	Point end_pos = location + v*distance;
+    // determine the path of movement
+    Direction dir = GetDirection();
+    Vector2 v = dir.GetVector();
+    float speed = GetSpeed();
+    double distance = speed*time.DeltaSeconds();
+//    Point end_pos = location + v*distance;
 
-	Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
+    Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
 
-	//printf("step=%g, distance=%g\n", time.DeltaSeconds(), distance);
+    //printf("step=%g, distance=%g\n", time.DeltaSeconds(), distance);
 
-	distance = 1;
+    distance = 1;
 
-	// while there is still some distance 	to move
-	while (distance > 0)
-	{
-		// move at most one unit
-		double step_dist = Clamp(distance, 0.0, 1.0);
-		Point next = location + v*step_dist;
-//		// if moving less than half of a pixel, move and return
-//		if (step_dist < 0.5)
-//		{
-//			playfield->Set(next, what);
-//			SetLocation(next);
-//			return true;
-//		}
+    // while there is still some distance     to move
+    while (distance > 0)
+    {
+        // move at most one unit
+        double step_dist = Clamp(distance, 0.0, 1.0);
+        Point2 next = location + v*step_dist;
+//        // if moving less than half of a pixel, move and return
+//        if (step_dist < 0.5)
+//        {
+//            playfield->Set(next, what);
+//            SetLocation(next);
+//            return true;
+//        }
 
-		// get the element at the proposed next location
-		Playfield::Element e_next = playfield->At(next);
+        // get the element at the proposed next location
+        Playfield::Element e_next = playfield->At(next);
 
-		if (playfield->OutOfBounds(next))
-			break;
+        if (playfield->OutOfBounds(next))
+            break;
 
-		// can't move into filled locations
-		if (e_next == Playfield::Filled)
-			break;
+        // can't move into filled locations
+        if (e_next == Playfield::Filled)
+            break;
 
-		// can't go through an existing new line
-		if (drawing && e_next == Playfield::NewLine)
-			break;
+        // can't go through an existing new line
+        if (drawing && e_next == Playfield::NewLine)
+            break;
 
-		// can only move on lines when not creating new one
-		if (!drawing && e_next != Playfield::Line)
-			break;
+        // can only move on lines when not creating new one
+        if (!drawing && e_next != Playfield::Line)
+            break;
 
-		// complete an area if we are drawing and hit an existing line
-		if (drawing && e_next == Playfield::Line)
-		{
-			int num_filled = playfield->CalcNewArea(dir, next);
-			double score = (double )num_filled*num_filled/10000000.;
-			SetLocation(next);
-			AddScore((int)score);
-			SetDrawing(false);
-			return true;
-		}
+        // complete an area if we are drawing and hit an existing line
+        if (drawing && e_next == Playfield::Line)
+        {
+            int num_filled = playfield->CalcNewArea(dir, next);
+            double score = (double )num_filled*num_filled/10000000.;
+            SetLocation(next);
+            AddScore((int)score);
+            SetDrawing(false);
+            return true;
+        }
 
-		// test for movement into a perpendicular line
-		if (!drawing)
-		{
-			for (int n = Direction::Left; n < Direction::Last; ++n)
-			{
-				Direction dir = Direction::Type(n);
-				if (!WantsDirection(dir))
-					continue;
-				Point P = next + dir.GetVector();
-				if (playfield->OutOfBounds(P))
-					continue;
-				if (playfield->At(P) == Playfield::Line)
-				{
-					// change movement.
-					// we should really continue along the new
-					// path, because as it stands the player will
-					// move a shorter distance when cornering.
-					// but i doubt it will matter.
-					SetDirection(dir);
-					SetLocation(location + v);
-					return true;
-				}
-			}
-		}
+        // test for movement into a perpendicular line
+        if (!drawing)
+        {
+            for (int n = Direction::Left; n < Direction::Last; ++n)
+            {
+                Direction dir = Direction::Type(n);
+                if (!WantsDirection(dir))
+                    continue;
+                Point2 P = next + dir.GetVector();
+                if (playfield->OutOfBounds(P))
+                    continue;
+                if (playfield->At(P) == Playfield::Line)
+                {
+                    // change movement.
+                    // we should really continue along the new
+                    // path, because as it stands the player will
+                    // move a shorter distance when cornering.
+                    // but i doubt it will matter.
+                    SetDirection(dir);
+                    SetLocation(location + v);
+                    return true;
+                }
+            }
+        }
 
-		// write to the playfield
-		playfield->Set(next, what);
+        // write to the playfield
+        playfield->Set(next, what);
 
-		// remove the covered distance
-		distance -= step_dist;
+        // remove the covered distance
+        distance -= step_dist;
 
-		// update position
-		SetLocation(next);
-	}
-	return true;
+        // update position
+        SetLocation(next);
+    }
+    return true;
 }
 
 void Player::AddScore(int s)
 {
-	//OnScoreAdded(this, s);
-	score += s;
+    //OnScoreAdded(this, s);
+    score += s;
 }
 
 bool Player::IsImmune() const
 {
-	return GetRoot()->TimeNow() < immunity_ends;
+    return GetRoot()->TimeNow() < immunity_ends;
 }
 
 bool Player::IsRespawning() const
 {
-	return GetRoot()->TimeNow() < respawn_ends;
+    return GetRoot()->TimeNow() < respawn_ends;
 }
 
 bool Player::Moving() const
 {
-	return direction != Direction::None && !IsRespawning();
+    return direction != Direction::None && !IsRespawning();
 }
 
 void Player::Draw(Matrix const &)
 {
-	if (IsRespawning())
-	{
-		DrawRespawn();
-	}
-	if (HasNoLives())
-	{
-		return;
-	}
+    if (IsRespawning())
+    {
+        DrawRespawn();
+    }
+    if (HasNoLives())
+    {
+        return;
+    }
 
-	Point P = GetLocation();
-	float L = GetRadius()/2.0f;
+    Point2 P = GetLocation();
+    float L = GetRadius()/2.0f;
 
-	Matrix matrix = Matrix::ScaleRotateTranslate(L,L,0,P);
-	Matrix shadow = Matrix::ScaleRotateTranslate(L,L,0,P + Vector(2,2));
+    Matrix matrix = Matrix::ScaleRotateTranslate(L,L,0,P);
+    Matrix shadow = Matrix::ScaleRotateTranslate(L,L,0,P + Vector2(2,2));
 
-	Color color = IsImmune() ? GetRoot()->MakeColor(255,255,0) : GetRoot()->MakeColor(0,255,255);
+    Color color = IsImmune() ? GetRoot()->MakeColor(255,255,0) : GetRoot()->MakeColor(0,255,255);
 
-	Draw(shadow, 0);
-	Draw(matrix, color);
+    Draw(shadow, 0);
+    Draw(matrix, color);
 }
 
 void Player::Draw(Matrix const &M, Color color)
 {
-	Point points[] =
-	{
-		Point(-1, 0),
-		Point(0, -1),
-		Point(1, 0),
-		Point(0, 1),
-	};
-	for (int n = 0; n < 4; ++n)
-	{
-		points[n] = M*points[n];
-	}
-	SDL_Surface *surface = GetRoot()->GetSurface();
-	for (int n = 0; n < 4; ++n)
-	{
-		DrawLineSegment(surface, LineSegment(points[n], points[(n + 1)%4]), color);
-	}
+    Point2 points[] =
+    {
+        Point2(-1, 0),
+        Point2(0, -1),
+        Point2(1, 0),
+        Point2(0, 1),
+    };
+    for (int n = 0; n < 4; ++n)
+    {
+        points[n] = M*points[n];
+    }
+    SDL_Surface *surface = GetRoot()->GetSurface();
+    for (int n = 0; n < 4; ++n)
+    {
+        DrawLineSegment(surface, LineSegment(points[n], points[(n + 1)%4]), color);
+    }
 }
 
 void Player::DrawRespawn()
 {
-	float remaining = respawn_ends - GetRoot()->TimeNow();
-	float alpha = 1 + 300*remaining*remaining;
+    float remaining = respawn_ends - GetRoot()->TimeNow();
+    float alpha = 1 + 300*remaining*remaining;
 
-	float radius = alpha;
-	bool dead = HasNoLives();
+    float radius = alpha;
+    bool dead = HasNoLives();
 
-	if (dead)
-	{
-		radius = (remaining/2.0f)*500;//radius = 300 - alpha;
-	}
+    if (dead)
+    {
+        radius = (remaining/2.0f)*500;//radius = 300 - alpha;
+    }
 
-//	printf("radius: %d %f\n", HasNoLives(), radius);
+//    printf("radius: %d %f\n", HasNoLives(), radius);
 
-	float C = 255;
+    float C = 255;
 
-	Color color1 = GetRoot()->MakeColor(C,0,0);
-	Color color2 = GetRoot()->MakeColor(0,C,0);
-	Color color3 = GetRoot()->MakeColor(0,0,C);
+    Color color1 = GetRoot()->MakeColor(C,0,0);
+    Color color2 = GetRoot()->MakeColor(0,C,0);
+    Color color3 = GetRoot()->MakeColor(0,0,C);
 
-	if (dead)
-	{
-		color2 = GetRoot()->MakeColor(C,C,0);
-		color3 = GetRoot()->MakeColor(C,C,C);
-	}
-	SDL_Surface *surface = GetRoot()->GetSurface();
-	for (int n = 0; n < 20; ++n, radius *= 0.80f)
-	{
-		DrawCircle(surface, location.x - 1, location.y - 1, radius + 1, color1);
-		DrawCircle(surface, location.x + 0, location.y + 0, radius + 0, color2);
-		DrawCircle(surface, location.x + 1, location.y - 1, radius - 1, color3);
-	}
+    if (dead)
+    {
+        color2 = GetRoot()->MakeColor(C,C,0);
+        color3 = GetRoot()->MakeColor(C,C,C);
+    }
+    SDL_Surface *surface = GetRoot()->GetSurface();
+    for (int n = 0; n < 20; ++n, radius *= 0.80f)
+    {
+        DrawCircle(surface, location.x - 1, location.y - 1, radius + 1, color1);
+        DrawCircle(surface, location.x + 0, location.y + 0, radius + 0, color2);
+        DrawCircle(surface, location.x + 1, location.y - 1, radius - 1, color3);
+    }
 }
 
-//EOF
+

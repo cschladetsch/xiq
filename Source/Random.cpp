@@ -5,17 +5,17 @@
 
 float RandomUnit()
 {
-	return (float)rand()/RAND_MAX;
+    return (float)rand()/RAND_MAX;
 }
 
 float RandomRanged(float min, float max)
 {
-	return min + (max - min)*RandomUnit();
+    return min + (max - min)*RandomUnit();
 }
 
-Vector RandomUnitVector()
+Vector2 RandomUnitVector()
 {
-	return Vector(RandomUnit() - 0.5f, RandomUnit() - 0.5f).Normalised();
+    return Vector2(RandomUnit() - 0.5f, RandomUnit() - 0.5f).Normalised();
 }
 
-//EOF
+

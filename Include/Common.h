@@ -2,48 +2,30 @@
 
 /// @file Common includes for all source files
 
-#ifndef COMMON_H_INCLUDED
-#	define COMMON_H_INCLUDED
+#pragma once
 
-#	include <cstdlib>
-#	include <math.h>
-#	include <iostream>
-#	include <assert.h>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <list>
+#include <vector>
+#include <set>
+#include <map>
 
-#	include <algorithm>
-#	include <list>
-#	include <vector>
-#	include <set>
-#	include <map>
+#include <math.h>
+#include <assert.h>
 
-#	include <SDL.h>
-#	include <SDL_audio.h>
+#include <SDL.h>
+#include <SDL_audio.h>
 
-#	include <boost/foreach.hpp>
-
-#	define foreach BOOST_FOREACH
-
-///// #include "Platform/Config.h"
-
-#ifdef CGL_PLATFORM_VISTA
-
-#define CGL_COMPILER_NAME VisualC
-#define CGL_COMPILER_VISUAL_C
-
-#define CGL_PLATFORM_NAME Vista
-
-#define CGL_TARGET_NAME Vista
-#define CGL_TARGET_VISTA
-
+#ifdef XIQ_HAS_BOOST
+#include <boost/foreach.hpp>
+#define foreach BOOST_FOREACH
 #endif
 
-
-#ifdef CGL_COMPILER_VISUAL_C
-#	pragma warning(disable:4244)
+#ifdef MSVC
+#pragma warning(disable:4244)
 #endif
-
-//// #endif PLATFORM_CONFIG_H
-
 
 typedef unsigned char Unsigned8;
 typedef unsigned short Unsigned16;
@@ -51,17 +33,17 @@ typedef unsigned short Unsigned16;
 typedef signed char Signed8;
 typedef signed short Signed16;
 
-typedef int TypeNumber, Handle;
+typedef int TypeNumber;
+typedef int Handle;
 
-
-#	include "./Clamp.h"
-#	include "./ColorValue.h"
-#	include "./Geometry.h"
-#	include "./Direction.h"
-#	include "./GameTime.h"
-#	include "./Sinusoid.h"
-#	include "./Random.h"
-#	include "./Traits.h"
+#include "./Clamp.h"
+#include "./ColorValue.h"
+#include "./Geometry.h"
+#include "./Direction.h"
+#include "./GameTime.h"
+#include "./Sinusoid.h"
+#include "./Random.h"
+#include "./Traits.h"
 
 struct ObjectBase;
 struct ClassBase;
@@ -81,36 +63,36 @@ struct Font;
 
 namespace Phase
 {
-	struct Boot;
-	struct Play;
-	struct Attract;
-	struct Transition;
-	struct GameOver;
+    struct Boot;
+    struct Play;
+    struct Attract;
+    struct Transition;
+    struct GameOver;
 };
 
 struct TypeNumbers
 {
-	enum Value
-	{
-		Player,
-		Xiq,
-		Styx,
-		Impact,
-		Playfield,
-		Level,
-		World,
-		Game,
+    enum Value
+    {
+        Player,
+        Xiq,
+        Styx,
+        Impact,
+        Playfield,
+        Level,
+        World,
+        Game,
 
-		PhaseBoot,
-		PhaseAttract,
-		PhasePlay,
-		PhaseTransition,
-		PhaseGameOver,
-	};
+        PhaseBoot,
+        PhaseAttract,
+        PhasePlay,
+        PhaseTransition,
+        PhaseGameOver,
+    };
 };
 
 #define XIQ_TRAITS(N) \
-	CGL_TRAITS(N, TypeNumbers:: N);
+    CGL_TRAITS(N, TypeNumbers:: N);
 
 XIQ_TRAITS(Player);
 XIQ_TRAITS(Xiq);
@@ -130,6 +112,4 @@ CGL_TRAITS(Phase::GameOver, TypeNumbers::PhaseGameOver);
 #include "Factory.h"
 #include "Object.h"
 
-#endif // COMMON_H_INCLUDED
 
-//EOF

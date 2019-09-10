@@ -5,19 +5,19 @@
 
 namespace Phase
 {
-	void Attract::Prepare()
-	{
-	}
+    void Attract::Prepare()
+    {
+    }
 
-	bool Attract::Update(GameTime)
-	{
-		return true;
-	}
+    bool Attract::Update(GameTime)
+    {
+        return true;
+    }
 
-	void Attract::Draw(Matrix const &)
-	{
-	}
+    void Attract::Draw(Matrix const &)
+    {
+    }
 }
 
-//EOF
+
 

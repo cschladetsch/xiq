@@ -1,14 +1,15 @@
 // (C) 2009 christian.schladetsch.net
 
-#ifndef BRESENHAMLINEDRAW_H_INCLUDED
-#	define BRESENHAMLINEDRAW_H_INCLUDED
+#pragma once
+
+unsigned short *WritePixel(unsigned short *out, Color color, short x, short y);
 
 template <class Color, class OI>
 OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
 {
-    int F;	// accumulated error
-    int x;	// start x
-    int y;	// start y
+    int F;    // accumulated error
+    int x;    // start x
+    int y;    // start y
 
     if (p1x > p2x)  // swap if p1 is on the right of p2
     {
@@ -65,7 +66,7 @@ OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
             y = p1y;
             while (x <= p2x)
             {
-				out = WritePixel(out, color, x, y);
+                out = WritePixel(out, color, x, y);
                 if (F <= 0)
                 {
                     F += dy2;
@@ -87,7 +88,7 @@ OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
             x = p1x;
             while (y <= p2y)
             {
-				out = WritePixel(out, color, x, y);
+                out = WritePixel(out, color, x, y);
                 if (F <= 0)
                 {
                     F += dx2;
@@ -112,7 +113,7 @@ OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
             y = p1y;
             while (x <= p2x)
             {
-				out = WritePixel(out, color, x, y);
+                out = WritePixel(out, color, x, y);
                 if (F <= 0)
                 {
                     F -= dy2;
@@ -135,7 +136,7 @@ OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
             x = p1x;
             while (y >= p2y)
             {
-				out = WritePixel(out, color, x, y);
+                out = WritePixel(out, color, x, y);
                 if (F <= 0)
                 {
                     F += dx2;
@@ -151,7 +152,3 @@ OI BresenhamLineDraw(int p1x, int p1y, int p2x, int p2y, Color color, OI out)
     }
     return out;
 }
-
-#endif // BRESENHAMLINEDRAW_H_INCLUDED
-
-//EOF

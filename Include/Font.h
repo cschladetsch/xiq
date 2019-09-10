@@ -1,45 +1,41 @@
 // (C) 2009 christian.schladetsch.net
 
-#ifndef FONT_H_INCLUDED
-#define FONT_H_INCLUDED
+#pragma once
 
 /// a set of glyphs that can be used to draw text on a surface
 struct Font
 {
-	/// an element in a font, mapped from a character
-	struct Glyph
-	{
-		typedef std::vector<LineSegment> Lines;
-		Lines lines;
-		char letter;
-		void Draw(SDL_Surface *, Matrix const &, Color) const;
-	};
-	typedef std::map<char, Glyph> Glyphs;
+    /// an element in a font, mapped from a character
+    struct Glyph
+    {
+        typedef std::vector<LineSegment> Lines;
+        Lines lines;
+        char letter;
+        void Draw(SDL_Surface *, Matrix const &, Color) const;
+    };
+    typedef std::map<char, Glyph> Glyphs;
 
 private:
-	Glyphs glyphs;
+    Glyphs glyphs;
 
 public:
-	Font()
-	{
-	}
+    Font()
+    {
+    }
 
-	/// create a font given the filename to load from
-	Font(const char *filename)
-	{
-		FromFile(filename);
-	}
+    /// create a font given the filename to load from
+    Font(const char *filename)
+    {
+        FromFile(filename);
+    }
 
-	/// read a font description from a file
-	bool FromFile(const char *);
+    /// read a font description from a file
+    bool FromFile(const char *);
 
-	/// draw some text
-	void DrawText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
+    /// draw some text
+    void DrawText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
 
-	/// draw text with a shadow
-	void DrawShadowedText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
+    /// draw text with a shadow
+    void DrawShadowedText(SDL_Surface *, Matrix const &transform, Box const &box, Color color, const char *text) const;
 };
 
-#endif // FONT_H_INCLUDED
-
-//EOF

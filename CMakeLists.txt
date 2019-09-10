@@ -11,7 +11,7 @@ find_package(Boost 1.40)
 include_directories(${Boost_INCLUDE_DIR})
 include_directories(Include)
 
-file(GLOB Libs External/*.lib)
+#### #file(GLOB Libs External/*.lib)
 file(GLOB Sources Source/*.cpp)
 
 add_executable(xiq ${Sources})

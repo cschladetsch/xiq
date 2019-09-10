@@ -6,40 +6,40 @@
 
 void ObjectBase::Delete()
 {
-	Factory *factory = GetFactory();
-	if (!factory)
-		return;
-	factory->Delete(this);
+    Factory *factory = GetFactory();
+    if (!factory)
+        return;
+    factory->Delete(this);
 }
 
 Factory *ObjectBase::GetFactory() const
 {
-	return klass ? klass->GetFactory() : 0;
+    return klass ? klass->GetFactory() : 0;
 }
 
 bool Exists(ObjectBase const *base)
 {
-	return base && base->GetFactory() && base->GetFactory()->Exists(base);
+    return base && base->GetFactory() && base->GetFactory()->Exists(base);
 }
 
 bool ObjectBase::Exists() const
 {
-	return ::Exists(this);
+    return ::Exists(this);
 }
 
 TypeNumber ObjectBase::GetTypeNumber() const
 {
-	if (!Exists())
-		return 0;
-	return GetClass()->GetTypeNumber();
+    if (!Exists())
+        return 0;
+    return GetClass()->GetTypeNumber();
 }
 
 void Delete(ObjectBase *base)
 {
-	if (!base)
-		return;
-	base->Delete();
+    if (!base)
+        return;
+    base->Delete();
 }
 
 
-//EOF
+
