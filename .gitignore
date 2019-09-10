@@ -1,12 +1,11 @@
 build/
-Debug/*
-Backup/*
-ipch/*
+Debug/
+Backup/
 *.swp
 *.suo
 *.sdf
 x64/
 .vs/
-
-
+*.user*
+*.ilk
 xiq.opensdf
