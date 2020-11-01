@@ -20,24 +20,18 @@ Basically, I wrote this to see what I could with the following self-imposed limi
 1. One weekend.
 1. And *absolutely nothing else*.
 
-So, yeah, it's a simple, badly-drawn game with no fancy graphics or sound or music or fonts. But it has graphics and sound and music and fonts, all custom made from the ground up.
+So, it's a simple, badly-drawn game with no fancy graphics or sound or music or fonts. But it has graphics and sound and music and fonts, all custom made from the ground up.
 
 ## Instructions
-Move with the cursor keys or WASD.
-Get hit and you lose a life. 
-You have three lives.
+* Move with the cursor keys or WASD.
+* Get hit and you lose a life. 
+* You have three lives.
 
-Yes, I know there's a problem with the game area being half the screen. That's a consequence of the 23-minute port from SDL1 to SDL2 and can't see much point fixing it.
+I know there's a problem with the game area being half the screen. That's a consequence of the 23-minute port from SDL1 to SDL2 and can't see much point fixing it.
 
 ## Build Instructions
 
-To build the game, you will need the SDL and boost libraries. The only Boost library that I eventually used was Boost.ForEach which is a header-only part of Boost.Preprocessor and TODO remove this depedancy. I only used it because it was there are at the time.
-
-To build for windows, you will also need at least DirectX 9.0 SDK.
-
-Projects for Code::Blocks and Visual Studio 2013 are included.
-
-The game builds and runs on Linux, OS/X and Windows.
+Projects for VS2017 and VS2019 are included.
 
 ## TODO
 
