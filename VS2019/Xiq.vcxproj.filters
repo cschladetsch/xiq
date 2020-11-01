@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\Draw.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Factory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Font.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\GameTime.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Geometry.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Impact.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Level.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ObjectBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.Attract.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.Boot.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.GameOver.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.GameOver.HighScore.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.LevelChange.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.Play.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Phase.Test.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Playfield.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Precompiled.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Random.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Styx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\World.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Xiq.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\BresenhamLineDraw.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Clamp.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Class.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ColorValue.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Common.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Direction.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Draw.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Factory.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Font.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Game.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameTime.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Geometry.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Impact.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Matrix.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Object.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ObjectBase.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Phase.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PhaseCommon.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Player.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Playfield.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Precompiled.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Random.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sinusoid.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Styx.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Traits.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\World.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Xiq.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
