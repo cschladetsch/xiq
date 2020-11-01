@@ -65,7 +65,7 @@ bool Styx::Update(GameTime time)
         }
     }
 
-    location += direction.GetVector();//*speed*time.delta;
+    location += direction.GetVector();// TODO *speed* time.DeltaSeconds();
     return true;
 }
 

@@ -47,14 +47,7 @@ namespace Phase
         styx->SetColor(GetRoot()->MakeColor(0,0,255));
         styx->move_toward_player = false;
         world->AddObject(styx);
-
-//        player->OnLifeLost += Delegate(this, &Play::PlayerLostLife);
     }
-
-//    void Play::PlayerLostLife()
-//    {
-//        world->GetPlayfield()->RemoveNewLines(Playfield::Empty);
-//    }
 
     bool Play::Update(GameTime time)
     {
@@ -135,7 +128,6 @@ namespace Phase
                         PlayerUnDirects(Direction::Down);
                         break;
                     case SDLK_SPACE:
-//                        space_down = false;
                         break;
                     default:
                         break;
@@ -162,16 +154,12 @@ namespace Phase
                 case SDLK_DOWN:
                     PlayerDirects(Direction::Down);
                     break;
-//                case SDLK_SPACE:
-//                    space_down = true;
-//                    break;
                 case SDLK_q:
                     {
                         GetRoot()->PhaseChange(New<Phase::Play>());
                     }
                     break;
                 case SDLK_n:
-//                    world->NextLevel();
                     break;
                 case SDLK_ESCAPE:
                     {
@@ -182,7 +170,7 @@ namespace Phase
                     break;
                 }
             }
-        } // end switch
+        }
         return true;
     }
 
@@ -196,15 +184,15 @@ namespace Phase
             player->SetDirection(Direction::None);
             return;
         }
-        Vector2 V = dir.GetVector();                // direction of movement
-        Point2 N = player->GetLocation() + V;    // intended next location
+        Vector2 V = dir.GetVector();
+        Point2 N = player->GetLocation() + V;               // intended next location
 
         Playfield *playfield = world->GetPlayfield();
         if (playfield->OutOfBounds(N))
             return;
 
         bool start_new = true;//TODO space_down;            // start a new shape?
-        Playfield::Element element = playfield->At(N);    // what is at intended pos
+        Playfield::Element element = playfield->At(N);      // what is at intended pos
 
         if (element == Playfield::Filled)
             return;
@@ -218,7 +206,7 @@ namespace Phase
             return;
         }
 
-        // player is not drawing:
+        // player is not drawing
         if (element == Playfield::Line)
             player->SetDirection(dir);
 
@@ -234,5 +222,4 @@ namespace Phase
         world->GetPlayer()->SetWantsDirection(dir, false);
     }
 }
-
 

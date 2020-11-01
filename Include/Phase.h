@@ -4,7 +4,7 @@
 
 struct Level;
 
-/// the different phases of the game are represented as different types
+// the different phases of the game are represented as different types
 namespace Phase
 {
     struct State
@@ -25,20 +25,15 @@ namespace Phase
         Type type;
     };
 
-    /// common for all phases
     struct Base : Object
     {
-        /// optionally override to handle input during the phase
         virtual bool InputEvent(SDL_Event const &) { return false; }
 
-        /// optionally override to enter this phaes, given last phase
         virtual void Enter(Base * /*previous*/) {  }
 
-        /// optionally override to leave this phaes, given next phase
         virtual void Leave(Base * /*next*/) {  Delete(); }
     };
 
-    /// loading/boot phase
     struct Boot : Base
     {
         void Prepare();
@@ -47,7 +42,6 @@ namespace Phase
         void Draw(Matrix const &);
     };
 
-    /// the attract phase runs the game in a demo loop
     struct Attract : Base
     {
         void Prepare();
@@ -55,12 +49,10 @@ namespace Phase
         void Draw(Matrix const &);
     };
 
-    /// the main play phase
     struct Play : Base
     {
-        World *world;
-
-        int level;
+        World *world = nullptr;
+        int level = 0;
 
         Play();
         ~Play();
@@ -80,7 +72,7 @@ namespace Phase
         void PlayerUnDirects(Direction);
     };
 
-    /// animation for moving from one level to another
+    // animation for moving from one level to another
     struct Transition : Base
     {
         void Prepare();
@@ -88,7 +80,7 @@ namespace Phase
         void Draw();
     };
 
-    /// show the end score, high-scores and allow player to enter name
+    // show the end score, high-scores and allow player to enter name
     struct GameOver : Base
     {
         int score;

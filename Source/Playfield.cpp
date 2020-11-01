@@ -50,10 +50,10 @@ int Playfield::CalcNewArea(Direction dir, Point2 P)
     // calculate the two seed points
     switch (dir.value)
     {
-        case Direction::Left:     A += Vector2(1,-1); B += Vector2(1,1); break;
-        case Direction::Right:     A += Vector2(-1,-1); B += Vector2(-1,1); break;
-        case Direction::Up:     A += Vector2(-1,1); B += Vector2(1,1); break;
-        case Direction::Down:     A += Vector2(-1,-1); B += Vector2(1,-1); break;
+        case Direction::Left:  A += Vector2(1,-1); B += Vector2(1,1); break;
+        case Direction::Right: A += Vector2(-1,-1); B += Vector2(-1,1); break;
+        case Direction::Up:    A += Vector2(-1,1); B += Vector2(1,1); break;
+        case Direction::Down:  A += Vector2(-1,-1); B += Vector2(1,-1); break;
         default: break;
     }
 
@@ -104,7 +104,6 @@ bool Playfield::FloodFillCompare(Point2 A, Point2 B)
     elements = tmp;
     int nb = FloodFill(B, Filled);
     elements = tmp;
-//    printf("FloodFillCompare: %d %d from (%f %f) and (%f %f)\n", na, nb, A.x, A.y, B.x, B.y);
     return na < nb;
 }
 
@@ -186,15 +185,11 @@ Point2 *Playfield::LineDraw(Point2 p0, Point2 p1, Point2 *out) const
     float vx = p1.x - p0.x;
     float vy = p1.y - p0.y;
 
-//    // ?? round to nearest whole number
-//    if (vx < 0) vx -= 0.5f; else vx += 0.5f;
-//    if (vy < 0) vy -= 0.5f; else vy += 0.5f;
-
     int nx = abs(vx);            // length to move in x
     int ny = abs(vy);            // length to move in y
     int dx = vx > 0 ? 1 : -1;    // direction of x
     int dy = vy > 0 ? 1 : -1;    // direction of y
-    if (ny == 0)                // horizontal
+    if (ny == 0)                 // horizontal
     {
         for (; nx > 0; --nx)
         {
@@ -223,7 +218,6 @@ void Playfield::Draw(Matrix const &)
 {
     SDL_Surface *surface = GetRoot()->GetSurface();
 
-//    Color red = SDL_MapRGB(surface->format, 255,0,0);
     Color green = SDL_MapRGB(surface->format, 0,255,0);
     Color blue = SDL_MapRGB(surface->format, 0,0,255);
     Color white = SDL_MapRGB(surface->format, 255,255,255);
@@ -259,5 +253,4 @@ void Playfield::Draw(Matrix const &)
         }
     }
 }
-
 

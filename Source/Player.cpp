@@ -46,7 +46,7 @@ void Player::LoseLife()
     // remove the new line we were making
     if (!dead)
     {
-            GetPlayfield()->RemoveNewLines(Playfield::Empty);
+        GetPlayfield()->RemoveNewLines(Playfield::Empty);
     }
 }
 
@@ -83,7 +83,6 @@ void Player::SetWantsDirection(Direction dir, bool wants)
 
 void Player::SetLocation(Point2 P)
 {
-    //printf("Player::SetLocation: %f %f\n", P.x, P.y);
     location = P;
 }
 
@@ -99,27 +98,16 @@ bool Player::Update(GameTime time)
     Vector2 v = dir.GetVector();
     float speed = GetSpeed();
     double distance = speed*time.DeltaSeconds();
-//    Point end_pos = location + v*distance;
 
     Playfield::Element what = drawing ? Playfield::NewLine : Playfield::Line;
 
-    //printf("step=%g, distance=%g\n", time.DeltaSeconds(), distance);
-
     distance = 1;
 
-    // while there is still some distance     to move
     while (distance > 0)
     {
         // move at most one unit
         double step_dist = Clamp(distance, 0.0, 1.0);
         Point2 next = location + v*step_dist;
-//        // if moving less than half of a pixel, move and return
-//        if (step_dist < 0.5)
-//        {
-//            playfield->Set(next, what);
-//            SetLocation(next);
-//            return true;
-//        }
 
         // get the element at the proposed next location
         Playfield::Element e_next = playfield->At(next);

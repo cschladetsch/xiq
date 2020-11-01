@@ -27,8 +27,7 @@ void World::Construct(int width, int height)
     objects.insert(player);
 
     time_last_impact = GetRoot()->TimeNow();
-    min_impact_time = 1.0f/20.0f;//0.0f;
-//    objects.insert(playfield);
+    min_impact_time = 1.0f/20.0f;
 }
 
 World::~World()

@@ -18,4 +18,3 @@ Vector2 RandomUnitVector()
     return Vector2(RandomUnit() - 0.5f, RandomUnit() - 0.5f).Normalised();
 }
 
-
