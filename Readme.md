@@ -2,6 +2,8 @@
 
 This is a _very_ simple game based on the old arcade game, **Qix**.
 
+![Title](ResourP((()(Resources/Title.png)
+
 Now, this may seem like a really small, trivial and badly written game. And it is.
 
 _However_ it is written with practically no 3rd-party library source or components. It uses a framebuffer of pixels, and a sound buffer of unsigned 8-bit bytes. These are provided by SDL, as well as input.
