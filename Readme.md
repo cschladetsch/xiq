@@ -34,10 +34,12 @@ I know there's a problem with the game area being half the screen. That's a cons
 
 ### Linux
 
+```bash
 $ sudo apt install cmake libsdl2-dev
 $ mkdir -p build && cd build
 $ cmake ..
 $ make
+```
 
 ### Windows
 
