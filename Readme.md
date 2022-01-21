@@ -45,6 +45,3 @@ $ make
 
 Projects for VS2017 and VS2019 are included.
 
-## TODO
-
-CMake support.
