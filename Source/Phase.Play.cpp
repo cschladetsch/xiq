@@ -90,13 +90,21 @@ namespace Phase
 
         char text[1000];
 
+#ifdef WIN32
         sprintf_s(text, 1000, "score %06d", world->GetPlayer()->GetScore());
+#else
+        sprintf(text, "score %06d", world->GetPlayer()->GetScore());
+#endif
         size_t len = strlen(text);
         color = GetRoot()->MakeColor(255,255,255);
         transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,15);
         GetRoot()->GetFont()->DrawShadowedText(GetRoot()->GetSurface(), transform, Box(), color, text);
 
+#ifdef WIN32
         sprintf_s(text, 1000, "lives %d", world->GetPlayer()->GetNumLives());
+#else
+        sprintf(text, "lives %d", world->GetPlayer()->GetNumLives());
+#endif
         len = strlen(text);
         color = GetRoot()->MakeColor(255,255,255);
         transform = Matrix::Translate(len/2, -4)*Matrix::Scale(1.5,1.5)*Matrix::Translate(12,30);

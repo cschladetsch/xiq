@@ -10,7 +10,7 @@ namespace Platform
 #include <sys/time.h>
     typedef timeval TimeValue;
 #else
-    typedef __int64 TimeValue;
+    typedef Uint64 TimeValue;
 #endif
 }
 

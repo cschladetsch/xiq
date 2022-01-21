@@ -44,7 +44,11 @@ namespace Phase
 
         Font *font = GetRoot()->GetFont();
         char text[1000];
+#ifdef WIN32
         sprintf_s(text, 1000, "score %06d", score);
+#else
+        sprintf(text, "score %06d", score);
+#endif
         size_t len = strlen(text);
         Matrix matrix = Matrix::Translate(-(int)len*4,-4)*Matrix::Scale(3,3)*Matrix::Translate(300,200);
         Color color = GetRoot()->MakeColor(255,255,0);
