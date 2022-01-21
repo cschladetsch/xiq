@@ -3,22 +3,3 @@
 //
 #include "Precompiled.h"
 #include "PhaseCommon.h"
-//
-//namespace Phase
-//{
-//    void ::Construct()
-//    {
-//    }
-//
-//    bool Boot::Update(GameTime)
-//    {
-//        return true;
-//    }
-//
-//    void Boot::Draw(Matrix const &)
-//    {
-//    }
-//}
-//
-//
-//

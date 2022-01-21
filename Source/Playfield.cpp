@@ -22,9 +22,6 @@ void Playfield::Clear()
 
     std::fill(elements.begin(), elements.end(), Empty);
 
-    // prepare the boundaries
-    for (int x = 0; x < width; ++x)
-    {
         Set(x,0, Line);
         Set(x, height - 1, Line);
     }
@@ -40,14 +37,10 @@ bool Playfield::Update(GameTime)
     return true;
 }
 
-// calculate a new area to fill after the player completes a loop on the playfield
-// dir is the direction the player was travelling, and P is the point that completed the loop
 int Playfield::CalcNewArea(Direction dir, Point2 P)
 {
-    Point2 A = P, B = P;        // seeds for two prospective new areas
+    Point2 A = P, B = P
 
-    // depending on the direction we travelled to get here,
-    // calculate the two seed points
     switch (dir.value)
     {
         case Direction::Left:  A += Vector2(1,-1); B += Vector2(1,1); break;
@@ -57,7 +50,6 @@ int Playfield::CalcNewArea(Direction dir, Point2 P)
         default: break;
     }
 
-    // see which side produced the smallest resulting new area
     bool result = FloodFillCompare(A, B);
     int num_filled = 0;
     if (result)
@@ -107,21 +99,16 @@ bool Playfield::FloodFillCompare(Point2 A, Point2 B)
     return na < nb;
 }
 
-// Filled horizontal segment of scanline y for xl<=x<=xr.
-// Parent segment was on line y-dy.  dy=1 or -1
 struct Segment { short y, xl, xr, dy; };
 
-// perform a very fast, non-recursive flood-fill given a seed point
 int Playfield::FloodFill(int x, int y, Element nv)
 {
     #define MAX 10000        // max depth of stack
 
-    // push new segment on stack
     #define PUSH(Y, XL, XR, DY)    \
         if (sp < stack + MAX && Y + (DY) >= 0 && Y+(DY)< height) \
         {sp->y = Y; sp->xl = XL; sp->xr = XR; sp->dy = DY; sp++;}
 
-    // pop segment off stack
     #define POP(Y, XL, XR, DY) \
         {sp--; Y = sp->y+(DY = sp->dy); XL = sp->xl; XR = sp->xr;}
 
@@ -253,4 +240,3 @@ void Playfield::Draw(Matrix const &)
         }
     }
 }
-

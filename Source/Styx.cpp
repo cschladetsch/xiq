@@ -20,13 +20,11 @@ bool Styx::Update(GameTime time)
 {
     Playfield const &pf = *GetPlayfield();
 
-    // create set of possibile directions to move in
     std::vector<Direction> choices;
     for (int n = 0; n < 4; ++n)
     {
         Direction dir = (Direction::Type)n;
 
-        // can't reverse direction
         if (dir.Opposite() == direction)
             continue;
 
@@ -37,14 +35,12 @@ bool Styx::Update(GameTime time)
         }
     }
 
-    // if we have no where to go, reverse
     if (choices.empty())
     {
         direction = direction.Opposite();
     }
     else
     {
-        // choose new random direction
         SetDirection(choices[rand() % choices.size()]);
 
         if (move_toward_player && choices.size() > 1)
@@ -109,11 +105,6 @@ void Styx::Draw(Matrix const &M, Color color)
 void Styx::DrawLine(LineSegment const &line, Color color)
 {
     SDL_Surface *surface = GetRoot()->GetSurface();
-////    Playfield const &pf = world->GetPlayfield();
-//    Player &player = world->GetPlayer();
-//    Point2 player_loc = player.GetLocation();
-//    float sd = player.GetRadius();
-//    sd *= sd;
 
     unsigned short color_x_y[10000];
     unsigned short *pixels = (unsigned short *)surface->pixels;
@@ -128,4 +119,3 @@ void Styx::DrawLine(LineSegment const &line, Color color)
         pixels[x + y*surface->pitch/2] = color;
     }
 }
-

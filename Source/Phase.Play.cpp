@@ -84,7 +84,6 @@ namespace Phase
     {
         world->Draw(matrix);
 
-        // draw the score
         Matrix transform;
         Color color;
 
@@ -230,4 +229,3 @@ namespace Phase
         world->GetPlayer()->SetWantsDirection(dir, false);
     }
 }
-

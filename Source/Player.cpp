@@ -43,7 +43,6 @@ void Player::LoseLife()
         location = launch_point;
     }
 
-    // remove the new line we were making
     if (!dead)
     {
         GetPlayfield()->RemoveNewLines(Playfield::Empty);
@@ -93,7 +92,6 @@ bool Player::Update(GameTime time)
 
     Playfield *playfield = GetPlayfield();
 
-    // determine the path of movement
     Direction dir = GetDirection();
     Vector2 v = dir.GetVector();
     float speed = GetSpeed();
@@ -105,29 +103,23 @@ bool Player::Update(GameTime time)
 
     while (distance > 0)
     {
-        // move at most one unit
         double step_dist = Clamp(distance, 0.0, 1.0);
         Point2 next = location + v*step_dist;
 
-        // get the element at the proposed next location
         Playfield::Element e_next = playfield->At(next);
 
         if (playfield->OutOfBounds(next))
             break;
 
-        // can't move into filled locations
         if (e_next == Playfield::Filled)
             break;
 
-        // can't go through an existing new line
         if (drawing && e_next == Playfield::NewLine)
             break;
 
-        // can only move on lines when not creating new one
         if (!drawing && e_next != Playfield::Line)
             break;
 
-        // complete an area if we are drawing and hit an existing line
         if (drawing && e_next == Playfield::Line)
         {
             int num_filled = playfield->CalcNewArea(dir, next);
@@ -138,7 +130,6 @@ bool Player::Update(GameTime time)
             return true;
         }
 
-        // test for movement into a perpendicular line
         if (!drawing)
         {
             for (int n = Direction::Left; n < Direction::Last; ++n)
@@ -163,13 +154,10 @@ bool Player::Update(GameTime time)
             }
         }
 
-        // write to the playfield
         playfield->Set(next, what);
 
-        // remove the covered distance
         distance -= step_dist;
 
-        // update position
         SetLocation(next);
     }
     return true;
@@ -177,7 +165,6 @@ bool Player::Update(GameTime time)
 
 void Player::AddScore(int s)
 {
-    //OnScoreAdded(this, s);
     score += s;
 }
 
@@ -252,8 +239,6 @@ void Player::DrawRespawn()
         radius = (remaining/2.0f)*500;//radius = 300 - alpha;
     }
 
-//    printf("radius: %d %f\n", HasNoLives(), radius);
-
     float C = 255;
 
     Color color1 = GetRoot()->MakeColor(C,0,0);
@@ -273,5 +258,3 @@ void Player::DrawRespawn()
         DrawCircle(surface, location.x + 1, location.y - 1, radius - 1, color3);
     }
 }
-
-

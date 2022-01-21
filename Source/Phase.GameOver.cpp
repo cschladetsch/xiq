@@ -16,10 +16,10 @@ namespace Phase
         score = GetRoot()->GetWorld()->GetPlayer()->GetScore();
     }
 
-    void GameOver::Leave(Base * /*next*/)
+    void GameOver::Leave(Base * )
     {
-        prev->Delete();    // delete the play phase
-        this->Delete();        // delete this phase
+        prev->Delete();
+        this->Delete();
     }
 
     bool GameOver::InputEvent(SDL_Event const &event)
@@ -55,6 +55,3 @@ namespace Phase
         font->DrawShadowedText(GetRoot()->GetSurface(), matrix, Box(), color, text);
     }
 }
-
-
-

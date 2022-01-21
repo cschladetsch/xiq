@@ -32,10 +32,8 @@ bool Font::FromFile(const char *filename)
     size_t glyph_num_lines = y_dim + 2;
     size_t num_glyphs = 255;
 
-    // read the glyphs
     for (size_t glyph_num = 0; glyph_num < num_glyphs; ++glyph_num)
     {
-        // read the lines
         std::vector<std::string> glyh_desc(glyph_num_lines);
         for (size_t n = 0; n < glyph_num_lines; ++n)
         {
@@ -47,11 +45,9 @@ bool Font::FromFile(const char *filename)
             glyh_desc[n] = buffer;
         }
 
-        // construct glyph from string input
         Glyph glyph;
         std::vector<Point2> points;
         glyph.letter = glyh_desc[0][0];
-        //cout << "glyph: " << glyph.letter << endl;
         for (size_t y = 0; y < y_dim; ++y)
         {
             std::string const &line = glyh_desc[1 + y];
@@ -63,7 +59,6 @@ bool Font::FromFile(const char *filename)
             }
         }
 
-        // read the point indices
         stringstream str(glyh_desc[9]);
         vector<int> indices;
         copy(istream_iterator<int>(str), istream_iterator<int>(), back_inserter(indices));
@@ -73,7 +68,6 @@ bool Font::FromFile(const char *filename)
             goto end;
         }
 
-        // create the line-segments for the glyph
         vector<int>::const_iterator index = indices.begin(), end = indices.end();
         while (index != end)
         {
@@ -93,8 +87,6 @@ end:
 
 void Font::DrawShadowedText(SDL_Surface *surface, Matrix const &transform, Box const &box, Color color, const char *text) const
 {
-    // translate shadow before or after??
-//    Matrix shadow = Matrix::Translate(1,1)*transform;
     Matrix shadow = transform*Matrix::Translate(3,3);
     DrawText(surface, shadow, box, SDL_MapRGB(surface->format, 0,0,0), text);
     DrawText(surface, transform, box, color, text);
@@ -106,21 +98,15 @@ void Font::DrawText(SDL_Surface *surface, Matrix const &transform, Box const &bo
 
     Matrix matrix = transform;
 
-    // for each character in the string to draw
     for (; text && *text; ++text)
     {
-        // find the glyph that represents the next character in the string
         char letter = *text;
         Glyphs::const_iterator iter = glyphs.find(letter);
         if (iter == glyphs.end())
             continue;
 
-        // draw it
         iter->second.Draw(surface, matrix, color);
 
-        // move to next location.
         matrix = Matrix::Translate(9,0)*matrix;
     }
 }
-
-

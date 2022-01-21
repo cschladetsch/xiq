@@ -20,7 +20,6 @@ void Level::Start()
     int width = playfield->GetWidth();
     int height = playfield->GetHeight();
 
-    // start the player
     Point2 start_pos(width/2, height - 1);
     Time now = GetRoot()->TimeNow();
     player->SetLocation(start_pos);
@@ -28,7 +27,6 @@ void Level::Start()
     player->SetRespawn(now + 1);
     player->SetNumLives(3);
 
-    // add a xiq
     Xiq *xiq = New<Xiq>();
     xiq->SetLocation(Point2(300,200));
     //TODO objects.insert(xiq);
@@ -47,4 +45,3 @@ bool Level::Update(GameTime)
 void Level::Draw(Matrix const &)
 {
 }
-

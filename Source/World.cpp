@@ -16,7 +16,6 @@ Playfield *Object::GetPlayfield() const
     return GetRoot()->GetWorld()->GetPlayfield();
 }
 
-// create the world, given viewport extents
 void World::Construct(int width, int height)
 {
     GetRoot()->SetWorld(this);
@@ -88,8 +87,6 @@ void World::CollisionDetection()
             {
                 if (!player->IsImmune() && (A->IsType<Player>() || B->IsType<Player>()))
                 {
-//                    Trace(A);
-//                    Trace(B);
                     player->LoseLife();
                 }
             }
@@ -99,8 +96,6 @@ void World::CollisionDetection()
 
 void World::UpdateObjects(GameTime time)
 {
-    // iterate over objects, updating each.
-    // copy the container, as the loop will alter it
     std::vector<Object *> tmp(objects.begin(), objects.end());
     for (auto object : tmp)
     {
@@ -156,4 +151,3 @@ void World::DrawObjects(Matrix const &M)
         obj->Draw(M);
     }
 }
-

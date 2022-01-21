@@ -7,9 +7,6 @@
 #include "World.h"
 #include "Player.h"
 
-// may want this later; but for the moment just stick with raw audio
-//#include "SDL/SDL_mixer.h"
-
 void Game::Create(int width, int height)
 {
     phase = 0;
@@ -25,7 +22,6 @@ void Game::Create(int width, int height)
     font = new Font("font");
 
     PhaseChange(New<Phase::Boot>());
-//    PhaseChange(New<Phase::Play>());
 
     initialised = true;
     finished = false;
@@ -81,7 +77,6 @@ void Game::EndTransition()
         next_phase->Enter(phase);
     }
 
-//    ::Delete(phase);
     phase = next_phase;
     next_phase = 0;
     transition_ends = 0;
@@ -191,13 +186,8 @@ void AudioCallback(void *userdata, Uint8 *stream, int len)
         Sample sample = 127*value;
         buffer[n] = sample;
         t += dt;
-
-//        // half-way through, move closer to target
-//        if (n > num_samples/2)
-//        {
-//            frequency += (target_frequency - frequency)/2;
-//        }
     }
+
     t_last = t;
 }
 
@@ -209,7 +199,6 @@ bool Game::InitialiseSDL(int width, int height)
         return false;
     }
 
-    // make sure SDL clseans up before exit
     atexit(SDL_Quit);
 
     window = SDL_CreateWindow("SDL_RenderClear",
@@ -217,18 +206,10 @@ bool Game::InitialiseSDL(int width, int height)
         width, height,
         0);
 
-    //renderer = SDL_CreateRenderer(window, -1, 0);
-    //if (!renderer)
-    //{
-    //    printf("Unable to create window: %s\n", SDL_GetError());
-    //    return false;
-    //}
-
     screen = SDL_GetWindowSurface(window);
 
     SDL_AudioSpec desired, obtained;
 
-    // latency is freq/samples
     desired.freq = 8000;
     desired.format = AUDIO_S8;
     desired.samples = 256;

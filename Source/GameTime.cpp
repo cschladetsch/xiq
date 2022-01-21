@@ -23,11 +23,6 @@ GameTime::GameTime()
 
 void GameTime::StartFrame()
 {
-//    total_millis += delta_millis;
-//    Time now = TakeSample();
-//    delta_millis = now - start_frame_millis;
-//    start_frame_millis = now;
-
 #ifdef CGL_PLATFORM_UNIX
     timeval now;
     gettimeofday(&now, 0);
@@ -45,7 +40,7 @@ void GameTime::StartFrame()
     prev_frame_start = now;
 
 #else
-    delta_millis = 4;//1.0f/60.0f;
+    delta_millis = 4;
     total_millis += delta_millis;
 #endif
 }

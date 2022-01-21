@@ -99,7 +99,6 @@ void Xiq::SetPixel(int x, int y, Color color)
 
     if (x < 0 || y < 0 || x >= surface->w  || y >= surface->h)
     {
-        // if we clip against the edge, apply a restorative force
         force += Vector2(world->GetMidPoint() - Vector2(x,y));
         world->AddImpact(x,y, GetRadius()*6);
         return;
@@ -116,7 +115,6 @@ void Xiq::SetPixel(int x, int y, Color color)
     }
     if (element != Playfield::Empty)
     {
-        // if we hit something, apply a force to move towards the player
         force += (location - Vector2(x,y))*5;
         world->AddImpact(x,y, GetRadius()*6);
     }
@@ -173,5 +171,3 @@ void Xiq::Draw(Matrix const &/*matrix*/)
         SetPixel(x0 - y, y0 - x, color);
     }
 }
-
-

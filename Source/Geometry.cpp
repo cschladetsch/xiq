@@ -9,7 +9,6 @@ Point2 NearestPoint(LineSegment const &L, Point2 const &p3)
     float ls = (p2 - p1).LengthSquared();
     if (ls == 0)
     {
-        // line-segment is zero-length, return the first (and only) point on the line
         return p1;
     }
 
@@ -17,7 +16,6 @@ Point2 NearestPoint(LineSegment const &L, Point2 const &p3)
     float y1 = p1.y, y2 = p2.y, y3 = p3.y;
     float u = ((x3 - x1)*(x2 - x1) + (y3 - y1)*(y2 - y1))/ls;
 
-    // clip against end-points of segment
     if (u > 1)
         return L.second;
     if (u < 0)
@@ -70,5 +68,3 @@ void DistanceFromLine(Point2 C, Vector2 A, Vector2 B, float &distanceSegment, fl
 
     return;
 }
-
-
