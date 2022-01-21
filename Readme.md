@@ -39,9 +39,9 @@ $ sudo apt install cmake libsdl2-dev
 $ mkdir -p build && cd build
 $ cmake ..
 $ make
+$ cd .. && build/xiq
 ```
 
 ### Windows
 
 Projects for VS2017 and VS2019 are included.
-
