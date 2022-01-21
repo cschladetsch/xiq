@@ -2,7 +2,7 @@
 
 This is a _very_ simple game based on the old arcade game, **Qix**.
 
-![Title](Resources/Title.png)
+![Title](Resources/Title.png "StartScreen")
 
 Now, this may seem like a really small, trivial and badly written game. And it is.
 
