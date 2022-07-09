@@ -21,7 +21,8 @@ void Playfield::Clear()
     percent_filled = 0;
 
     std::fill(elements.begin(), elements.end(), Empty);
-
+    for (int x = 0; x < width; ++x)
+    {
         Set(x,0, Line);
         Set(x, height - 1, Line);
     }
@@ -39,7 +40,7 @@ bool Playfield::Update(GameTime)
 
 int Playfield::CalcNewArea(Direction dir, Point2 P)
 {
-    Point2 A = P, B = P
+    Point2 A = P, B = P;
 
     switch (dir.value)
     {
